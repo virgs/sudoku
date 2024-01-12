@@ -1,4 +1,3 @@
-
 export interface CellType {
-    answer: number;
-};
+    answer: number
+}

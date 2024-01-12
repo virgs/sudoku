@@ -1,6 +1,5 @@
-import { KillerCellType } from "../../engine/killer/type/KillerCellType";
+import { CellType } from "../../engine/types/CellType";
 
-
-export function KillerCellComponent(props: { cell: KillerCellType; }) {
-    return <div>{props.cell.answer}</div>;
+export function KillerCellComponent(props: { cell: CellType }) {
+    return <div>{props.cell.answer}</div>
 }

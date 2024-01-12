@@ -1,34 +1,15 @@
-.grid {
-    display: grid;
-    height: 100%;
-    width: 100%;
+.grid-component {}
+
+.grid-block-line {
+    display: flex;
 }
 
-.grid-line {
-    /* border: 1px solid red; */
+.grid-block {
+    border: 1px solid var(--bs-primary);
 }
 
 .grid-cell {
-    justify-self: center;
-    border: 1px solid red;
-    width: 10%;
-    height: 100%;
-    display: inline-grid;
-}
-
-
-
-.virgs-grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    background-color: #2196F3;
-    padding: 10px;
-}
-
-.virgs-grid-item {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
-    text-align: center;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid color-mix(in srgb, var(--bs-primary) 25%, transparent);
 }

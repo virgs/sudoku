@@ -1,6 +1,6 @@
-import { CellType } from './CellType';
+import { CellType } from './CellType'
 
 export interface GridType {
-    cells: CellType[][];
-    dimension: number;
-};
+    cells: CellType[][]
+    dimension: Point
+}

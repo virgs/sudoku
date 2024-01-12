@@ -1,0 +1,10 @@
+.grid-cage {
+    margin: 1px;
+    height: 100%;
+    width: 100%;
+    border: 1px dashed color-mix(in srgb, var(--bs-primary) 50%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}

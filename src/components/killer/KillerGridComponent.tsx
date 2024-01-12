@@ -1,23 +1,23 @@
-import { KillerGridType } from '../../engine/killer/types/KillerGridType'
-import { KillerGridCage } from './KillerGridCage'
 import './KillerGridComponent.css'
+import { KillerGridType } from '../../engine/killer/types/KillerGridType'
+import { Point, pointsAreEqual } from '../../math/Point'
+import { KillerGridCage } from './KillerGridCage'
 
 export type KillerGridComponentProps = {
     grid: KillerGridType,
 }
 
 export function KillerGridComponent(props: KillerGridComponentProps) {
-
     const createBlocks = () => {
         const blocksDimension: Point = { x: 3, y: 3 }
         return <div className="grid-component">
             {Array.from(Array(blocksDimension.y))
                 .map((_, blockLine) => {
-                    return <div className="grid-block-line mx-auto">
+                    return <div key={blockLine} className="grid-line mx-auto">
                         {Array.from(Array(blocksDimension.y))
                             .map((_, blockColumn) => {
-                                return <div className="grid-block">
-                                    {createCells({ y: blockLine, x: blockColumn })}
+                                return <div key={blockColumn} className="grid-block">
+                                    {createBlock({ y: blockLine, x: blockColumn })}
                                 </div>
                             })
                         }
@@ -27,33 +27,29 @@ export function KillerGridComponent(props: KillerGridComponentProps) {
 
     }
 
-    const createCells = (block: Point) => {
-        return <div>
-            {Array.from(Array(blocksDimension.y))
-                .map((_, cellLine) => {
-                    return <div className="grid-block-line mx-auto">
-                        {Array.from(Array(blocksDimension.y))
-                            .map((_, cellCol) => {
-                                const position: Point = {
-                                    y: block.y * blocksDimension.y + cellLine,
-                                    x: block.x * blocksDimension.x + cellCol
-                                }
-                                const currentCell = props.grid.cells[position.y][position.y]
-                                return <div className="grid-cell">
-                                    <KillerGridCage cell={currentCell} cage={props.grid.cages
-                                        .find(cage => cage.cells
-                                            .some(cell => cell.x === position.x && cell.y === position.y))!}>
-                                    </KillerGridCage>
-                                </div>
-                            })
-                        }
-                    </div>
-                })}
-        </div>
+    const createBlock = (block: Point) => {
+        return Array.from(Array(blocksDimension.y))
+            .map((_, cellLine) => {
+                return <div key={cellLine} className="grid-block-line mx-auto">
+                    {Array.from(Array(blocksDimension.y))
+                        .map((_, cellCol) => {
+                            const position: Point = {
+                                y: block.y * blocksDimension.y + cellLine,
+                                x: block.x * blocksDimension.x + cellCol
+                            }
+                            const currentCell = props.grid.cells[position.y][position.x]
+                            return <div key={cellCol} className="grid-cell">
+                                <KillerGridCage position={position} cell={currentCell} cage={props.grid.cages
+                                    .find(cage => cage.cells
+                                        .some(cell => pointsAreEqual(cell, position)))!}>
+                                </KillerGridCage>
+                            </div>
+                        })
+                    }
+                </div>
+            })
     }
 
     const blocksDimension: Point = { x: 3, y: 3 }
-    return <div className='grid-component'>
-        {createBlocks()}
-    </div>
+    return createBlocks()
 }

@@ -17,8 +17,7 @@ export class BoardCreator {
             dimension: this.dimension,
             cells: Array.from(Array(this.dimension.y).keys()).map(() =>
                 Array.from(Array(this.dimension.x).keys()).map(() => ({
-                    answer: 0,
-                    value: 0,
+                    answer: 0
                 }))
             ),
         }

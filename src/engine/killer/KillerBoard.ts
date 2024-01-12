@@ -9,4 +9,9 @@ export class KillerBoard extends Board {
     constructor(grid: KillerGridType) {
         super(grid)
     }
+
+    public printCages() {
+        console.log(this.grid.cages)
+    }
+
 }

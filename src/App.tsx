@@ -8,9 +8,12 @@ function App() {
     const killerBoard = new KillerBoardCreator().createBoardFromText(fileContent)
     useEffect(() => {
         killerBoard.printAnswers()
+        killerBoard.printCages()
     }, [])
 
-    return <BoardComponent board={killerBoard} />
+    return <div id='app'>
+        <BoardComponent board={killerBoard} />
+    </div>
 }
 
 export default App

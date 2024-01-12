@@ -1,5 +1,8 @@
 import { CellType } from "../../engine/types/CellType";
 
+// width: var(--cell-size);
+// height: var(--cell-size);
+
 export function KillerCellComponent(props: { cell: CellType }) {
-    return <div>{props.cell.answer}</div>
+    return <div style={{}}>{props.cell.answer}</div>
 }

@@ -1,17 +1,18 @@
 .grid-cage {
     height: 100%;
-    width: 100%;
     border: 2px dashed color-mix(in srgb, var(--bs-primary) 50%, transparent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
     position: relative;
 }
 
 .grid-cage-label {
     line-height: 5px;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -2px;
+    left: -2px;
+    height: 40%;
+    width: 40%;
+    background-color: var(--board-background-color);
+    padding-top: 5px;
+    padding-left: 3px;
+    text-align: left;
 }

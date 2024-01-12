@@ -25,5 +25,5 @@
 .grid-cell {
     width: 100%;
     padding: 2px;
-    border: 1px solid color-mix(in srgb, var(--bs-primary) 25%, transparent);
+    border: .5px solid color-mix(in srgb, var(--bs-primary) 10%, transparent);
 }

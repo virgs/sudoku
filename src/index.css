@@ -6,6 +6,7 @@
 --bs-danger: #dc3545; */
 :root {
     --grid-container-size: 500px;
+    --board-background-color: antiquewhite;
 
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;

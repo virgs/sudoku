@@ -1,8 +1,12 @@
-import { KillerGrid } from './KillerGrid';
+import { KillerGridType } from './type/KillerGridType';
 import { Board } from '../Board';
 
 export class KillerBoard extends Board {
-    constructor(grid: KillerGrid) {
+    public get grid(): KillerGridType {
+        return this._grid as KillerGridType;
+    }
+
+    constructor(grid: KillerGridType) {
         super(grid);
     }
 

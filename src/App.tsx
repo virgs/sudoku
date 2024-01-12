@@ -1,13 +1,10 @@
 import './App.css'
+import { KillerBoardComponent } from './components/killer/KillerBoardComponent'
 
 function App() {
 
   return (
-    <>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <KillerBoardComponent />
   )
 }
 

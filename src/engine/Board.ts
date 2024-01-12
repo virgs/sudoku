@@ -1,10 +1,14 @@
-import { Grid } from './Grid';
+import { GridType } from './types/GridType';
 
 export class Board {
-    protected readonly grid: Grid;
+    protected readonly _grid: GridType;
 
-    constructor(grid: Grid) {
-        this.grid = grid
+    public get grid(): GridType {
+        return this._grid;
+    }
+
+    constructor(grid: GridType) {
+        this._grid = grid
     }
 
     public printAnswers() {

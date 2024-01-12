@@ -9,6 +9,7 @@ type KillerGridCageProps = {
     cell: CellType;
     cage: CageType;
     position: Point;
+    onCellClick: (cell: CellType) => void
 };
 
 export function KillerGridCage(props: KillerGridCageProps) {
@@ -48,7 +49,7 @@ export function KillerGridCage(props: KillerGridCageProps) {
     return <div className='grid-cage' style={style}>
         {hasLabel ? <small className="grid-cage-label">{props.cage.label}</small>
             : <></>}
-        <CellComponent cell={props.cell}></CellComponent>
+        <CellComponent onCellClick={props.onCellClick} cell={props.cell}></CellComponent>
     </div>;
 
 }

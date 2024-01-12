@@ -2,9 +2,11 @@ import './KillerGridComponent.css'
 import { KillerGridType } from '../../engine/killer/types/KillerGridType'
 import { Point, pointsAreEqual } from '../../math/Point'
 import { KillerGridCage } from './KillerGridCage'
+import { CellType } from '../../engine/types/CellType'
 
 export type KillerGridComponentProps = {
     grid: KillerGridType,
+    onCellClick: (cell: CellType) => void
 }
 
 export function KillerGridComponent(props: KillerGridComponentProps) {
@@ -39,7 +41,7 @@ export function KillerGridComponent(props: KillerGridComponentProps) {
                             }
                             const currentCell = props.grid.cells[position.y][position.x]
                             return <div key={cellCol} className="grid-cell">
-                                <KillerGridCage position={position} cell={currentCell} cage={props.grid.cages
+                                <KillerGridCage onCellClick={props.onCellClick} position={position} cell={currentCell} cage={props.grid.cages
                                     .find(cage => cage.cells
                                         .some(cell => pointsAreEqual(cell, position)))!}>
                                 </KillerGridCage>

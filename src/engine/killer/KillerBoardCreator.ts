@@ -1,3 +1,4 @@
+import { Point } from '../../math/Point'
 import { BoardCreator } from '../BoardCreator'
 import { KillerBoard } from './KillerBoard'
 import { CageType } from './types/CageType'

@@ -3,12 +3,12 @@ import { GridType } from './types/GridType'
 export class Board {
     protected readonly _grid: GridType
 
-    public get grid(): GridType {
-        return this._grid
+    constructor({ grid }: { grid: GridType }) {
+        this._grid = grid
     }
 
-    constructor(grid: GridType) {
-        this._grid = grid
+    public get grid(): GridType {
+        return this._grid
     }
 
     public printAnswers() {

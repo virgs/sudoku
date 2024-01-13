@@ -4,5 +4,5 @@ export type Point = {
 }
 
 export const pointsAreEqual = (a: Point, b: Point): boolean => {
-    return a.x === b.x && a.y === b.y;
+    return a.x === b.x && a.y === b.y
 }

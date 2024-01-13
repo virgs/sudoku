@@ -1,17 +1,9 @@
-import { CellComponent } from "../../components/CellComponent"
-import { KillerGridCageComponent } from "../../components/killer/KillerGridCageComponent"
-import { Board } from "../../engine/Board"
+import { KillerCellComponent } from "../../components/killer/KillerCellComponent"
 import { KillerBoard } from "../../engine/killer/KillerBoard"
-import { CageType } from "../../engine/killer/types/CageType"
 import { KillerGridType } from "../../engine/killer/types/KillerGridType"
 import { pointsAreEqual } from "../../math/Point"
-import { BoardWrapper } from "../BoardWrapper"
-import { CellWrapper } from "../CellWrapper"
+import { BoardWrapper, CellComponentProps } from "../BoardWrapper"
 
-export type CellComponentProps = {
-    cellWrapper: CellWrapper
-    onCellClick: (cell: CellWrapper) => void
-}
 
 export class KillerBoardWrapper extends BoardWrapper {
     public constructor(board: KillerBoard) {
@@ -20,12 +12,13 @@ export class KillerBoardWrapper extends BoardWrapper {
 
     public renderCellComponent(props: CellComponentProps): JSX.Element {
         const cages = (this.gridWrapper.grid as KillerGridType).cages
-        return <KillerGridCageComponent
+        return <KillerCellComponent
+            position={props.position}
             onCellClick={props.onCellClick}
-            cellWrapper={props.cellWrapper}
+            cell={props.cell}
             cage={
-                cages.find((cage) => cage.cells.some((cell) => pointsAreEqual(cell, props.cellWrapper.position)))!
+                cages.find((cage) => cage.cells.some((cell) => pointsAreEqual(cell, props.position)))!
             }
-        ></KillerGridCageComponent>
+        ></KillerCellComponent>
     }
 }

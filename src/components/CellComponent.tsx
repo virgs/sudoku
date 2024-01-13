@@ -1,23 +1,27 @@
-import { CellWrapper } from '../wrapper/CellWrapper'
+import { useState } from 'react'
+import { CellType } from '../engine/types/CellType'
 import './CellComponent.css'
 
 type CellComponentProps = {
-    cellWrapper: CellWrapper
-    onCellClick: (cell: CellWrapper) => void
+    cell: CellType
+    onCellClick: (cell: CellType) => void
 }
 
 export function CellComponent(props: CellComponentProps) {
-    const formattedNotes = props.cellWrapper.notes
+    const [value, setValue] = useState<number | undefined>()
+    const [notes, setNotes] = useState<number[]>([])
+
+    const formattedNotes = notes
         .join('')
         .match(/.{1,5}/g)
         ?.join('\n')
     return (
-        <div onPointerDown={() => props.onCellClick(props.cellWrapper)} className='sudoku-cell'>
+        <div onPointerDown={() => props.onCellClick(props.cell)} className='sudoku-cell'>
             {
-                props.cellWrapper.notes.length > 0 ? (
+                notes.length > 0 ? (
                     <div className="sudoku-cell-notes">{formattedNotes}</div>
                 ) : (
-                    <div className="sudoku-cell-answer">{props.cellWrapper.cell.answer}</div>
+                    <div className="sudoku-cell-answer">{props.cell.answer}</div>
                 )
             }
         </div >

@@ -20,9 +20,3 @@
     width: 100%;
     height: calc(100% / 3);
 }
-
-.grid-cell {
-    width: 100%;
-    padding: 2px;
-    border: 0.5px solid color-mix(in srgb, var(--bs-primary) 10%, transparent);
-}

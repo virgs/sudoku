@@ -37,14 +37,17 @@ export class CellWrapper {
     }
 
     public select() {
+        // console.log('ihul')
         this._selected = true
     }
 
     public unselect() {
+        // console.log('sniff')
         this._selected = false
     }
 
     public highlight() {
+        // console.log('highlight')
         this._highlighted = true
     }
 

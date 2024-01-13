@@ -1,16 +1,22 @@
+import { useEffect } from 'react'
 import { CageType } from '../../engine/killer/types/CageType'
-import { pointsAreEqual } from '../../math/Point'
-import { CellWrapper } from '../../wrapper/CellWrapper'
+import { CellType } from '../../engine/types/CellType'
+import { Point, pointsAreEqual } from '../../math/Point'
 import { CellComponent } from '../CellComponent'
-import './KillerGridCageComponent.css'
+import './KillerCellComponent.css'
 
-type KillerGridCageProps = {
-    cellWrapper: CellWrapper
+type KillerCellProps = {
+    cell: CellType
+    position: Point
     cage: CageType
-    onCellClick: (cell: CellWrapper) => void
+    onCellClick: (cell: CellType) => void
 }
 
-export function KillerGridCageComponent(props: KillerGridCageProps) {
+export function KillerCellComponent(props: KillerCellProps) {
+    useEffect(() => {
+        console.log('selected')
+    }, [props.cell])
+
     const cageLabelCellPosition = props.cage.cells.reduce((acc, cell) => {
         if (cell.x <= acc.x) {
             if (cell.y <= acc.y) {
@@ -19,7 +25,7 @@ export function KillerGridCageComponent(props: KillerGridCageProps) {
         }
         return acc
     }, props.cage.cells[0])
-    const cellPosition = props.cellWrapper.position
+    const cellPosition = props.position
     const checkBorderStyle = () => {
         const style: React.CSSProperties = {}
         if (props.cage.cells.some((cell) => pointsAreEqual(cell, { x: cellPosition.x, y: cellPosition.y + 1 }))) {
@@ -38,14 +44,16 @@ export function KillerGridCageComponent(props: KillerGridCageProps) {
     }
 
     const hasLabel = pointsAreEqual(cageLabelCellPosition, cellPosition)
-    const gridCageLabel = {
-        backgroundColor: 'var(--board-background-color)'
+    let className = 'grid-cage'
+    if (hasLabel) {
+        className += ' labeled'
     }
     const style = checkBorderStyle()
-    return (
-        <div className="grid-cage" style={style}>
-            {hasLabel ? <small style={gridCageLabel} className="grid-cage-label">{props.cage.label}</small> : <></>}
-            <CellComponent onCellClick={props.onCellClick} cellWrapper={props.cellWrapper}></CellComponent>
+    return (<>
+        {hasLabel ? <small className="grid-cage-label">{props.cage.label}</small> : <></>}
+        <div className={className} style={style}>
+            <CellComponent onCellClick={props.onCellClick} cell={props.cell}></CellComponent>
         </div>
+    </>
     )
 }

@@ -1,17 +1,23 @@
 import { CellComponent } from '../components/CellComponent'
 import { Board } from '../engine/Board'
-import { pointsAreEqual } from '../math/Point'
+import { CellType } from '../engine/types/CellType'
+import { Point, pointsAreEqual } from '../math/Point'
 import { CellWrapper } from './CellWrapper'
 import { GridWrapper } from './GridWrapper'
 
 export type CellComponentProps = {
-    cellWrapper: CellWrapper
-    onCellClick: (cell: CellWrapper) => void
+    cell: CellType
+    position: Point
+    onCellClick: (cell: CellType) => void
 }
 
 export class BoardWrapper {
     protected readonly _board: Board
     protected readonly _gridWrapper: GridWrapper
+    private _count: number = 0
+    public get count(): number {
+        return this._count
+    }
 
     public constructor(board: Board) {
         this._board = board
@@ -27,11 +33,13 @@ export class BoardWrapper {
     }
 
     public renderCellComponent(props: CellComponentProps): JSX.Element {
-        return <CellComponent onCellClick={props.onCellClick} cellWrapper={props.cellWrapper}></CellComponent>
+        return <CellComponent onCellClick={props.onCellClick} cell={props.cell}></CellComponent>
     }
 
     public selectCell(selectedCell: CellWrapper) {
+        +this._count
         const cellsWrapper = this.gridWrapper.cellsWrapper
+        console.log(selectedCell.position)
         cellsWrapper.forEach(cellsWrapperLine => cellsWrapperLine
             .forEach(cellWrapper => {
                 if (pointsAreEqual(cellWrapper.position, selectedCell.position)) {

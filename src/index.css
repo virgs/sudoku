@@ -8,6 +8,8 @@
     --grid-container-size: 500px;
     --board-background-color: antiquewhite;
 
+    user-select: none;
+
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;

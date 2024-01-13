@@ -1,16 +1,16 @@
-import { KillerGridType } from '../../engine/killer/types/KillerGridType'
-import { Point, pointsAreEqual } from '../../math/Point'
-import { CellWrapper } from '../../wrapper/CellWrapper'
-import { GridWrapper } from '../../wrapper/GridWrapper'
-import { KillerGridCageComponent } from './KillerGridCageComponent'
-import './KillerGridComponent.css'
+import "./GridComponent.css"
+import { Point } from "../math/Point"
+import { CellComponentProps } from "../wrapper/BoardWrapper"
+import { CellWrapper } from "../wrapper/CellWrapper"
+import { GridWrapper } from "../wrapper/GridWrapper"
 
-export type KillerGridComponentProps = {
+export type GridComponentProps = {
     gridWrapper: GridWrapper
+    renderCellComponent: (cellComponentProps: CellComponentProps) => JSX.Element;
     onCellClick: (cell: CellWrapper) => void
 }
 
-export function KillerGridComponent(props: KillerGridComponentProps) {
+export function GridComponent(props: GridComponentProps) {
     const createBlocks = () => {
         const blocksDimension: Point = { x: 3, y: 3 }
         return (
@@ -32,8 +32,6 @@ export function KillerGridComponent(props: KillerGridComponentProps) {
         )
     }
 
-    const cages = (props.gridWrapper.grid as KillerGridType).cages
-
     const createBlock = (block: Point) => {
         return Array.from(Array(blocksDimension.y)).map((_, cellLine) => {
             return (
@@ -44,15 +42,10 @@ export function KillerGridComponent(props: KillerGridComponentProps) {
                             x: block.x * blocksDimension.x + cellCol,
                         }
                         const currentCell = props.gridWrapper.cellsWrapper[position.y][position.x]
+                        const cellComponent = props.renderCellComponent({ cellWrapper: currentCell, onCellClick: props.onCellClick })
                         return (
                             <div key={cellCol} className="grid-cell">
-                                <KillerGridCageComponent
-                                    onCellClick={props.onCellClick}
-                                    cellWrapper={currentCell}
-                                    cage={
-                                        cages.find((cage) => cage.cells.some((cell) => pointsAreEqual(cell, position)))!
-                                    }
-                                ></KillerGridCageComponent>
+                                {cellComponent}
                             </div>
                         )
                     })}

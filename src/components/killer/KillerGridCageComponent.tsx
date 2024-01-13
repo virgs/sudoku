@@ -38,10 +38,13 @@ export function KillerGridCageComponent(props: KillerGridCageProps) {
     }
 
     const hasLabel = pointsAreEqual(cageLabelCellPosition, cellPosition)
+    const gridCageLabel = {
+        backgroundColor: 'var(--board-background-color)'
+    }
     const style = checkBorderStyle()
     return (
         <div className="grid-cage" style={style}>
-            {hasLabel ? <small className="grid-cage-label">{props.cage.label}</small> : <></>}
+            {hasLabel ? <small style={gridCageLabel} className="grid-cage-label">{props.cage.label}</small> : <></>}
             <CellComponent onCellClick={props.onCellClick} cellWrapper={props.cellWrapper}></CellComponent>
         </div>
     )

@@ -1,4 +1,4 @@
-.killer-cell {
+.sudoku-cell {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -6,12 +6,13 @@
     height: 100%;
 }
 
-.killer-cell-notes {
+.sudoku-cell-notes {
     font-size: 0.85rem;
     color: var(--bs-info);
 }
 
-.killer-cell-answer {
+.sudoku-cell-answer {
+    padding-top: 10px;
     color: var(--bs-primary);
     font-size: 2rem;
 }

@@ -12,12 +12,14 @@ export function CellComponent(props: CellComponentProps) {
         .match(/.{1,5}/g)
         ?.join('\n')
     return (
-        <div onPointerDown={() => props.onCellClick(props.cellWrapper)} className="killer-cell">
-            {props.cellWrapper.notes.length > 0 ? (
-                <div className="killer-cell-notes">{formattedNotes}</div>
-            ) : (
-                <div className="killer-cell-answer">{props.cellWrapper.cell.answer}</div>
-            )}
-        </div>
+        <div onPointerDown={() => props.onCellClick(props.cellWrapper)} className='sudoku-cell'>
+            {
+                props.cellWrapper.notes.length > 0 ? (
+                    <div className="sudoku-cell-notes">{formattedNotes}</div>
+                ) : (
+                    <div className="sudoku-cell-answer">{props.cellWrapper.cell.answer}</div>
+                )
+            }
+        </div >
     )
 }

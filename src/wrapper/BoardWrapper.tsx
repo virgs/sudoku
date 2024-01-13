@@ -8,7 +8,6 @@ import { GridWrapper } from './GridWrapper'
 export type CellComponentProps = {
     cell: CellType
     position: Point
-    onCellClick: (cell: CellType) => void
 }
 
 export class BoardWrapper {
@@ -33,7 +32,7 @@ export class BoardWrapper {
     }
 
     public renderCellComponent(props: CellComponentProps): JSX.Element {
-        return <CellComponent onCellClick={props.onCellClick} cell={props.cell}></CellComponent>
+        return <CellComponent cell={props.cell}></CellComponent>
     }
 
     public selectCell(selectedCell: CellWrapper) {

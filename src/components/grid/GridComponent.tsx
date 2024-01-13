@@ -1,14 +1,12 @@
-import { Point } from "../math/Point"
-import { CellComponentProps } from "../wrapper/BoardWrapper"
-import { CellWrapper } from "../wrapper/CellWrapper"
-import { GridWrapper } from "../wrapper/GridWrapper"
+import { Point } from "../../math/Point"
+import { CellComponentProps } from "../../wrapper/BoardWrapper"
+import { GridWrapper } from "../../wrapper/GridWrapper"
 import { GridCellComponent } from "./GridCellComponent"
 import "./GridComponent.css"
 
 export type GridComponentProps = {
     gridWrapper: GridWrapper
     renderCellComponent: (cellComponentProps: CellComponentProps) => JSX.Element;
-    onCellClick: (cell: CellWrapper) => void
 }
 
 export function GridComponent(props: GridComponentProps) {
@@ -44,7 +42,7 @@ export function GridComponent(props: GridComponentProps) {
                             x: block.x * blocksDimension.x + cellCol,
                         }
                         const currentCell = props.gridWrapper.cellsWrapper[position.y][position.x]
-                        return <GridCellComponent key={cellCol} renderCellComponent={props.renderCellComponent} currentCell={currentCell} position={position}></GridCellComponent>
+                        return <GridCellComponent key={cellCol} renderCellComponent={props.renderCellComponent} cell={currentCell} position={position}></GridCellComponent>
                     })}
                 </div>
             )

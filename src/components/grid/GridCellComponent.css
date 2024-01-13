@@ -1,0 +1,15 @@
+.grid-cell {
+    position: relative;
+    width: 100%;
+    padding: 2px;
+    border: 0.5px solid color-mix(in srgb, var(--bs-primary) 10%, transparent);
+    cursor: pointer;
+}
+
+.grid-cell.selected {
+    background-color: color-mix(in srgb, var(--bs-info) 50%, transparent);
+}
+
+.grid-cell.highlighted {
+    background-color: color-mix(in srgb, var(--bs-info) 25%, transparent);
+}

@@ -4,7 +4,6 @@ import './CellComponent.css'
 
 type CellComponentProps = {
     cell: CellType
-    onCellClick: (cell: CellType) => void
 }
 
 export function CellComponent(props: CellComponentProps) {
@@ -16,7 +15,7 @@ export function CellComponent(props: CellComponentProps) {
         .match(/.{1,5}/g)
         ?.join('\n')
     return (
-        <div onPointerDown={() => props.onCellClick(props.cell)} className='sudoku-cell'>
+        <div className='sudoku-cell'>
             {
                 notes.length > 0 ? (
                     <div className="sudoku-cell-notes">{formattedNotes}</div>

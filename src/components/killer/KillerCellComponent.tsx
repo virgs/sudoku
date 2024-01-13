@@ -13,10 +13,6 @@ type KillerCellProps = {
 }
 
 export function KillerCellComponent(props: KillerCellProps) {
-    useEffect(() => {
-        console.log('selected')
-    }, [props.cell])
-
     const cageLabelCellPosition = props.cage.cells.reduce((acc, cell) => {
         if (cell.x <= acc.x) {
             if (cell.y <= acc.y) {
@@ -52,7 +48,7 @@ export function KillerCellComponent(props: KillerCellProps) {
     return (<>
         {hasLabel ? <small className="grid-cage-label">{props.cage.label}</small> : <></>}
         <div className={className} style={style}>
-            <CellComponent onCellClick={props.onCellClick} cell={props.cell}></CellComponent>
+            <CellComponent cell={props.cell}></CellComponent>
         </div>
     </>
     )

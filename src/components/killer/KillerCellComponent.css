@@ -16,8 +16,8 @@
     position: absolute;
     top: 0px;
     left: 3px;
-    /* line-height: 5px; */
     height: 40%;
     width: 40%;
     text-align: left;
+    color: var(--bs-primary);
 }

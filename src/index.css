@@ -6,8 +6,7 @@
 --bs-danger: #dc3545; */
 :root {
     --grid-container-size: 500px;
-    --board-background-color: antiquewhite;
-
+    --board-background-color: color-mix(in srgb, var(--bs-primary-bg-subtle) 50%, transparent);
     user-select: none;
 
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -9,7 +9,7 @@ export class BoardCreator {
         this.dimension = dimension
     }
 
-    public createBoardFromText(text: string = ''): Board {
+    public createBoardFromText(_text: string = ''): Board {
         return new Board({ grid: this.createEmptyGrid() })
     }
 
@@ -19,7 +19,7 @@ export class BoardCreator {
             cells: Array.from(Array(this.dimension.y).keys()).map(() =>
                 Array.from(Array(this.dimension.x).keys()).map(() => ({
                     answer: 0,
-                    revealed: false
+                    revealed: false,
                 }))
             ),
         }

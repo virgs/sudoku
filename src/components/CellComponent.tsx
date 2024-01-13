@@ -15,14 +15,12 @@ export function CellComponent(props: CellComponentProps) {
         .match(/.{1,5}/g)
         ?.join('\n')
     return (
-        <div className='sudoku-cell'>
-            {
-                notes.length > 0 ? (
-                    <div className="sudoku-cell-notes">{formattedNotes}</div>
-                ) : (
-                    <div className="sudoku-cell-answer">{props.cell.answer}</div>
-                )
-            }
-        </div >
+        <div className="sudoku-cell">
+            {notes.length > 0 ? (
+                <div className="sudoku-cell-notes">{formattedNotes}</div>
+            ) : (
+                <div className="sudoku-cell-answer">{props.cell.answer}</div>
+            )}
+        </div>
     )
 }

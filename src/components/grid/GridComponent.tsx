@@ -1,15 +1,12 @@
-import { Point } from "../../math/Point"
-import { CellComponentProps } from "../../wrapper/BoardWrapper"
-import { GridWrapper } from "../../wrapper/GridWrapper"
-import { GridCellComponent } from "./GridCellComponent"
-import "./GridComponent.css"
+import { useContext } from 'react'
+import { BoardContext } from '../../App'
+import { Point } from '../../math/Point'
+import { GridCellComponent } from './GridCellComponent'
+import './GridComponent.css'
 
-export type GridComponentProps = {
-    gridWrapper: GridWrapper
-    renderCellComponent: (cellComponentProps: CellComponentProps) => JSX.Element;
-}
+export function GridComponent() {
+    const board = useContext(BoardContext);
 
-export function GridComponent(props: GridComponentProps) {
     const blocksDimension: Point = { x: 3, y: 3 }
 
     const createBlocks = () => {
@@ -41,8 +38,14 @@ export function GridComponent(props: GridComponentProps) {
                             y: block.y * blocksDimension.y + cellLine,
                             x: block.x * blocksDimension.x + cellCol,
                         }
-                        const currentCell = props.gridWrapper.cellsWrapper[position.y][position.x]
-                        return <GridCellComponent key={cellCol} renderCellComponent={props.renderCellComponent} cell={currentCell} position={position}></GridCellComponent>
+                        const currentCell = board.grid.cells[position.y][position.x]
+                        return (
+                            <GridCellComponent
+                                key={cellCol}
+                                cell={currentCell}
+                                position={position}
+                            ></GridCellComponent>
+                        )
                     })}
                 </div>
             )

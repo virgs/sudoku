@@ -1,18 +1,20 @@
-import { useState } from 'react'
+import { createContext } from 'react'
 import './App.css'
 import { BoardComponent } from './components/BoardComponent'
 import { KillerBoardCreator } from './engine/killer/KillerBoardCreator'
 import { fileContent } from './engine/killer/SudokuKillerFile'
-import { BoardWrapper } from './wrapper/BoardWrapper'
-import { KillerBoardWrapper } from './wrapper/killer/KillerBoardWrapper'
+
+const killerBoard = new KillerBoardCreator().createBoardFromText(fileContent)
+export const BoardContext = createContext(killerBoard);
 
 function App() {
-    const killerBoard = new KillerBoardWrapper(new KillerBoardCreator().createBoardFromText(fileContent))
-    const [board] = useState<BoardWrapper>(killerBoard)
+
 
     return (
         <div id="app">
-            <BoardComponent boardWrapper={board} />
+            <BoardContext.Provider value={killerBoard}>
+                <BoardComponent />
+            </BoardContext.Provider>
         </div>
     )
 }

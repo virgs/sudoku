@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { CageType } from '../../engine/killer/types/CageType'
 import { CellType } from '../../engine/types/CellType'
 import { Point, pointsAreEqual } from '../../math/Point'
@@ -9,7 +8,6 @@ type KillerCellProps = {
     cell: CellType
     position: Point
     cage: CageType
-    onCellClick: (cell: CellType) => void
 }
 
 export function KillerCellComponent(props: KillerCellProps) {
@@ -45,11 +43,12 @@ export function KillerCellComponent(props: KillerCellProps) {
         className += ' labeled'
     }
     const style = checkBorderStyle()
-    return (<>
-        {hasLabel ? <small className="grid-cage-label">{props.cage.label}</small> : <></>}
-        <div className={className} style={style}>
-            <CellComponent cell={props.cell}></CellComponent>
-        </div>
-    </>
+    return (
+        <>
+            {hasLabel ? <small className="grid-cage-label">{props.cage.label}</small> : <></>}
+            <div className={className} style={style}>
+                <CellComponent cell={props.cell}></CellComponent>
+            </div>
+        </>
     )
 }

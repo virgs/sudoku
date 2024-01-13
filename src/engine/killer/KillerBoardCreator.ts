@@ -25,7 +25,7 @@ export class KillerBoardCreator extends BoardCreator {
                 }
 
                 cagesDefinition.split('+').map((cellDefinition) => {
-                    const [match, y, x, answer] = cellDefinition
+                    const [, y, x, answer] = cellDefinition
                         .match(KillerBoardCreator.CELL_REGEXP)!
                         .map((item) => Number(item))
                     grid.cells[y][x].answer = answer

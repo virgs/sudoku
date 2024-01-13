@@ -1,3 +1,3 @@
 export enum Events {
-    CELL_SELECTED
+    CELL_SELECTED,
 }

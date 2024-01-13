@@ -6,6 +6,7 @@ import './KillerCellComponent.css'
 
 type KillerCellProps = {
     cell: CellType
+    selected: boolean
     position: Point
     cage: CageType
 }
@@ -47,7 +48,7 @@ export function KillerCellComponent(props: KillerCellProps) {
         <>
             {hasLabel ? <small className="grid-cage-label">{props.cage.label}</small> : <></>}
             <div className={className} style={style}>
-                <CellComponent cell={props.cell}></CellComponent>
+                <CellComponent position={props.position} selected={props.selected} cell={props.cell}></CellComponent>
             </div>
         </>
     )

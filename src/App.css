@@ -9,3 +9,7 @@
     width: var(--grid-container-size);
     height: var(--grid-container-size);
 }
+
+#app:focus-visible {
+    outline: none;
+}

@@ -1,7 +1,7 @@
-import { KillerGridType } from './types/KillerGridType'
-import { Board, CellComponentProps } from '../Board'
 import { KillerCellComponent } from '../../components/killer/KillerCellComponent'
 import { Point, pointsAreEqual } from '../../math/Point'
+import { Board, CellComponentProps } from '../Board'
+import { KillerGridType } from './types/KillerGridType'
 
 export class KillerBoard extends Board {
     public get grid(): KillerGridType {
@@ -20,6 +20,7 @@ export class KillerBoard extends Board {
         const cages = this.grid.cages
         return (
             <KillerCellComponent
+                selected={props.selected}
                 position={props.position}
                 cell={props.cell}
                 cage={cages.find((cage) => cage.cells.some((cell) => pointsAreEqual(cell, props.position)))!}

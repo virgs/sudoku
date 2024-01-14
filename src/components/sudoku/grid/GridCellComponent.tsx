@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../../App'
 import { CellType } from '../../../engine/types/CellType'
-import { emitCellSelected, useCellSelectedListener } from '../../../input/Events'
+import { CellSelectedEventType, CellValueSetEventType, emitCellSelected, useCellSelectedListener, useCellValueSetListener, useCurrentValueErasedListener } from '../../../input/Events'
 import { Point, pointsAreEqual } from '../../../math/Point'
 import './GridCellComponent.css'
 
@@ -13,6 +13,7 @@ type GridCellComponentProps = {
 export function GridCellComponent(props: GridCellComponentProps) {
     const board = useContext(BoardContext)
     const defaultClass = 'grid-cell'
+    const [revealed, setRevealed] = useState<boolean>(props.cell.revealed)
     const [selected, setSelected] = useState<boolean>(false)
     const [highlighted, setHighlighted] = useState<boolean>(false)
     const [classList, setClassList] = useState<string>(defaultClass)
@@ -28,18 +29,33 @@ export function GridCellComponent(props: GridCellComponentProps) {
         setClassList(list.join(' '))
     }, [selected, highlighted])
 
-    useCellSelectedListener((data: { position: Point }) => {
+    useCurrentValueErasedListener(() => {
+        if (selected) {
+            setRevealed(false)
+        }
+    })
+
+    useCellValueSetListener((payload: CellValueSetEventType) => {
+        if (pointsAreEqual(payload.position, props.position)) {
+            setRevealed(true)
+        } else if (payload.value === props.cell.answer && revealed) {
+            setHighlighted(true)
+        }
+    })
+    useCellSelectedListener((payload: CellSelectedEventType) => {
         setSelected(false)
         setHighlighted(false)
-        if (pointsAreEqual(props.position, data.position)) {
+        if (pointsAreEqual(props.position, payload.position)) {
             setSelected(true)
-        } else if (board.cellsShareSameRegion(data.position, props.position)) {
+        } else if (board.cellsShareSameRegion(payload.position, props.position)) {
+            setHighlighted(true)
+        } else if (payload.value === props.cell.answer && revealed) {
             setHighlighted(true)
         }
     })
     return (
         <div
-            onPointerDown={() => emitCellSelected({ position: props.position })}
+            onPointerDown={() => emitCellSelected({ position: props.position, value: revealed ? props.cell.answer : undefined })}
             className={classList}
         >
             {board.renderCellComponent({

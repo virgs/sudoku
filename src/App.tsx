@@ -1,10 +1,13 @@
 import { createContext, useEffect, useRef, useState } from 'react'
 import './App.css'
+import { ControlsComponent } from './components/controls/ControlsComponent'
+import { Header } from './components/controls/Header'
 import { BoardComponent } from './components/sudoku/BoardComponent'
 import { KillerBoardCreator } from './engine/killer/KillerBoardCreator'
 import { fileContent } from './engine/killer/SudokuKillerFile'
 import { AnnotationMode } from './input/AnnotationMode'
 import {
+    CellSelectedEventType,
     emitAnnotationModeChanged,
     emitCellSelected,
     emitCurrentValueErased,
@@ -13,16 +16,13 @@ import {
     useCellSelectedListener,
 } from './input/Events'
 import { UserInput, isArowKey, mapInputToNumber, mapKeyToUserInput } from './input/UserInput'
-import { ControlsComponent } from './components/controls/ControlsComponent'
-import { Point } from './math/Point'
-import { Header } from './components/controls/Header'
 
 const board = new KillerBoardCreator().createBoardFromText(fileContent)
 export const BoardContext = createContext(board)
 
 function App() {
     const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PEN)
-    const [currentSelectedCellPosition, setCurrentSelectedCellPosition] = useState<Point | undefined>()
+    const [currentSelectedCell, setCurrentSelectedCell] = useState<CellSelectedEventType | undefined>()
 
     const appRef = useRef(null)
     useEffect(() => {
@@ -30,7 +30,7 @@ function App() {
         appRef.current?.focus()
     })
 
-    useCellSelectedListener((payload) => setCurrentSelectedCellPosition(payload.position))
+    useCellSelectedListener((payload) => setCurrentSelectedCell(payload))
     useAnnotationModeChangedListener((annotationMode) => setAnnotationMode(annotationMode))
 
     const handleKeyPress = (keyCode: string) => {
@@ -50,10 +50,10 @@ function App() {
                 setAnnotationMode(newAnnotationMode)
                 emitAnnotationModeChanged(newAnnotationMode)
             } else if (isArowKey(input)) {
-                if (currentSelectedCellPosition) {
+                if (currentSelectedCell) {
                     const nextPosition = {
-                        x: currentSelectedCellPosition.x,
-                        y: currentSelectedCellPosition.y,
+                        x: currentSelectedCell.position.x,
+                        y: currentSelectedCell.position.y,
                     }
                     if (input === UserInput.ARROW_DOWN) {
                         nextPosition.y++
@@ -67,16 +67,27 @@ function App() {
 
                     if (board.isPositionInbound(nextPosition)) {
                         emitCellSelected({
+                            value: currentSelectedCell.value,
                             position: nextPosition,
                         })
                     }
                 }
             }
         }
+        return input
     }
 
     return (
-        <div id="app" className="p-2" ref={appRef} tabIndex={0} onKeyUp={(event) => handleKeyPress(event.code)}>
+        <div id="app" className="p-2" ref={appRef} tabIndex={0}
+            onKeyDown={event => {
+                if (mapKeyToUserInput(event.code)) {
+                    event.preventDefault()
+                }
+            }}
+            onKeyUp={(event) => {
+                event.preventDefault()
+                return handleKeyPress(event.code)
+            }}>
             <BoardContext.Provider value={board}>
                 <div className="container-lg p-0">
                     <div className="row justify-content-center gy-3">

@@ -6,6 +6,7 @@ import { faHourglass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { BoardContext } from '../../App'
 import { GameLevel } from '../../engine/types/GameLevel'
 import { GameMode } from '../../engine/types/GameMode'
+import { useInterval } from '../../hooks/UseInterval'
 
 const formatDuration = (ms: number) => {
     const days = Math.floor(ms / 86400)
@@ -34,28 +35,28 @@ export function Header() {
         }
     })
 
-    useEffect(() => {
-        const interval = setInterval(() => setElapsedSeconds((x) => x + 1), 1000)
-        return () => clearInterval(interval)
-    }, [])
+    useInterval(() => {
+        setElapsedSeconds((x) => x + 1)
+    }, 1000)
+
     return (
         <div className="row justify-content-between mb-3 ml-2">
             <div className="col-auto header-info">
                 <span>
-                    <strong>{`${GameLevel[board.gameLevel]}: ${GameMode[board.gameMode]}`}</strong>
+                    <strong className='mode-level'>{`${GameMode[board.gameMode]}: ${GameLevel[board.gameLevel]}`}</strong>
                 </span>
             </div>
             <div className="col-auto header-info">
+                <FontAwesomeIcon className="font-awesome-icon" icon={faXmark} color="var(--bs-danger)" />
                 <span>
                     <strong>{mistakesCounter}</strong>
                 </span>
-                <FontAwesomeIcon className="font-awesome-icon" icon={faXmark} color="var(--bs-danger)" />
             </div>
-            <div className="col-auto header-info">
+            <div className="col-4 header-info">
+                <FontAwesomeIcon className="font-awesome-icon" style={{ float: 'left' }} icon={faHourglass} color="var(--bs-primary)" />
                 <span>
                     <strong>{formatDuration(elapsedSeconds)}</strong>
                 </span>
-                <FontAwesomeIcon className="font-awesome-icon" icon={faHourglass} color="var(--bs-primary)" />
             </div>
         </div>
     )

@@ -87,7 +87,7 @@ export function ControlsComponent() {
                 <div className="col-auto">
                     <button
                         type="button"
-                        className="btn btn-sm btn-secondary action-button"
+                        className="btn btn-sm btn-outline-secondary action-button"
                         onPointerDown={() => emitCurrentValueErased()}
                     >
                         <FontAwesomeIcon color='var(--bs-primary)' className="font-awesome-icon" icon={faEraser} />
@@ -105,7 +105,7 @@ export function ControlsComponent() {
                             checked={annotationMode === AnnotationMode.PEN}
                             onChange={() => onAnnotationModeButtonClick(AnnotationMode.PEN)}
                         />
-                        <label className="btn btn-sm btn-secondary action-button" htmlFor="pen-btn-radio">
+                        <label className="btn btn-sm btn-outline-secondary action-button" htmlFor="pen-btn-radio">
                             <FontAwesomeIcon color={annotationMode === AnnotationMode.PEN ? 'var(--bs-primary)' : undefined} className="font-awesome-icon" icon={faPenClip} />
                             <span className="d-none d-xl-inline me-1">Pen</span>
                         </label>
@@ -118,7 +118,7 @@ export function ControlsComponent() {
                             checked={annotationMode === AnnotationMode.PENCIL}
                             onChange={() => onAnnotationModeButtonClick(AnnotationMode.PENCIL)}
                         />
-                        <label className="btn btn-sm btn-secondary action-button" htmlFor="pencil-btn-radio">
+                        <label className="btn btn-sm btn-outline-secondary action-button" htmlFor="pencil-btn-radio">
                             <FontAwesomeIcon color={annotationMode === AnnotationMode.PENCIL ? 'var(--bs-primary)' : undefined} className="font-awesome-icon" icon={faPencil} />
                             <span className="d-none d-xl-inline me-1">Pencil</span>
                         </label>
@@ -127,7 +127,7 @@ export function ControlsComponent() {
                 <div className="col-auto">
                     <button
                         type="button"
-                        className="btn btn-sm btn-secondary action-button"
+                        className="btn btn-sm btn-outline-secondary action-button"
                         disabled={
                             !currentSelectedCellPosition ||
                             !availableHints.find((hint) => pointsAreEqual(hint.position, currentSelectedCellPosition!))
@@ -144,13 +144,13 @@ export function ControlsComponent() {
                 <NumPadComponent onNumberPressed={onNumberPressed} />
             </div>
             <div className="d-grid gap-2 d-md-flex mx-2 justify-content-between ">
-                <button className="btn btn-sm btn-primary action-button me-md-2" type="button">
-                    <FontAwesomeIcon color='var(--bs-info)' className="font-awesome-icon" icon={faGear} />
-                    <span className="d-none me-1 d-xl-inline">Configurations</span>
-                </button>
-                <button className="btn btn-sm btn-warning action-button" type="button">
+                <button className="btn btn-sm btn-warning action-button me-md-2" type="button">
                     <FontAwesomeIcon color='var(--bs-primary)' className="font-awesome-icon" icon={faArrowRotateRight} />
                     <span className="d-none me-1 d-xl-inline">Restart</span>
+                </button>
+                <button className="btn btn-sm btn-outline-primary action-button" type="button">
+                    <FontAwesomeIcon color='var(--bs-info)' className="font-awesome-icon" icon={faGear} />
+                    <span className="d-none me-1 d-xl-inline">Settings</span>
                 </button>
             </div>
         </div>

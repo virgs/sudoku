@@ -1,5 +1,7 @@
 import fs from 'fs';
 
+const level = 'expert'
+const mode = 'killer'
 var options = {
     'method': 'GET',
     // 'hostname': 'sudoku.com',
@@ -18,11 +20,18 @@ var options = {
     'maxRedirects': 20
 };
 
+let remainingDownloads = 39
+const save = async () => {
+    const response = await fetch(`http://sudoku.com/api/level/${level}?mode=${mode}`, options)
+    const json = await response.json()
+    fs.writeFileSync(`${level}/${json.id}-${Date.now()}.json`, JSON.stringify(json, null, 2))
+    if (--remainingDownloads > 0) {
+        setTimeout(save, 500)
+    }
+}
 
+setTimeout(save, 500)
 // fetch('http://sudoku.com/api/level/expert?mode=killer', options)
-fetch('http://sudoku.com/api/level/easy?mode=classic', options)
-    .then((response) => response.json())
-    .then((json) => console.log(json));
 
 //classic: 
 /*

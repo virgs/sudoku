@@ -15,8 +15,8 @@ type CellComponentProps = {
 export function CellComponent(props: CellComponentProps) {
     const board = useContext(BoardContext)
 
-    const [selected, setSelected] = useState<boolean>(props.selected)
-    const [value, setValue] = useState<number | undefined>(props.cell.answer)
+    const [value, setValue] = useState<number | undefined>()
+    const [selected, setSelected] = useState<boolean>(false)
     const [notes, setNotes] = useState<number[]>([])
 
     useEffect(() => {

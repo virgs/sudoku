@@ -1,4 +1,7 @@
-.num {
-    width: 5rem;
-    height: 5rem;
+.pad-number {
+    text-align: center;
+    width: 100%;
+    height: auto;
+    font-size: 100% !important;
+    font-weight: bold;
 }

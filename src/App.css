@@ -1,6 +1,6 @@
 #app {
-    width: calc(2 * var(--board-container-size));
-    height: var(--board-container-size);
+    width: 100vw;
+    height: 100vh;
 }
 
 #app:focus-visible {

@@ -3,7 +3,7 @@ import { CellType } from '../../engine/types/CellType'
 import { AnnotationMode } from '../../input/AnnotationMode'
 import { Point } from '../../math/Point'
 import './CellComponent.css'
-import { useNumberPressedListener, NumberPressedEventType, useCurrentValueErasedListener } from '../../input/Events'
+import { useNumberPressedListener, NumberPressedEventType, useCurrentValueErasedListener, emitCellValueSet } from '../../input/Events'
 
 type CellComponentProps = {
     cell: CellType
@@ -24,6 +24,11 @@ export function CellComponent(props: CellComponentProps) {
         if (selected) {
             if (data.annotationMode === AnnotationMode.PEN) {
                 setValue(data.value)
+                emitCellValueSet({
+                    value: data.value,
+                    position: props.position,
+                    valueIsCorrect: props.cell.answer === data.value
+                })
             } else if (data.annotationMode === AnnotationMode.PENCIL) {
                 if (notes.includes(data.value)) {
                     setNotes(notes.filter((item) => item !== data.value))

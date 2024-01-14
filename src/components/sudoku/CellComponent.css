@@ -8,11 +8,15 @@
 
 .sudoku-cell-notes {
     font-size: 0.85rem;
-    color: var(--bs-info);
+    color: color-mix(in srgb, var(--bs-heading-color) 50%, transparent);
 }
 
 .sudoku-cell-answer {
     padding-top: 10px;
-    color: var(--bs-primary);
-    font-size: 2rem;
+    color: var(--bs-heading-color);
+    font-size: 1.5rem;
+}
+
+.sudoku-cell-answer.wrong {
+    color: var(--bs-danger);
 }

@@ -11,6 +11,22 @@ export enum UserInput {
 
     ALTERNATE_ANNOTATION_MODE = 'KeyP,KeyN',
     DELETE = 'Escape,Delete,Backspace',
+
+    ARROW_UP = 'ArrowUp',
+    ARROW_LEFT = 'ArrowLeft',
+    ARROW_DOWN = 'ArrowDown',
+    ARROW_RIGHT = 'ArrowRight',
+}
+
+export const isArowKey = (input: UserInput): boolean => {
+    switch (input) {
+        case UserInput.ARROW_UP:
+        case UserInput.ARROW_LEFT:
+        case UserInput.ARROW_DOWN:
+        case UserInput.ARROW_RIGHT:
+            return true
+    }
+    return false;
 }
 
 export const mapInputToNumber = (input: UserInput): number | undefined => {

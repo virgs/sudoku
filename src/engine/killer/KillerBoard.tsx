@@ -41,4 +41,10 @@ export class KillerBoard extends Board {
             }) !== undefined
         )
     }
+
+    public isPositionInbound(position: Point): boolean {
+        return (position.x >= 0 && position.x < this.numOfBlocks.x * this.blocksDimension.x &&
+            position.y >= 0 && position.y < this.numOfBlocks.y * this.blocksDimension.y)
+    }
+
 }

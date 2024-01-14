@@ -28,7 +28,7 @@ export function GridCellComponent(props: GridCellComponentProps) {
         setClassList(list.join(' '))
     }, [selected, highlighted])
 
-    useCellSelectedListener((data: { cell: CellType; position: Point }) => {
+    useCellSelectedListener((data: { position: Point }) => {
         setSelected(false)
         setHighlighted(false)
         if (pointsAreEqual(props.position, data.position)) {

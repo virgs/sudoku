@@ -7,9 +7,9 @@
 }
 
 .grid-cell.selected {
-    background-color: color-mix(in srgb, var(--bs-info) 30%, transparent);
+    background-color: color-mix(in srgb, var(--bs-info) 50%, transparent);
 }
 
 .grid-cell.highlighted {
-    background-color: color-mix(in srgb, var(--bs-info) 10%, transparent);
+    background-color: color-mix(in srgb, var(--bs-info) 20%, transparent);
 }

@@ -1,6 +1,8 @@
 import { CellComponent } from '../components/sudoku/CellComponent'
 import { Point } from '../math/Point'
 import { CellType } from './types/CellType'
+import { GameLevel } from './types/GameLevel'
+import { GameMode } from './types/GameMode'
 import { GridType } from './types/GridType'
 
 export type CellComponentProps = {
@@ -9,22 +11,41 @@ export type CellComponentProps = {
     position: Point
 }
 
+type BoardProps = {
+    grid: GridType
+    gameMode: GameMode
+    gameLevel: GameLevel
+}
+
 export class Board {
+    private readonly _gameMode: GameMode
+    private readonly _gameLevel: GameLevel
     protected readonly _grid: GridType
     private readonly _blocksDimension: Point = { x: 3, y: 3 }
     private readonly _numOfBlocks: Point = { x: 3, y: 3 }
 
-    constructor({ grid }: { grid: GridType }) {
-        this._grid = grid
+    constructor(props: BoardProps) {
+        this._grid = props.grid
+        this._gameMode = props.gameMode
+        this._gameLevel = props.gameLevel
     }
 
     public get grid(): GridType {
         return this._grid
     }
 
+    public get gameMode(): GameMode {
+        return this._gameMode
+    }
+
+    public get gameLevel(): GameLevel {
+        return this._gameLevel
+    }
+
     public get blocksDimension(): Point {
         return this._blocksDimension
     }
+
     public get numOfBlocks(): Point {
         return this._numOfBlocks
     }

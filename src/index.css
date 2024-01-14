@@ -5,8 +5,7 @@
 --bs-warning: #ffc107;
 --bs-danger: #dc3545; */
 :root {
-    --board-container-size: min(500px, 100dvmin);
-    --virgs-board-container-size: min(500px, 100dvmin, 100%);
+    --board-container-size: 450px;
     --board-background-color: color-mix(in srgb, var(--bs-primary-bg-subtle) 50%, transparent);
     user-select: none;
 

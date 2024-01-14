@@ -26,7 +26,7 @@ export const isArowKey = (input: UserInput): boolean => {
         case UserInput.ARROW_RIGHT:
             return true
     }
-    return false;
+    return false
 }
 
 export const mapInputToNumber = (input: UserInput): number | undefined => {

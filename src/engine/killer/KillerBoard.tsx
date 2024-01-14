@@ -1,6 +1,8 @@
 import { KillerCellComponent } from '../../components/sudoku/killer/KillerCellComponent'
 import { Point, pointsAreEqual } from '../../math/Point'
 import { Board, CellComponentProps } from '../Board'
+import { GameLevel } from '../types/GameLevel'
+import { GameMode } from '../types/GameMode'
 import { KillerGridType } from './types/KillerGridType'
 
 export class KillerBoard extends Board {
@@ -8,8 +10,8 @@ export class KillerBoard extends Board {
         return this._grid as KillerGridType
     }
 
-    constructor(grid: KillerGridType) {
-        super({ grid })
+    constructor(grid: KillerGridType, level: GameLevel) {
+        super({ grid, gameMode: GameMode.KILLER, gameLevel: level })
     }
 
     public printCages() {
@@ -43,8 +45,11 @@ export class KillerBoard extends Board {
     }
 
     public isPositionInbound(position: Point): boolean {
-        return (position.x >= 0 && position.x < this.numOfBlocks.x * this.blocksDimension.x &&
-            position.y >= 0 && position.y < this.numOfBlocks.y * this.blocksDimension.y)
+        return (
+            position.x >= 0 &&
+            position.x < this.numOfBlocks.x * this.blocksDimension.x &&
+            position.y >= 0 &&
+            position.y < this.numOfBlocks.y * this.blocksDimension.y
+        )
     }
-
 }

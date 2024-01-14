@@ -1,10 +1,9 @@
 .board-component {
     width: 95dvmin;
     height: 95dvmin;
-    max-width: 500px;
-    max-height: 500px;
+    max-width: min(var(--board-container-size), 100%);
+    max-height: var(--board-container-size);
     display: flex;
     align-items: center;
     justify-content: center;
-
 }

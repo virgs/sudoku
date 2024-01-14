@@ -1,5 +1,6 @@
 import { Point } from '../../math/Point'
 import { BoardCreator } from '../BoardCreator'
+import { GameLevel } from '../types/GameLevel'
 import { KillerBoard } from './KillerBoard'
 import { CageType } from './types/CageType'
 
@@ -36,9 +37,12 @@ export class KillerBoardCreator extends BoardCreator {
                 })
                 cages.push(cage)
             })
-        return new KillerBoard({
-            ...grid,
-            cages: cages,
-        })
+        return new KillerBoard(
+            {
+                ...grid,
+                cages: cages,
+            },
+            GameLevel.EASY
+        )
     }
 }

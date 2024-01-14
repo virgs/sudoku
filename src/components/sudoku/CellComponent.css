@@ -17,6 +17,10 @@
     font-size: 1.5rem;
 }
 
+.sudoku-cell-answer.hint {
+    color: var(--bs-success);
+}
+
 .sudoku-cell-answer.wrong {
     color: var(--bs-danger);
 }

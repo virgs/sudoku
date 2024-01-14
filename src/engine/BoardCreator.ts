@@ -1,5 +1,7 @@
 import { Point } from '../math/Point'
 import { Board } from './Board'
+import { GameLevel } from './types/GameLevel'
+import { GameMode } from './types/GameMode'
 import { GridType } from './types/GridType'
 
 export class BoardCreator {
@@ -10,7 +12,7 @@ export class BoardCreator {
     }
 
     public createBoardFromText(_text: string = ''): Board {
-        return new Board({ grid: this.createEmptyGrid() })
+        return new Board({ grid: this.createEmptyGrid(), gameLevel: GameLevel.EASY, gameMode: GameMode.CLASSIC })
     }
 
     protected createEmptyGrid(): GridType {

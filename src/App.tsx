@@ -4,10 +4,18 @@ import { BoardComponent } from './components/sudoku/BoardComponent'
 import { KillerBoardCreator } from './engine/killer/KillerBoardCreator'
 import { fileContent } from './engine/killer/SudokuKillerFile'
 import { AnnotationMode } from './input/AnnotationMode'
-import { emitAnnotationModeChanged, emitCellSelected, emitCurrentValueErased, emitNumberPressed, useAnnotationModeChangedListener, useCellSelectedListener } from './input/Events'
+import {
+    emitAnnotationModeChanged,
+    emitCellSelected,
+    emitCurrentValueErased,
+    emitNumberPressed,
+    useAnnotationModeChangedListener,
+    useCellSelectedListener,
+} from './input/Events'
 import { UserInput, isArowKey, mapInputToNumber, mapKeyToUserInput } from './input/UserInput'
-import { ControlsComponent } from './components/userInput/ControlsComponent'
+import { ControlsComponent } from './components/controls/ControlsComponent'
 import { Point } from './math/Point'
+import { Header } from './components/controls/Header'
 
 const board = new KillerBoardCreator().createBoardFromText(fileContent)
 export const BoardContext = createContext(board)
@@ -22,7 +30,7 @@ function App() {
         appRef.current?.focus()
     })
 
-    useCellSelectedListener(payload => setCurrentSelectedCellPosition(payload.position))
+    useCellSelectedListener((payload) => setCurrentSelectedCellPosition(payload.position))
     useAnnotationModeChangedListener((annotationMode) => setAnnotationMode(annotationMode))
 
     const handleKeyPress = (keyCode: string) => {
@@ -37,14 +45,15 @@ function App() {
             else if (input === UserInput.DELETE) {
                 emitCurrentValueErased()
             } else if (input === UserInput.ALTERNATE_ANNOTATION_MODE) {
-                const newAnnotationMode = (annotationMode === AnnotationMode.PEN) ? AnnotationMode.PENCIL : AnnotationMode.PEN
+                const newAnnotationMode =
+                    annotationMode === AnnotationMode.PEN ? AnnotationMode.PENCIL : AnnotationMode.PEN
                 setAnnotationMode(newAnnotationMode)
                 emitAnnotationModeChanged(newAnnotationMode)
             } else if (isArowKey(input)) {
                 if (currentSelectedCellPosition) {
                     const nextPosition = {
                         x: currentSelectedCellPosition.x,
-                        y: currentSelectedCellPosition.y
+                        y: currentSelectedCellPosition.y,
                     }
                     if (input === UserInput.ARROW_DOWN) {
                         nextPosition.y++
@@ -58,7 +67,7 @@ function App() {
 
                     if (board.isPositionInbound(nextPosition)) {
                         emitCellSelected({
-                            position: nextPosition
+                            position: nextPosition,
                         })
                     }
                 }
@@ -67,22 +76,27 @@ function App() {
     }
 
     return (
-        <div id="app" className='p-2' ref={appRef} tabIndex={0} onKeyUp={(event) => handleKeyPress(event.code)}>
+        <div id="app" className="p-2" ref={appRef} tabIndex={0} onKeyUp={(event) => handleKeyPress(event.code)}>
             <BoardContext.Provider value={board}>
                 <div className="container-lg p-0">
                     <div className="row justify-content-center gy-3">
-                        <div className="col-12 col-sm-6 col-md-7">
+                        <div className="col-12 col-sm-6 col-md-7 col-lg-6">
+                            <div className="d-sm-none">
+                                <Header></Header>
+                            </div>
                             <BoardComponent />
                         </div>
-                        <div className="col-12 col-sm-6 col-md-5 col-lg-4 align-self-start px-3 px-xl-4">
+                        <div className="col-sm-6 col-md-5 col-lg-5 align-self-start px-3 px-xl-4">
+                            <div className="d-none d-sm-block">
+                                <Header></Header>
+                            </div>
                             <ControlsComponent></ControlsComponent>
                         </div>
                     </div>
                 </div>
             </BoardContext.Provider>
-        </div >
+        </div>
     )
 }
 
 export default App
-

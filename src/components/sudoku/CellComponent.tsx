@@ -3,7 +3,14 @@ import { CellType } from '../../engine/types/CellType'
 import { AnnotationMode } from '../../input/AnnotationMode'
 import { Point } from '../../math/Point'
 import './CellComponent.css'
-import { useNumberPressedListener, NumberPressedEventType, useCurrentValueErasedListener, emitCellValueSet, useCellValueSetListener, CellValueSetEventType } from '../../input/Events'
+import {
+    useNumberPressedListener,
+    NumberPressedEventType,
+    useCurrentValueErasedListener,
+    emitCellValueSet,
+    useCellValueSetListener,
+    CellValueSetEventType,
+} from '../../input/Events'
 import { BoardContext } from '../../App'
 
 type CellComponentProps = {
@@ -15,6 +22,7 @@ type CellComponentProps = {
 export function CellComponent(props: CellComponentProps) {
     const board = useContext(BoardContext)
 
+    const [hint, setHint] = useState<boolean | undefined>()
     const [value, setValue] = useState<number | undefined>()
     const [selected, setSelected] = useState<boolean>(false)
     const [notes, setNotes] = useState<number[]>([])
@@ -26,11 +34,12 @@ export function CellComponent(props: CellComponentProps) {
     useNumberPressedListener((data: NumberPressedEventType) => {
         if (selected) {
             if (data.annotationMode === AnnotationMode.PEN) {
+                setHint(data.hint)
                 setValue(data.value)
                 emitCellValueSet({
                     value: data.value,
                     position: props.position,
-                    valueIsCorrect: props.cell.answer === data.value
+                    valueIsCorrect: props.cell.answer === data.value,
                 })
             } else if (data.annotationMode === AnnotationMode.PENCIL) {
                 if (notes.includes(data.value)) {
@@ -52,7 +61,9 @@ export function CellComponent(props: CellComponentProps) {
     })
     useCurrentValueErasedListener(() => {
         if (selected) {
-            setValue(undefined)
+            if (!hint) {
+                setValue(undefined)
+            }
             setNotes([])
         }
     })
@@ -62,7 +73,11 @@ export function CellComponent(props: CellComponentProps) {
             return <div className="sudoku-cell-answer">{props.cell.answer}</div>
         } else if (value) {
             if (value === props.cell.answer) {
-                return <div className="sudoku-cell-answer correct">{value}</div>
+                if (hint) {
+                    return <div className="sudoku-cell-answer hint">{value}</div>
+                } else {
+                    return <div className="sudoku-cell-answer correct">{value}</div>
+                }
             } else {
                 return <div className="sudoku-cell-answer wrong">{value}</div>
             }

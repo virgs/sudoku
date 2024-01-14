@@ -1,15 +1,12 @@
-#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    text-align: center;
-    background-color: var(--board-background-color);
-}
-
 #app {
-    width: var(--grid-container-size);
-    height: var(--grid-container-size);
+    width: calc(2 * var(--board-container-size));
+    height: var(--board-container-size);
 }
 
 #app:focus-visible {
     outline: none;
+}
+
+.container-fluid {
+    height: 100%;
 }

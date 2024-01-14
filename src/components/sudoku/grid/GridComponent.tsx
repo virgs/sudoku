@@ -1,11 +1,11 @@
 import { useContext } from 'react'
-import { BoardContext } from '../../App'
-import { Point } from '../../math/Point'
+import { BoardContext } from '../../../App'
+import { Point } from '../../../math/Point'
 import { GridCellComponent } from './GridCellComponent'
 import './GridComponent.css'
 
 export function GridComponent() {
-    const board = useContext(BoardContext);
+    const board = useContext(BoardContext)
 
     const createBlocks = () => {
         return (
@@ -38,11 +38,7 @@ export function GridComponent() {
                         }
                         const currentCell = board.grid.cells[position.y][position.x]
                         return (
-                            <GridCellComponent
-                                key={cellCol}
-                                cell={currentCell}
-                                position={position}
-                            ></GridCellComponent>
+                            <GridCellComponent key={cellCol} cell={currentCell} position={position}></GridCellComponent>
                         )
                     })}
                 </div>

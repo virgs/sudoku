@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react'
-import { BoardContext } from '../../App'
-import { CellType } from '../../engine/types/CellType'
-import { Point, pointsAreEqual } from '../../math/Point'
+import { BoardContext } from '../../../App'
+import { CellType } from '../../../engine/types/CellType'
+import { Point, pointsAreEqual } from '../../../math/Point'
 import './GridCellComponent.css'
-import { emitCellSelected, useCellSelectedListener } from '../../input/Events'
+import { emitCellSelected, useCellSelectedListener } from '../../../input/Events'
 
 type GridCellComponentProps = {
     position: Point
@@ -11,7 +11,7 @@ type GridCellComponentProps = {
 }
 
 export function GridCellComponent(props: GridCellComponentProps) {
-    const board = useContext(BoardContext);
+    const board = useContext(BoardContext)
     const defaultClass = 'grid-cell'
     const [selected, setSelected] = useState<boolean>(false)
     const [highlighted, setHighlighted] = useState<boolean>(false)
@@ -38,7 +38,10 @@ export function GridCellComponent(props: GridCellComponentProps) {
         }
     })
     return (
-        <div onPointerDown={() => emitCellSelected({ cell: props.cell, position: props.position })} className={classList}>
+        <div
+            onPointerDown={() => emitCellSelected({ cell: props.cell, position: props.position })}
+            className={classList}
+        >
             {board.renderCellComponent({
                 selected: selected,
                 cell: props.cell,

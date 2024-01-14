@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { CellType } from '../engine/types/CellType'
-import { AnnotationMode } from '../input/AnnotationMode'
-import { Point } from '../math/Point'
+import { CellType } from '../../engine/types/CellType'
+import { AnnotationMode } from '../../input/AnnotationMode'
+import { Point } from '../../math/Point'
 import './CellComponent.css'
-import { useNumberPressedListener, NumberPressedEventType, useCurrentValueErasedListener } from '../input/Events'
+import { useNumberPressedListener, NumberPressedEventType, useCurrentValueErasedListener } from '../../input/Events'
 
 type CellComponentProps = {
     cell: CellType
@@ -26,9 +26,9 @@ export function CellComponent(props: CellComponentProps) {
                 setValue(data.value)
             } else if (data.annotationMode === AnnotationMode.PENCIL) {
                 if (notes.includes(data.value)) {
-                    setNotes(notes.filter(item => item !== data.value))
+                    setNotes(notes.filter((item) => item !== data.value))
                 } else {
-                    setNotes(notes.concat(data.value))
+                    setNotes(notes.concat(data.value).sort())
                 }
             }
         }
@@ -57,9 +57,5 @@ export function CellComponent(props: CellComponentProps) {
             return <div className="sudoku-cell-notes">{formattedNotes}</div>
         }
     }
-    return (
-        <div className="sudoku-cell">
-            {divToShow()}
-        </div>
-    )
+    return <div className="sudoku-cell">{divToShow()}</div>
 }

@@ -1,6 +1,6 @@
-import { CageType } from '../../engine/killer/types/CageType'
-import { CellType } from '../../engine/types/CellType'
-import { Point, pointsAreEqual } from '../../math/Point'
+import { CageType } from '../../../engine/killer/types/CageType'
+import { CellType } from '../../../engine/types/CellType'
+import { Point, pointsAreEqual } from '../../../math/Point'
 import { CellComponent } from '../CellComponent'
 import './KillerCellComponent.css'
 

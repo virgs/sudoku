@@ -1,5 +1,5 @@
-import './BoardComponent.css';
-import { GridComponent } from './grid/GridComponent';
+import './BoardComponent.css'
+import { GridComponent } from './grid/GridComponent'
 
 export function BoardComponent() {
     return (

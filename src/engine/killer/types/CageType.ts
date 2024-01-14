@@ -1,4 +1,4 @@
-import { Point } from "../../../math/Point"
+import { Point } from '../../../math/Point'
 
 export type CageType = {
     label: number

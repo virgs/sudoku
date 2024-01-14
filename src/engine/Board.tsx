@@ -1,4 +1,4 @@
-import { CellComponent } from '../components/CellComponent'
+import { CellComponent } from '../components/sudoku/CellComponent'
 import { Point } from '../math/Point'
 import { CellType } from './types/CellType'
 import { GridType } from './types/GridType'
@@ -35,7 +35,7 @@ export class Board {
     }
 
     public isNumberAllowed(value: number): boolean {
-        return value >= 1 && value <= 9;
+        return value >= 1 && value <= 9
     }
 
     public renderCellComponent(props: CellComponentProps): JSX.Element {
@@ -43,17 +43,22 @@ export class Board {
     }
 
     public shouldHighlightCell(selectedPosition: Point, currentCellPosition: Point): boolean {
-        if (selectedPosition.x === currentCellPosition.x) { //same column
+        if (selectedPosition.x === currentCellPosition.x) {
+            //same column
             return true
         }
-        if (selectedPosition.y === currentCellPosition.y) { //same line
+        if (selectedPosition.y === currentCellPosition.y) {
+            //same line
             return true
         }
-        if (Math.floor(selectedPosition.x / this.numOfBlocks.x) === Math.floor(currentCellPosition.x / this.numOfBlocks.x) &&  //same nonet
-            Math.floor(selectedPosition.y / this.numOfBlocks.y) === Math.floor(currentCellPosition.y / this.numOfBlocks.y)) {
+        if (
+            Math.floor(selectedPosition.x / this.numOfBlocks.x) ===
+                Math.floor(currentCellPosition.x / this.numOfBlocks.x) && //same nonet
+            Math.floor(selectedPosition.y / this.numOfBlocks.y) ===
+                Math.floor(currentCellPosition.y / this.numOfBlocks.y)
+        ) {
             return true
         }
         return false
     }
-
 }

@@ -5,7 +5,7 @@
 --bs-warning: #ffc107;
 --bs-danger: #dc3545; */
 :root {
-    --grid-container-size: 500px;
+    --board-container-size: min(500px, 100dvmin);
     --board-background-color: color-mix(in srgb, var(--bs-primary-bg-subtle) 50%, transparent);
     user-select: none;
 
@@ -21,6 +21,11 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+    height: 100vh;
+    width: 100vw;
 }
 
 a {

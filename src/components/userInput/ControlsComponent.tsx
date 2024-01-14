@@ -27,12 +27,13 @@ export function ControlsComponent() {
         emitAnnotationModeChanged(annotationMode)
     }
 
-    return (<div id="user-input-component">
-        <div className="row justify-content-between">
+    return (<div id="controls-component">
+        <div className="row justify-content-between g-0">
             <div className="col-auto">
                 <button type="button" className="btn btn-sm btn-secondary action-button" onPointerDown={() => emitCurrentValueErased()}>
                     <FontAwesomeIcon className="font-awesome-icon" icon={faEraser} />
-                    Erase</button>
+                    <span className="d-none d-md-inline">Erase</span>
+                </button>
             </div>
             <div className="col" style={{ textAlign: 'center' }}>
                 <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -40,18 +41,21 @@ export function ControlsComponent() {
                         checked={annotationMode === AnnotationMode.PEN} onChange={() => onAnnotationModeButtonClick(AnnotationMode.PEN)} />
                     <label className="btn btn-sm btn-secondary action-button" htmlFor="pen-btn-radio">
                         <FontAwesomeIcon className="font-awesome-icon" icon={faPenClip} />
-                        Pen</label>
+                        <span className="d-none d-md-inline">Pen</span>
+                    </label>
                     <input type="radio" className="btn-check" name="btnradio" id="pencil-btn-radio" autoComplete="off"
                         checked={annotationMode === AnnotationMode.PENCIL} onChange={() => onAnnotationModeButtonClick(AnnotationMode.PENCIL)} />
                     <label className="btn btn-sm btn-secondary action-button" htmlFor="pencil-btn-radio">
                         <FontAwesomeIcon className="font-awesome-icon" icon={faPencil} />
-                        Pencil</label>
+                        <span className="d-none d-md-inline">Pencil</span>
+                    </label>
                 </div>
             </div>
             <div className="col-auto">
                 <button type="button" className="btn btn-sm btn-secondary action-button">
                     <FontAwesomeIcon className="font-awesome-icon" icon={faLightbulb} />
-                    Hint</button>
+                    <span className="d-none d-md-inline">Hint</span>
+                </button>
             </div>
         </div>
         <div className="my-3">

@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CellType } from '../../engine/types/CellType'
 import { AnnotationMode } from '../../input/AnnotationMode'
 import { Point } from '../../math/Point'
 import './CellComponent.css'
-import { useNumberPressedListener, NumberPressedEventType, useCurrentValueErasedListener, emitCellValueSet } from '../../input/Events'
+import { useNumberPressedListener, NumberPressedEventType, useCurrentValueErasedListener, emitCellValueSet, useCellValueSetListener, CellValueSetEventType } from '../../input/Events'
+import { BoardContext } from '../../App'
 
 type CellComponentProps = {
     cell: CellType
@@ -12,6 +13,8 @@ type CellComponentProps = {
 }
 
 export function CellComponent(props: CellComponentProps) {
+    const board = useContext(BoardContext)
+
     const [selected, setSelected] = useState<boolean>(props.selected)
     const [value, setValue] = useState<number | undefined>()
     const [notes, setNotes] = useState<number[]>([])
@@ -34,6 +37,15 @@ export function CellComponent(props: CellComponentProps) {
                     setNotes(notes.filter((item) => item !== data.value))
                 } else {
                     setNotes(notes.concat(data.value).sort())
+                }
+            }
+        }
+    })
+    useCellValueSetListener((payload: CellValueSetEventType) => {
+        if (payload.valueIsCorrect) {
+            if (board.cellsShareSameRegion(payload.position, props.position)) {
+                if (notes.includes(payload.value)) {
+                    setNotes(notes.filter((item) => item !== payload.value))
                 }
             }
         }

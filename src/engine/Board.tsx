@@ -42,7 +42,7 @@ export class Board {
         return <CellComponent position={props.position} selected={props.selected} cell={props.cell}></CellComponent>
     }
 
-    public shouldHighlightCell(selectedPosition: Point, currentCellPosition: Point): boolean {
+    public cellsShareSameRegion(selectedPosition: Point, currentCellPosition: Point): boolean {
         if (selectedPosition.x === currentCellPosition.x) {
             //same column
             return true
@@ -53,9 +53,9 @@ export class Board {
         }
         if (
             Math.floor(selectedPosition.x / this.numOfBlocks.x) ===
-                Math.floor(currentCellPosition.x / this.numOfBlocks.x) && //same nonet
+            Math.floor(currentCellPosition.x / this.numOfBlocks.x) && //same nonet
             Math.floor(selectedPosition.y / this.numOfBlocks.y) ===
-                Math.floor(currentCellPosition.y / this.numOfBlocks.y)
+            Math.floor(currentCellPosition.y / this.numOfBlocks.y)
         ) {
             return true
         }

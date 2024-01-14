@@ -33,7 +33,7 @@ export function GridCellComponent(props: GridCellComponentProps) {
         setHighlighted(false)
         if (pointsAreEqual(props.position, data.position)) {
             setSelected(true)
-        } else if (board.shouldHighlightCell(data.position, props.position)) {
+        } else if (board.cellsShareSameRegion(data.position, props.position)) {
             setHighlighted(true)
         }
     })

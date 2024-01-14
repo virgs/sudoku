@@ -45,12 +45,12 @@ function App() {
     return (
         <div id="app" className='p-2' ref={appRef} tabIndex={0} onKeyUp={(event) => handleKeyPress(event.code)}>
             <BoardContext.Provider value={board}>
-                <div className="container-fluid p-0">
+                <div className="container-lg p-0">
                     <div className="row justify-content-center g-3">
                         <div className="col-12 col-sm-6">
                             <BoardComponent />
                         </div>
-                        <div className="col-12 col-sm-5 col-lg-4 align-self-center mx-3">
+                        <div className="col-12 col-sm-5 col-lg-4 align-self-start mx-3">
                             <ControlsComponent></ControlsComponent>
                         </div>
                     </div>

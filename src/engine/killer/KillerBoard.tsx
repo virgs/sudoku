@@ -28,8 +28,8 @@ export class KillerBoard extends Board {
         )
     }
 
-    public shouldHighlightCell(selectedPosition: Point, currentCellPosition: Point): boolean {
-        if (super.shouldHighlightCell(selectedPosition, currentCellPosition)) {
+    public cellsShareSameRegion(selectedPosition: Point, currentCellPosition: Point): boolean {
+        if (super.cellsShareSameRegion(selectedPosition, currentCellPosition)) {
             return true
         }
         return (

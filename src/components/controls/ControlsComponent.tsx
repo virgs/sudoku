@@ -100,10 +100,10 @@ export function ControlsComponent() {
                 <div className="col-auto">
                     <button
                         type="button"
-                        className="btn btn-sm btn-outline-secondary action-button"
+                        className="btn btn-sm btn-secondary action-button"
                         onPointerDown={() => emitCurrentValueErased()}
                     >
-                        <FontAwesomeIcon color="var(--bs-primary)" className="font-awesome-icon" icon={faEraser} />
+                        <FontAwesomeIcon className="font-awesome-icon" icon={faEraser} />
                         <span className="d-none d-xl-inline">Delete</span>
                     </button>
                 </div>
@@ -118,7 +118,7 @@ export function ControlsComponent() {
                             checked={annotationMode === AnnotationMode.PEN}
                             onChange={() => onAnnotationModeButtonClick(AnnotationMode.PEN)}
                         />
-                        <label className="btn btn-sm btn-outline-secondary action-button" htmlFor="pen-btn-radio">
+                        <label className="btn btn-sm btn-secondary action-button" htmlFor="pen-btn-radio">
                             <FontAwesomeIcon
                                 color={annotationMode === AnnotationMode.PEN ? 'var(--bs-primary)' : undefined}
                                 className="font-awesome-icon"
@@ -135,7 +135,7 @@ export function ControlsComponent() {
                             checked={annotationMode === AnnotationMode.PENCIL}
                             onChange={() => onAnnotationModeButtonClick(AnnotationMode.PENCIL)}
                         />
-                        <label className="btn btn-sm btn-outline-secondary action-button" htmlFor="pencil-btn-radio">
+                        <label className="btn btn-sm btn-secondary action-button" htmlFor="pencil-btn-radio">
                             <FontAwesomeIcon
                                 color={annotationMode === AnnotationMode.PENCIL ? 'var(--bs-primary)' : undefined}
                                 className="font-awesome-icon"
@@ -148,14 +148,14 @@ export function ControlsComponent() {
                 <div className="col-auto">
                     <button
                         type="button"
-                        className="btn btn-sm btn-outline-secondary action-button"
+                        className="btn btn-sm btn-secondary action-button"
                         disabled={
                             !currentSelectedCellPosition ||
                             !availableHints.find((hint) => pointsAreEqual(hint.position, currentSelectedCellPosition!))
                         }
                         onPointerDown={onHintClick}
                     >
-                        <FontAwesomeIcon color="var(--bs-primary)" className="font-awesome-icon" icon={faLightbulb} />
+                        <FontAwesomeIcon className="font-awesome-icon" icon={faLightbulb} />
                         <span className="d-none me-1 d-xl-inline">Hint</span>
                         <span className="badge text-bg-success">{numberOfHintsGiven}</span>
                     </button>
@@ -171,14 +171,13 @@ export function ControlsComponent() {
                     onPointerDown={() => emitRestart()}
                 >
                     <FontAwesomeIcon
-                        color="var(--bs-primary)"
                         className="font-awesome-icon"
                         icon={faArrowRotateRight}
                     />
                     <span className="d-none me-1 d-xl-inline">Restart</span>
                 </button>
-                <button className="btn btn-sm btn-outline-primary action-button" type="button">
-                    <FontAwesomeIcon color="var(--bs-info)" className="font-awesome-icon" icon={faGear} />
+                <button className="btn btn-sm btn-primary action-button" type="button">
+                    <FontAwesomeIcon className="font-awesome-icon" icon={faGear} />
                     <span className="d-none me-1 d-xl-inline">Settings</span>
                 </button>
             </div>

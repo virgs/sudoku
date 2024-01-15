@@ -6,7 +6,7 @@ export function NumPadComponent(props: { onNumberPressed: (value: number) => voi
             <div key={value} className="col-auto col-sm-4" style={{ textAlign: 'center' }}>
                 <button
                     type="button"
-                    className="btn btn-outline-secondary pad-number"
+                    className="btn btn-secondary pad-number"
                     onPointerDown={() => props.onNumberPressed(value + 1)}
                 >
                     {value + 1}

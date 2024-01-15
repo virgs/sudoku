@@ -82,7 +82,6 @@ export function Header() {
             <div className="col-auto header-info">
                 <FontAwesomeIcon
                     className="font-awesome-icon"
-                    style={{ float: 'left' }}
                     icon={faHourglass}
                     color="var(--bs-primary)"
                 />

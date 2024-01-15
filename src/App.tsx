@@ -18,7 +18,7 @@ import {
 } from './input/Events'
 import { UserInput, isArowKey, mapInputToNumber, mapKeyToUserInput } from './input/UserInput'
 
-let board = await new ClassicBoardCreator().createBoard(GameLevel.EASY)
+let board = await new ClassicBoardCreator().createBoard(GameLevel.HARD)
 export let BoardContext = createContext(board)
 
 function App() {

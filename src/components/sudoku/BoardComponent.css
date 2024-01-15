@@ -1,6 +1,7 @@
 .board-component {
     width: 95dvmin;
     height: 95dvmin;
+    background-color: var(--board-background-color);
     max-width: min(var(--board-container-size), 100%);
     max-height: var(--board-container-size);
     display: flex;

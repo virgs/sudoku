@@ -47,9 +47,9 @@ export function Header() {
     return (
         <div className="row justify-content-between mb-3 ml-2">
             <div className="col-auto header-info">
-                <span>
+                <h6>
                     <strong className="mode-level">{`${GameMode[board.gameMode]}: ${GameLevel[board.gameLevel]}`}</strong>
-                </span>
+                </h6>
             </div>
             <div className="col-auto header-info">
                 <FontAwesomeIcon className="font-awesome-icon" icon={faXmark} color="var(--bs-danger)" />

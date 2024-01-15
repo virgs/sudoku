@@ -34,9 +34,27 @@ export class ClassicBoardCreator {
             grid: grid,
             gameLevel: level,
             gameMode: GameMode.CLASSIC,
-            numOfBlocks: { x: 3, y: 3 },
-            blocksDimension: { x: 3, y: 3 },
+            regions: this.createNonets(),
         })
+    }
+
+    protected createNonets() {
+        const regions: Point[][] = []
+        Array.from(Array(3).keys()).forEach((regionY) =>
+            Array.from(Array(3).keys()).forEach((regionX) => {
+                const currentRegion: Point[] = []
+                Array.from(Array(3).keys()).forEach((y) =>
+                    Array.from(Array(3).keys()).forEach((x) => {
+                        currentRegion.push({
+                            y: regionY * 3 + y,
+                            x: regionX * 3 + x,
+                        })
+                    })
+                )
+                regions.push(currentRegion)
+            })
+        )
+        return regions
     }
 
     protected getPointOutOfIndex(index: number): Point {

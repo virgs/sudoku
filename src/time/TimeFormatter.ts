@@ -1,5 +1,4 @@
 export class TimeFormatter {
-
     public formatDuration(ms: number) {
         const days = Math.floor(ms / 86400)
         const hours = Math.floor(ms / 3600) % 24

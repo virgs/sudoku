@@ -48,7 +48,11 @@ export function KillerCellComponent(props: KillerCellProps) {
         <>
             {hasLabel ? <small className="grid-cage-label">{props.cage.label}</small> : <></>}
             <div className={className} style={style}>
-                <CellContentComponent position={props.position} selected={props.selected} cell={props.cell}></CellContentComponent>
+                <CellContentComponent
+                    position={props.position}
+                    selected={props.selected}
+                    cell={props.cell}
+                ></CellContentComponent>
             </div>
         </>
     )

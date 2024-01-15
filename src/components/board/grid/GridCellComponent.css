@@ -2,14 +2,19 @@
     position: relative;
     width: 100%;
     padding: 2px;
-    border: 0.5px solid color-mix(in srgb, var(--bs-primary) 50%, transparent);
     cursor: pointer;
+    border: 1px solid var(--bs-primary);
+    box-shadow: 0px 0px 0px 0.5px color-mix(in srgb, var(--bs-primary) 50%, transparent) inset;
 }
 
 .grid-cell.selected {
+    background-color: color-mix(in srgb, var(--bs-info) 75%, transparent);
+}
+
+.grid-cell.same-value {
     background-color: color-mix(in srgb, var(--bs-info) 50%, transparent);
 }
 
 .grid-cell.highlighted {
-    background-color: color-mix(in srgb, var(--bs-info) 20%, transparent);
+    background-color: color-mix(in srgb, var(--bs-info) 25%, transparent);
 }

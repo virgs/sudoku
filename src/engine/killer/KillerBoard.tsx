@@ -10,13 +10,12 @@ export class KillerBoard extends Board {
         return this._grid as KillerGridType
     }
 
-    constructor(grid: KillerGridType, level: GameLevel) {
+    constructor(grid: KillerGridType, level: GameLevel, regions: Point[][]) {
         super({
             grid,
             gameMode: GameMode.KILLER,
             gameLevel: level,
-            numOfBlocks: { x: 3, y: 3 },
-            blocksDimension: { x: 3, y: 3 },
+            regions: regions,
         })
     }
 

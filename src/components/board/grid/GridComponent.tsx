@@ -1,23 +1,25 @@
 import { useContext } from 'react'
 import { BoardContext } from '../../../App'
-import { Point } from '../../../math/Point'
+import { CellType } from '../../../engine/types/CellType'
 import { GridCellComponent } from './GridCellComponent'
 import './GridComponent.css'
 
 export function GridComponent() {
     const board = useContext(BoardContext)
 
-    const createBlocks = () => {
+    const createGrid = () => {
         return (
             <div className="grid-component">
-                {Array.from(Array(board.numOfBlocks.y)).map((_, blockLine) => {
+                {board.grid.cells.map((cellsLine, y) => {
                     return (
-                        <div key={blockLine} className="grid-line mx-auto">
-                            {Array.from(Array(board.numOfBlocks.x)).map((_, blockColumn) => {
+                        <div key={y} className="grid-line" style={{ height: `calc(100% / ${board.grid.dimension.y})` }}>
+                            {cellsLine.map((cell: CellType, x: number) => {
                                 return (
-                                    <div key={blockColumn} className="grid-block">
-                                        {createBlock({ y: blockLine, x: blockColumn })}
-                                    </div>
+                                    <GridCellComponent
+                                        key={`${y},${x}`}
+                                        cell={cell}
+                                        position={{ y, x }}
+                                    ></GridCellComponent>
                                 )
                             })}
                         </div>
@@ -27,24 +29,5 @@ export function GridComponent() {
         )
     }
 
-    const createBlock = (block: Point) => {
-        return Array.from(Array(board.blocksDimension.y)).map((_, cellLine) => {
-            return (
-                <div key={cellLine} className="grid-block-line mx-auto">
-                    {Array.from(Array(board.blocksDimension.x)).map((_, cellCol) => {
-                        const position: Point = {
-                            y: block.y * board.numOfBlocks.y + cellLine,
-                            x: block.x * board.numOfBlocks.x + cellCol,
-                        }
-                        const currentCell = board.grid.cells[position.y][position.x]
-                        return (
-                            <GridCellComponent key={cellCol} cell={currentCell} position={position}></GridCellComponent>
-                        )
-                    })}
-                </div>
-            )
-        })
-    }
-
-    return createBlocks()
+    return createGrid()
 }

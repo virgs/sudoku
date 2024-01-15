@@ -1,12 +1,12 @@
-import { GameFinishedEventType } from "./Events";
-import { GameLevel } from "./engine/types/GameLevel";
-import { GameMode } from "./engine/types/GameMode";
+import { GameFinishedEventType } from './Events'
+import { GameLevel } from './engine/types/GameLevel'
+import { GameMode } from './engine/types/GameMode'
 
 export type Stats = {
     hints: number
     mistakes: number
-    totalTime: number,
-    mode: string,
+    totalTime: number
+    mode: string
     level: string
 }
 
@@ -22,14 +22,14 @@ export class Database {
             mistakes: stats.mistakes,
             totalTime: stats.elapsedSeconds,
             mode: gameMode,
-            level: gameLevel
+            level: gameLevel,
         })
         console.log(currentStats)
         localStorage.setItem(Database.STATS_KEY, JSON.stringify(currentStats))
     }
 
     public static loadGameFinishedStats(): Stats[] {
-        const persistedStatsStringfied = localStorage.getItem(Database.STATS_KEY);
+        const persistedStatsStringfied = localStorage.getItem(Database.STATS_KEY)
         if (persistedStatsStringfied) {
             return JSON.parse(persistedStatsStringfied)
         }

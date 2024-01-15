@@ -46,7 +46,8 @@ export class KillerBoardCreator extends ClassicBoardCreator {
                 cells: grid.cells,
                 cages: cages,
             },
-            level
+            level,
+            this.createNonets()
         )
     }
 }

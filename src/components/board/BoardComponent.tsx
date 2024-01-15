@@ -27,8 +27,11 @@ export function BoardComponent() {
 
     useCellValueSetListener((data: CellValueSetEventType) => {
         if (data.valueIsCorrect) {
-            const nextNotAnsweredCells = notAnsweredCells.filter((cellPosition) => !pointsAreEqual(cellPosition, data.position))
-            if (nextNotAnsweredCells.length <= 80) { //TODO set it to zero once the GameVictoryModal is done
+            const nextNotAnsweredCells = notAnsweredCells.filter(
+                (cellPosition) => !pointsAreEqual(cellPosition, data.position)
+            )
+            if (nextNotAnsweredCells.length <= 80) {
+                //TODO set it to zero once the GameVictoryModal is done
                 emitAllCellsRevealed()
             }
             setNotAnsweredCells(nextNotAnsweredCells)

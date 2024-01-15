@@ -1,4 +1,4 @@
-import { faHourglass, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faStopwatch, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import { BoardContext } from '../../App'
@@ -7,13 +7,13 @@ import {
     emitTimeElapsed,
     useCellValueSetListener,
     useGameFinishedListener,
-    useRestartListener
+    useRestartListener,
 } from '../../Events'
 import { GameLevel } from '../../engine/types/GameLevel'
 import { GameMode } from '../../engine/types/GameMode'
 import { useInterval } from '../../hooks/UseInterval'
-import './Header.css'
 import { TimeFormatter } from '../../time/TimeFormatter'
+import './Header.css'
 
 const ONE_SECOND = 1000
 
@@ -34,12 +34,15 @@ export function Header() {
         setTimerEnabled(false)
     })
 
-    useInterval(() => {
-        setElapsedSeconds((x) => x + 1)
-        emitTimeElapsed({
-            elapsedSeconds: elapsedSeconds + 1,
-        })
-    }, timerEnabled ? ONE_SECOND : undefined)
+    useInterval(
+        () => {
+            setElapsedSeconds((x) => x + 1)
+            emitTimeElapsed({
+                elapsedSeconds: elapsedSeconds + 1,
+            })
+        },
+        timerEnabled ? ONE_SECOND : undefined
+    )
 
     useRestartListener(() => {
         setElapsedSeconds(0)
@@ -60,12 +63,8 @@ export function Header() {
                 </span>
             </div>
             <div className="col-auto header-info">
-                <FontAwesomeIcon
-                    className="font-awesome-icon"
-                    icon={faHourglass}
-                    color="var(--bs-primary)"
-                />
-                <span>
+                <FontAwesomeIcon className="font-awesome-icon" icon={faStopwatch} color="var(--bs-primary)" />
+                <span style={{ width: '3rem', display: 'inline-block' }}>
                     <strong>{new TimeFormatter().formatDuration(elapsedSeconds)}</strong>
                 </span>
             </div>

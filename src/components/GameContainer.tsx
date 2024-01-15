@@ -1,12 +1,21 @@
 import { useContext, useState } from 'react'
-import { CellValueSetEventType, GameFinishedEventType, emitGameFinished, useAllCellsRevealedListener, useCellValueSetListener, useGameFinishedListener, useNumberPressedListener, useTimeElapsedListener } from '../Events'
+import { BoardContext } from '../App'
+import { Database } from '../Database'
+import {
+    CellValueSetEventType,
+    GameFinishedEventType,
+    emitGameFinished,
+    useAllCellsRevealedListener,
+    useCellValueSetListener,
+    useNumberPressedListener,
+    useOpenSettingsDialogListener,
+    useTimeElapsedListener,
+} from '../Events'
 import './GameContainer.css'
 import { GameVictoryModalComponent } from './GameVictoryModalComponent'
 import { BoardComponent } from './board/BoardComponent'
 import { ControlsComponent } from './controls/ControlsComponent'
 import { Header } from './controls/Header'
-import { Database } from '../Database'
-import { BoardContext } from '../App'
 
 export function GameContainer() {
     const board = useContext(BoardContext)
@@ -28,7 +37,7 @@ export function GameContainer() {
         }
     })
 
-    useTimeElapsedListener(payload => {
+    useTimeElapsedListener((payload) => {
         setElapsedSeconds(payload.elapsedSeconds)
     })
 
@@ -37,11 +46,15 @@ export function GameContainer() {
             hints: hintsCounter,
             mistakes: mistakesCounter,
             elapsedSeconds: elapsedSeconds,
-            board: board
+            board: board,
         }
         Database.saveGameFinishedStats(finishedGameData)
         emitGameFinished(finishedGameData)
         setGameVictoryData(finishedGameData)
+    })
+
+    useOpenSettingsDialogListener(() => {
+        console.log('open settings now')
     })
 
     return (

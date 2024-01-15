@@ -1,9 +1,7 @@
 import {
     faArrowRotateRight,
-    faBars,
     faEllipsisVertical,
     faEraser,
-    faGear,
     faLightbulb,
     faPenClip,
     faPencil,
@@ -11,19 +9,20 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../App'
-import { Board } from '../../engine/Board'
-import { AnnotationMode } from '../../input/AnnotationMode'
 import {
     CellValueSetEventType,
     emitAnnotationModeChanged,
     emitCurrentValueErased,
     emitNumberPressed,
+    emitOpenSettingsDialog,
     emitRestart,
     useAnnotationModeChangedListener,
     useCellSelectedListener,
     useCellValueSetListener,
     useRestartListener,
 } from '../../Events'
+import { Board } from '../../engine/Board'
+import { AnnotationMode } from '../../input/AnnotationMode'
 import { Point, pointsAreEqual } from '../../math/Point'
 import './ControlsComponent.css'
 import { NumPadComponent } from './NumPadComponent'
@@ -172,13 +171,14 @@ export function ControlsComponent() {
                     type="button"
                     onPointerDown={() => emitRestart()}
                 >
-                    <FontAwesomeIcon
-                        className="font-awesome-icon"
-                        icon={faArrowRotateRight}
-                    />
+                    <FontAwesomeIcon className="font-awesome-icon" icon={faArrowRotateRight} />
                     <span className="d-none me-1 d-xl-inline">Restart</span>
                 </button>
-                <button className="btn btn-sm btn-primary action-button" type="button">
+                <button
+                    className="btn btn-sm btn-secondary action-button"
+                    type="button"
+                    onPointerDown={() => emitOpenSettingsDialog()}
+                >
                     <FontAwesomeIcon className="font-awesome-icon" icon={faEllipsisVertical} />
                     <span className="d-none me-1 d-xl-inline">More</span>
                 </button>

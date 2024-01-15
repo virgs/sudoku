@@ -1,11 +1,11 @@
 import { createContext, useState } from 'react'
 import './App.css'
 import { KeyHandler } from './KeyHandler'
-import { ClassicBoardCreator } from './engine/ClassicBoardCreator'
+import { KillerBoardCreator } from './engine/killer/KillerBoardCreator'
 import { GameLevel } from './engine/types/GameLevel'
 import { useRestartListener } from './input/Events'
 
-let board = await new ClassicBoardCreator().createBoard(GameLevel.EASY)
+let board = await new KillerBoardCreator().createBoard(GameLevel.EASY)
 export let BoardContext = createContext(board)
 
 function App() {

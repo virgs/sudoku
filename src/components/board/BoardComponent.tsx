@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { BoardContext } from '../../App'
 import { Board } from '../../engine/Board'
-import { CellValueSetEventType, useCellValueSetListener } from '../../input/Events'
+import { CellValueSetEventType, emitAllCellsRevealed, useCellValueSetListener } from '../../input/Events'
 import { Point, pointsAreEqual } from '../../math/Point'
 import './BoardComponent.css'
 import { GridComponent } from './grid/GridComponent'
@@ -28,9 +28,8 @@ export function BoardComponent() {
     useCellValueSetListener((data: CellValueSetEventType) => {
         if (data.valueIsCorrect) {
             const removed = notAnsweredCells.filter((cellPosition) => !pointsAreEqual(cellPosition, data.position))
-            if (removed.length === 0) {
-                //Game won
-                console.log('game won')
+            if (removed.length <= 0) {
+                emitAllCellsRevealed()
             }
             setNotAnsweredCells(removed)
         }

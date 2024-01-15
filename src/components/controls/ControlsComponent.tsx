@@ -164,7 +164,7 @@ export function ControlsComponent() {
             <div className="my-3">
                 <NumPadComponent onNumberPressed={onNumberPressed} />
             </div>
-            <div className="d-grid gap-2 d-md-flex mx-2 justify-content-between ">
+            <div className="d-flex gap-2 mx-2 justify-content-between ">
                 <button
                     className="btn btn-sm btn-warning action-button me-md-2"
                     type="button"

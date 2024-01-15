@@ -5,7 +5,14 @@ import { BoardContext } from '../../App'
 import { GameLevel } from '../../engine/types/GameLevel'
 import { GameMode } from '../../engine/types/GameMode'
 import { useInterval } from '../../hooks/UseInterval'
-import { CellValueSetEventType, useCellValueSetListener, useRestartListener } from '../../input/Events'
+import {
+    CellValueSetEventType,
+    emitGameFinished,
+    useAllCellsRevealedListener,
+    useCellValueSetListener,
+    useNumberPressedListener,
+    useRestartListener,
+} from '../../input/Events'
 import './Header.css'
 
 const formatDuration = (ms: number) => {
@@ -26,12 +33,27 @@ const formatDuration = (ms: number) => {
 export function Header() {
     const board = useContext(BoardContext)
 
+    const [hintsCounter, setHintsCounter] = useState<number>(0)
     const [mistakesCounter, setMistakesCounter] = useState<number>(0)
     const [elapsedSeconds, setElapsedSeconds] = useState<number>(0)
 
     useCellValueSetListener((data: CellValueSetEventType) => {
         if (!data.valueIsCorrect) {
             setMistakesCounter(mistakesCounter + 1)
+        }
+    })
+
+    useAllCellsRevealedListener(() => {
+        emitGameFinished({
+            hints: hintsCounter,
+            mistakes: mistakesCounter,
+            elapsedSeconds: elapsedSeconds,
+        })
+    })
+
+    useNumberPressedListener((payload) => {
+        if (payload.hint) {
+            setHintsCounter(hintsCounter + 1)
         }
     })
 

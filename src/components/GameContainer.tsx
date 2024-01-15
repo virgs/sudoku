@@ -2,8 +2,16 @@ import { ControlsComponent } from './controls/ControlsComponent'
 import { Header } from './controls/Header'
 import { BoardComponent } from './board/BoardComponent'
 import './GameContainer.css'
+import { GameFinishedEventType, useGameFinishedListener } from '../input/Events'
+import { GameVictoryModalComponent } from './GameVictoryModalComponent'
+import { useState } from 'react'
 
 export function GameContainer() {
+    const [gameVictoryData, setGameVictoryData] = useState<GameFinishedEventType | undefined>()
+    useGameFinishedListener((payload) => {
+        setGameVictoryData(payload)
+    })
+
     return (
         <div className="container-lg p-0">
             <div className="row justify-content-center gy-3">
@@ -20,6 +28,7 @@ export function GameContainer() {
                     <ControlsComponent></ControlsComponent>
                 </div>
             </div>
+            <GameVictoryModalComponent data={gameVictoryData}></GameVictoryModalComponent>
         </div>
     )
 }

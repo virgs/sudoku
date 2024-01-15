@@ -5,7 +5,14 @@ import { AnnotationMode } from './AnnotationMode'
 export type NumberPressedEventType = { value: number; annotationMode: AnnotationMode; hint?: boolean }
 export type CellValueSetEventType = { value: number; position: Point; valueIsCorrect: boolean }
 export type CellSelectedEventType = { value?: number; position: Point }
+export type GameFinishedEventType = {
+    hints: number
+    mistakes: number
+    elapsedSeconds: number
+}
 
+export const { useGameFinishedListener, emitGameFinished } = createEvent('game-finished')<GameFinishedEventType>()
+export const { useAllCellsRevealedListener, emitAllCellsRevealed } = createEvent('all-cells-revealed')<void>()
 export const { useRestartListener, emitRestart } = createEvent('restart')<void>()
 export const { useCellValueSetListener, emitCellValueSet } = createEvent('cell-value-set')<CellValueSetEventType>()
 export const { useCurrentValueErasedListener, emitCurrentValueErased } = createEvent('current-value-erased')<void>()

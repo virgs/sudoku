@@ -87,8 +87,13 @@ function App() {
     }
 
     return (
-        <div key={gameId} id="app" className="p-2" ref={appRef} tabIndex={0}
-            onKeyDown={event => {
+        <div
+            key={gameId}
+            id="app"
+            className="p-2"
+            ref={appRef}
+            tabIndex={0}
+            onKeyDown={(event) => {
                 if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
                     if (mapKeyToUserInput(event.code)) {
                         event.preventDefault()
@@ -98,7 +103,8 @@ function App() {
             onKeyUp={(event) => {
                 event.preventDefault()
                 return handleKeyPress(event.code)
-            }}>
+            }}
+        >
             <BoardContext.Provider value={board}>
                 <div className="container-lg p-0">
                     <div className="row justify-content-center gy-3">

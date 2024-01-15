@@ -15,19 +15,23 @@ type BoardProps = {
     grid: GridType
     gameMode: GameMode
     gameLevel: GameLevel
+    blocksDimension: Point
+    numOfBlocks: Point
 }
 
 export class Board {
     private readonly _gameMode: GameMode
     private readonly _gameLevel: GameLevel
     protected readonly _grid: GridType
-    private readonly _blocksDimension: Point = { x: 3, y: 3 }
-    private readonly _numOfBlocks: Point = { x: 3, y: 3 }
+    private readonly _blocksDimension: Point
+    private readonly _numOfBlocks: Point
 
     constructor(props: BoardProps) {
         this._grid = props.grid
         this._gameMode = props.gameMode
         this._gameLevel = props.gameLevel
+        this._blocksDimension = props.blocksDimension
+        this._numOfBlocks = props.numOfBlocks
     }
 
     public get grid(): GridType {
@@ -63,6 +67,15 @@ export class Board {
         return <CellComponent position={props.position} selected={props.selected} cell={props.cell}></CellComponent>
     }
 
+    public isPositionInbound(position: Point): boolean {
+        return (
+            position.x >= 0 &&
+            position.x < this.numOfBlocks.x * this.blocksDimension.x &&
+            position.y >= 0 &&
+            position.y < this.numOfBlocks.y * this.blocksDimension.y
+        )
+    }
+
     public cellsShareSameRegion(selectedPosition: Point, currentCellPosition: Point): boolean {
         if (selectedPosition.x === currentCellPosition.x) {
             //same column
@@ -74,9 +87,9 @@ export class Board {
         }
         if (
             Math.floor(selectedPosition.x / this.numOfBlocks.x) ===
-            Math.floor(currentCellPosition.x / this.numOfBlocks.x) && //same nonet
+                Math.floor(currentCellPosition.x / this.numOfBlocks.x) && //same nonet
             Math.floor(selectedPosition.y / this.numOfBlocks.y) ===
-            Math.floor(currentCellPosition.y / this.numOfBlocks.y)
+                Math.floor(currentCellPosition.y / this.numOfBlocks.y)
         ) {
             return true
         }

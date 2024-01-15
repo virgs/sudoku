@@ -1,14 +1,12 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { CellValueSetEventType, useCellValueSetListener, useRestartListener } from '../../input/Events'
-import './Header.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHourglass, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useContext, useState } from 'react'
 import { BoardContext } from '../../App'
 import { GameLevel } from '../../engine/types/GameLevel'
 import { GameMode } from '../../engine/types/GameMode'
 import { useInterval } from '../../hooks/UseInterval'
-import { KillerBoardCreator } from '../../engine/killer/KillerBoardCreator'
-import { fileContent } from '../../engine/killer/SudokuKillerFile'
+import { CellValueSetEventType, useCellValueSetListener, useRestartListener } from '../../input/Events'
+import './Header.css'
 
 const formatDuration = (ms: number) => {
     const days = Math.floor(ms / 86400)
@@ -50,7 +48,7 @@ export function Header() {
         <div className="row justify-content-between mb-3 ml-2">
             <div className="col-auto header-info">
                 <span>
-                    <strong className='mode-level'>{`${GameMode[board.gameMode]}: ${GameLevel[board.gameLevel]}`}</strong>
+                    <strong className="mode-level">{`${GameMode[board.gameMode]}: ${GameLevel[board.gameLevel]}`}</strong>
                 </span>
             </div>
             <div className="col-auto header-info">
@@ -60,7 +58,12 @@ export function Header() {
                 </span>
             </div>
             <div className="col-auto header-info">
-                <FontAwesomeIcon className="font-awesome-icon" style={{ float: 'left' }} icon={faHourglass} color="var(--bs-primary)" />
+                <FontAwesomeIcon
+                    className="font-awesome-icon"
+                    style={{ float: 'left' }}
+                    icon={faHourglass}
+                    color="var(--bs-primary)"
+                />
                 <span>
                     <strong>{formatDuration(elapsedSeconds)}</strong>
                 </span>

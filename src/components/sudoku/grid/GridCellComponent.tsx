@@ -1,7 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../../App'
 import { CellType } from '../../../engine/types/CellType'
-import { CellSelectedEventType, CellValueSetEventType, emitCellSelected, useCellSelectedListener, useCellValueSetListener, useCurrentValueErasedListener } from '../../../input/Events'
+import {
+    CellSelectedEventType,
+    CellValueSetEventType,
+    emitCellSelected,
+    useCellSelectedListener,
+    useCellValueSetListener,
+    useCurrentValueErasedListener,
+} from '../../../input/Events'
 import { Point, pointsAreEqual } from '../../../math/Point'
 import './GridCellComponent.css'
 
@@ -55,7 +62,9 @@ export function GridCellComponent(props: GridCellComponentProps) {
     })
     return (
         <div
-            onPointerDown={() => emitCellSelected({ position: props.position, value: revealed ? props.cell.answer : undefined })}
+            onPointerDown={() =>
+                emitCellSelected({ position: props.position, value: revealed ? props.cell.answer : undefined })
+            }
             className={classList}
         >
             {board.renderCellComponent({

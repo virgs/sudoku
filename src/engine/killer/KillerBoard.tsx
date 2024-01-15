@@ -11,7 +11,13 @@ export class KillerBoard extends Board {
     }
 
     constructor(grid: KillerGridType, level: GameLevel) {
-        super({ grid, gameMode: GameMode.KILLER, gameLevel: level })
+        super({
+            grid,
+            gameMode: GameMode.KILLER,
+            gameLevel: level,
+            numOfBlocks: { x: 3, y: 3 },
+            blocksDimension: { x: 3, y: 3 },
+        })
     }
 
     public printCages() {
@@ -41,15 +47,6 @@ export class KillerBoard extends Board {
                     cage.cells.some((cell) => pointsAreEqual(cell, currentCellPosition))
                 )
             }) !== undefined
-        )
-    }
-
-    public isPositionInbound(position: Point): boolean {
-        return (
-            position.x >= 0 &&
-            position.x < this.numOfBlocks.x * this.blocksDimension.x &&
-            position.y >= 0 &&
-            position.y < this.numOfBlocks.y * this.blocksDimension.y
         )
     }
 }

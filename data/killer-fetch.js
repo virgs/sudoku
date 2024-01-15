@@ -1,8 +1,14 @@
 import fs from 'fs';
 
+// process.argv.filter((_, i) => i > 1)
+//   .forEach(filename => {
+//     const json = JSON.parse(fs.readFileSync(filename).toString())
+//     // console.log(json.id)
+//     fs.writeFileSync(`killer/expert/${json.id}.json`, JSON.stringify(json, null, 2))
+//   })
+
 //origin: https://sudoku.com/killer/expert/
-const level = 'hard'
-const mode = 'killer'
+const level = 'expert'
 var options = {
   'method': 'GET',
   // 'hostname': 'sudoku.com',
@@ -21,54 +27,14 @@ var options = {
   'maxRedirects': 20
 };
 
-let remainingDownloads = 50
+let remainingDownloads = 1
 const save = async () => {
-  const response = await fetch(`http://sudoku.com/api/level/${level}?mode=${mode}`, options)
+  const response = await fetch(`http://sudoku.com/api/level/${level}?mode=killer`, options)
   const json = await response.json()
-  fs.writeFileSync(`${level}/${json.id}-${Date.now()}.json`, JSON.stringify(json, null, 2))
+  fs.writeFileSync(`killer/${level}/${json.id}.json`, JSON.stringify(json, null, 2))
   if (--remainingDownloads > 0) {
     setTimeout(save, 500)
   }
 }
 
-setTimeout(save, 500)
-// fetch('http://sudoku.com/api/level/expert?mode=killer', options)
-
-//classic: 
-/*
-{
-id: 334,
-mission: '030501906047900020690042503060009034020000810073100692400026300010095200052000000',
-solution: '238571946547963128691842573165289734924637815873154692489726351316495287752318469',
-win_rate: 76.61
-}
-*/
-
-/*
-killer:
-{
-  id: 386,
-  mission: '000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  solution: '568913247342687195197254863685479312734162958219538674926345781851726439473891526',
-  win_rate: 69.15,
-  cages: [
-    [ 0, 1 ],       [ 9, 10, 11, 19, 20 ],
-    [ 18, 27 ],     [ 36, 45, 46 ],
-    [ 54, 55 ],     [ 63, 72 ],
-    [ 28, 37 ],     [ 64, 73 ],
-    [ 29, 38 ],     [ 65, 74, 75 ],
-    [ 2, 3 ],       [ 12, 13, 14 ],
-    [ 30, 31 ],     [ 39, 40 ],
-    [ 47, 56, 57 ], [ 4, 5 ],
-    [ 21, 22 ],     [ 48, 49, 50 ],
-    [ 58, 66, 67 ], [ 76, 77 ],
-    [ 23, 32 ],     [ 41, 42, 51, 60 ],
-    [ 59, 68 ],     [ 6, 15 ],
-    [ 24, 33 ],     [ 69, 70 ],
-    [ 34, 35, 44 ], [ 43 ],
-    [ 52, 61 ],     [ 78, 79, 80 ],
-    [ 7, 8 ],       [ 16, 17 ],
-    [ 25, 26 ],     [ 53, 62, 71 ]
-  ]
-}
-*/
+setTimeout(save, 0)

@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from 'react'
-import { CellValueSetEventType, useCellValueSetListener } from '../../input/Events'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { CellValueSetEventType, useCellValueSetListener, useRestartListener } from '../../input/Events'
 import './Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHourglass, faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -7,6 +7,8 @@ import { BoardContext } from '../../App'
 import { GameLevel } from '../../engine/types/GameLevel'
 import { GameMode } from '../../engine/types/GameMode'
 import { useInterval } from '../../hooks/UseInterval'
+import { KillerBoardCreator } from '../../engine/killer/KillerBoardCreator'
+import { fileContent } from '../../engine/killer/SudokuKillerFile'
 
 const formatDuration = (ms: number) => {
     const days = Math.floor(ms / 86400)
@@ -39,6 +41,11 @@ export function Header() {
         setElapsedSeconds((x) => x + 1)
     }, 1000)
 
+    useRestartListener(() => {
+        setElapsedSeconds(0)
+        setMistakesCounter(0)
+    })
+
     return (
         <div className="row justify-content-between mb-3 ml-2">
             <div className="col-auto header-info">
@@ -52,7 +59,7 @@ export function Header() {
                     <strong>{mistakesCounter}</strong>
                 </span>
             </div>
-            <div className="col-4 header-info">
+            <div className="col-auto header-info">
                 <FontAwesomeIcon className="font-awesome-icon" style={{ float: 'left' }} icon={faHourglass} color="var(--bs-primary)" />
                 <span>
                     <strong>{formatDuration(elapsedSeconds)}</strong>

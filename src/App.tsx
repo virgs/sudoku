@@ -14,13 +14,15 @@ import {
     emitNumberPressed,
     useAnnotationModeChangedListener,
     useCellSelectedListener,
+    useRestartListener,
 } from './input/Events'
 import { UserInput, isArowKey, mapInputToNumber, mapKeyToUserInput } from './input/UserInput'
 
-const board = new KillerBoardCreator().createBoardFromText(fileContent)
-export const BoardContext = createContext(board)
+let board = new KillerBoardCreator().createBoardFromText(fileContent)
+export let BoardContext = createContext(board)
 
 function App() {
+    const [boardId, setBoardId] = useState<number>(0)
     const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PEN)
     const [currentSelectedCell, setCurrentSelectedCell] = useState<CellSelectedEventType | undefined>()
 
@@ -28,6 +30,12 @@ function App() {
     useEffect(() => {
         //@ts-ignore
         appRef.current?.focus()
+    })
+
+    useRestartListener(() => {
+        setBoardId(boardId + 1)
+        let board = new KillerBoardCreator().createBoardFromText(fileContent)
+        BoardContext = createContext(board)
     })
 
     useCellSelectedListener((payload) => setCurrentSelectedCell(payload))
@@ -78,7 +86,7 @@ function App() {
     }
 
     return (
-        <div id="app" className="p-2" ref={appRef} tabIndex={0}
+        <div key={boardId} id="app" className="p-2" ref={appRef} tabIndex={0}
             onKeyDown={event => {
                 if (mapKeyToUserInput(event.code)) {
                     event.preventDefault()

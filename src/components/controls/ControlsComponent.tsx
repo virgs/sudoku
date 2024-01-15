@@ -9,9 +9,11 @@ import {
     emitAnnotationModeChanged,
     emitCurrentValueErased,
     emitNumberPressed,
+    emitRestart,
     useAnnotationModeChangedListener,
     useCellSelectedListener,
     useCellValueSetListener,
+    useRestartListener,
 } from '../../input/Events'
 import { Point, pointsAreEqual } from '../../math/Point'
 import './ControlsComponent.css'
@@ -66,6 +68,10 @@ export function ControlsComponent() {
     }, [])
 
     useAnnotationModeChangedListener((annotationMode) => setAnnotationMode(annotationMode))
+
+    useRestartListener(() => {
+        setNumberOfHintsGiven(0)
+    })
 
     const onAnnotationModeButtonClick = (annotationMode: AnnotationMode) => {
         setAnnotationMode(annotationMode)
@@ -144,7 +150,8 @@ export function ControlsComponent() {
                 <NumPadComponent onNumberPressed={onNumberPressed} />
             </div>
             <div className="d-grid gap-2 d-md-flex mx-2 justify-content-between ">
-                <button className="btn btn-sm btn-warning action-button me-md-2" type="button">
+                <button className="btn btn-sm btn-warning action-button me-md-2" type="button"
+                    onPointerDown={() => emitRestart()}>
                     <FontAwesomeIcon color='var(--bs-primary)' className="font-awesome-icon" icon={faArrowRotateRight} />
                     <span className="d-none me-1 d-xl-inline">Restart</span>
                 </button>

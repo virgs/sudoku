@@ -1,5 +1,7 @@
 import {
     faArrowRotateRight,
+    faBars,
+    faEllipsisVertical,
     faEraser,
     faGear,
     faLightbulb,
@@ -177,8 +179,8 @@ export function ControlsComponent() {
                     <span className="d-none me-1 d-xl-inline">Restart</span>
                 </button>
                 <button className="btn btn-sm btn-primary action-button" type="button">
-                    <FontAwesomeIcon className="font-awesome-icon" icon={faGear} />
-                    <span className="d-none me-1 d-xl-inline">Settings</span>
+                    <FontAwesomeIcon className="font-awesome-icon" icon={faEllipsisVertical} />
+                    <span className="d-none me-1 d-xl-inline">More</span>
                 </button>
             </div>
         </div>

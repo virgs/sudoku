@@ -12,10 +12,6 @@ export type Stats = {
 
 export class Database {
     private static readonly STATS_KEY = 'stats'
-    //localStorage.setItem("myCat", "Tom");
-    //const cat = localStorage.getItem("myCat");
-    // localStorage.removeItem("myCat");
-    //localStorage.clear();
 
     public static saveGameFinishedStats(stats: GameFinishedEventType): void {
         const gameMode: string = GameMode[stats.board.gameMode].toLowerCase()

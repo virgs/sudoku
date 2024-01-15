@@ -1,4 +1,4 @@
 export enum GameMode {
-    CLASSIC,
-    KILLER,
+    CLASSIC = 'CLASSIC',
+    KILLER = 'KILLER',
 }

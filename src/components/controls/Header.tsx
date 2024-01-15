@@ -13,21 +13,7 @@ import { GameLevel } from '../../engine/types/GameLevel'
 import { GameMode } from '../../engine/types/GameMode'
 import { useInterval } from '../../hooks/UseInterval'
 import './Header.css'
-
-const formatDuration = (ms: number) => {
-    const days = Math.floor(ms / 86400)
-    const hours = Math.floor(ms / 3600) % 24
-    const minutes = (Math.floor(ms / 60) % 60).toString().padStart(2, '0')
-    const seconds = (ms % 60).toString().padStart(2, '0')
-
-    let timer = `${minutes}:${seconds}`
-    if (days > 0) {
-        timer = `${days}d, ${hours} h, ` + timer
-    } else if (hours > 0) {
-        timer = `${hours}h, ` + timer
-    }
-    return timer
-}
+import { TimeFormatter } from '../../time/TimeFormatter'
 
 const ONE_SECOND = 1000
 
@@ -80,7 +66,7 @@ export function Header() {
                     color="var(--bs-primary)"
                 />
                 <span>
-                    <strong>{formatDuration(elapsedSeconds)}</strong>
+                    <strong>{new TimeFormatter().formatDuration(elapsedSeconds)}</strong>
                 </span>
             </div>
         </div>

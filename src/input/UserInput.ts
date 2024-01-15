@@ -58,9 +58,5 @@ const userInputs = Object.values(UserInput).filter((key) => isNaN(Number(key)))
 
 export const mapKeyToUserInput = (keyCode: string): UserInput | undefined => {
     const upperKeyCode = keyCode.toUpperCase()
-    const input = userInputs.find((input) => input.toUpperCase().split(',').includes(upperKeyCode))
-    if (!input) {
-        console.log('Unmapped keyCode: ' + keyCode)
-    }
-    return input
+    return userInputs.find((input) => input.toUpperCase().split(',').includes(upperKeyCode))
 }

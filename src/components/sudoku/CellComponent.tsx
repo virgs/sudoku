@@ -50,6 +50,7 @@ export function CellComponent(props: CellComponentProps) {
             }
         }
     })
+
     useCellValueSetListener((payload: CellValueSetEventType) => {
         if (payload.valueIsCorrect) {
             if (board.cellsShareSameRegion(payload.position, props.position)) {

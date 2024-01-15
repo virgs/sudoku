@@ -1,6 +1,5 @@
 import { Point } from '../math/Point'
 import { Board } from './Board'
-import { CellType } from './types/CellType'
 import { GameLevel } from './types/GameLevel'
 import { GameMode } from './types/GameMode'
 import { GridType } from './types/GridType'
@@ -12,7 +11,7 @@ export class BoardCreator {
         this.dimension = dimension
     }
 
-    public createBoardFromText(_text: string = ''): Board {
+    public async createBoard(_level: GameLevel): Promise<Board> {
         return new Board({ grid: this.createEmptyGrid(), gameLevel: GameLevel.EASY, gameMode: GameMode.CLASSIC })
     }
 

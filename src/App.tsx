@@ -4,7 +4,7 @@ import { ControlsComponent } from './components/controls/ControlsComponent'
 import { Header } from './components/controls/Header'
 import { BoardComponent } from './components/sudoku/BoardComponent'
 import { KillerBoardCreator } from './engine/killer/KillerBoardCreator'
-import { fileContent } from './engine/killer/SudokuKillerFile'
+import { GameLevel } from './engine/types/GameLevel'
 import { AnnotationMode } from './input/AnnotationMode'
 import {
     CellSelectedEventType,
@@ -18,11 +18,12 @@ import {
 } from './input/Events'
 import { UserInput, isArowKey, mapInputToNumber, mapKeyToUserInput } from './input/UserInput'
 
-let board = new KillerBoardCreator().createBoardFromText(fileContent)
+let board = await new KillerBoardCreator().createBoard(GameLevel.EASY)
 export let BoardContext = createContext(board)
 
 function App() {
-    const [boardId, setBoardId] = useState<number>(0)
+    const [gameId, setGameId] = useState<number>(0)
+
     const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PEN)
     const [currentSelectedCell, setCurrentSelectedCell] = useState<CellSelectedEventType | undefined>()
 
@@ -32,10 +33,10 @@ function App() {
         appRef.current?.focus()
     })
 
-    useRestartListener(() => {
-        setBoardId(boardId + 1)
-        let board = new KillerBoardCreator().createBoardFromText(fileContent)
+    useRestartListener(async () => {
+        board = await new KillerBoardCreator().createBoard(GameLevel.EASY)
         BoardContext = createContext(board)
+        setGameId(() => gameId + 1)
     })
 
     useCellSelectedListener((payload) => setCurrentSelectedCell(payload))
@@ -86,10 +87,12 @@ function App() {
     }
 
     return (
-        <div key={boardId} id="app" className="p-2" ref={appRef} tabIndex={0}
+        <div key={gameId} id="app" className="p-2" ref={appRef} tabIndex={0}
             onKeyDown={event => {
-                if (mapKeyToUserInput(event.code)) {
-                    event.preventDefault()
+                if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
+                    if (mapKeyToUserInput(event.code)) {
+                        event.preventDefault()
+                    }
                 }
             }}
             onKeyUp={(event) => {

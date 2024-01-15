@@ -1,4 +1,4 @@
-import { KillerCellComponent } from '../../components/sudoku/killer/KillerCellComponent'
+import { KillerCellComponent } from '../../components/board/killer/KillerCellComponent'
 import { Point, pointsAreEqual } from '../../math/Point'
 import { Board, CellComponentProps } from '../Board'
 import { GameLevel } from '../types/GameLevel'

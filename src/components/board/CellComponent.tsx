@@ -32,7 +32,7 @@ export function CellComponent(props: CellComponentProps) {
     }, [props.selected])
 
     useNumberPressedListener((data: NumberPressedEventType) => {
-        if (selected) {
+        if (selected && board.isNumberAllowed(data.value)) {
             if (data.annotationMode === AnnotationMode.PEN) {
                 setHint(data.hint)
                 setValue(data.value)

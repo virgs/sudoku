@@ -1,4 +1,4 @@
-import { CellComponent } from '../components/sudoku/CellComponent'
+import { CellComponent } from '../components/board/CellComponent'
 import { Point } from '../math/Point'
 import { CellType } from './types/CellType'
 import { GameLevel } from './types/GameLevel'

@@ -2,11 +2,3 @@
     width: 100vw;
     height: 100vh;
 }
-
-#app:focus-visible {
-    outline: none;
-}
-
-.container-lg {
-    height: 100%;
-}

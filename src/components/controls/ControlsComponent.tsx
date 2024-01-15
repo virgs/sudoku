@@ -21,7 +21,7 @@ import {
     useCellSelectedListener,
     useCellValueSetListener,
     useRestartListener,
-} from '../../input/Events'
+} from '../../Events'
 import { Point, pointsAreEqual } from '../../math/Point'
 import './ControlsComponent.css'
 import { NumPadComponent } from './NumPadComponent'

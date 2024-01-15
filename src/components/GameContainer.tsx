@@ -1,15 +1,47 @@
+import { useContext, useState } from 'react'
+import { CellValueSetEventType, GameFinishedEventType, emitGameFinished, useAllCellsRevealedListener, useCellValueSetListener, useGameFinishedListener, useNumberPressedListener, useTimeElapsedListener } from '../Events'
+import './GameContainer.css'
+import { GameVictoryModalComponent } from './GameVictoryModalComponent'
+import { BoardComponent } from './board/BoardComponent'
 import { ControlsComponent } from './controls/ControlsComponent'
 import { Header } from './controls/Header'
-import { BoardComponent } from './board/BoardComponent'
-import './GameContainer.css'
-import { GameFinishedEventType, useGameFinishedListener } from '../input/Events'
-import { GameVictoryModalComponent } from './GameVictoryModalComponent'
-import { useState } from 'react'
+import { Database } from '../Database'
+import { BoardContext } from '../App'
 
 export function GameContainer() {
+    const board = useContext(BoardContext)
+
     const [gameVictoryData, setGameVictoryData] = useState<GameFinishedEventType | undefined>()
-    useGameFinishedListener((payload) => {
-        setGameVictoryData(payload)
+    const [hintsCounter, setHintsCounter] = useState<number>(0)
+    const [mistakesCounter, setMistakesCounter] = useState<number>(0)
+    const [elapsedSeconds, setElapsedSeconds] = useState<number>(0)
+
+    useCellValueSetListener((data: CellValueSetEventType) => {
+        if (!data.valueIsCorrect) {
+            setMistakesCounter(mistakesCounter + 1)
+        }
+    })
+
+    useNumberPressedListener((payload) => {
+        if (payload.hint) {
+            setHintsCounter(hintsCounter + 1)
+        }
+    })
+
+    useTimeElapsedListener(payload => {
+        setElapsedSeconds(payload.elapsedSeconds)
+    })
+
+    useAllCellsRevealedListener(() => {
+        const finishedGameData = {
+            hints: hintsCounter,
+            mistakes: mistakesCounter,
+            elapsedSeconds: elapsedSeconds,
+            board: board
+        }
+        Database.saveGameFinishedStats(finishedGameData)
+        emitGameFinished(finishedGameData)
+        setGameVictoryData(finishedGameData)
     })
 
     return (

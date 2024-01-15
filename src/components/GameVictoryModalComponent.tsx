@@ -1,19 +1,14 @@
-import { faGear, faRightLong } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faGear, faRightLong } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect } from 'react'
-import { GameFinishedEventType } from '../input/Events'
+import { GameFinishedEventType } from '../Events'
+import { GameMode } from '../engine/types/GameMode'
 
 export function GameVictoryModalComponent(props: { data?: GameFinishedEventType }) {
     useEffect(() => {
         if (props.data) {
             //@ts-ignore
             new bootstrap.Modal('#gameVictoryModal', { focus: true }).show()
-
-            // const modalElement = document.getElementById('gameVictoryModal')
-            // modalElement?.addEventListener('hidden.bs.modal', () => {
-            //     console.log('dismiss')
-            //     dismiss()
-            // })
         }
     }, [props])
     if (!props.data) {
@@ -22,7 +17,6 @@ export function GameVictoryModalComponent(props: { data?: GameFinishedEventType 
     return (
         <div
             className="modal fade"
-            data-bs-backdrop="static"
             id="gameVictoryModal"
             tabIndex={-1}
             aria-labelledby="gameVictoryModalLabel"
@@ -37,6 +31,7 @@ export function GameVictoryModalComponent(props: { data?: GameFinishedEventType 
                         <p>Time: {props.data.elapsedSeconds} seconds</p>
                         <p>Hints: {props.data.hints}</p>
                         <p>Mistakes: {props.data.mistakes}</p>
+                        <p>{GameMode[props.data.board.gameMode]}: {props.data.board.gameLevel}</p>
                         Your averages //highlight the currend mode/level with boldness ....
                     </div>
                     <div className="modal-footer">
@@ -44,13 +39,9 @@ export function GameVictoryModalComponent(props: { data?: GameFinishedEventType 
                             <FontAwesomeIcon
                                 color="var(--bs-primary)"
                                 className="font-awesome-icon"
-                                icon={faRightLong}
+                                icon={faClose}
                             />
-                            <span className="me-1">New Game</span>
-                        </button>
-                        <button className="btn btn-sm btn-outline-primary action-button" type="button">
-                            <FontAwesomeIcon color="var(--bs-info)" className="font-awesome-icon" icon={faGear} />
-                            <span className="d-none me-1 d-xl-inline">Settings</span>
+                            <span className="me-1">Close</span>
                         </button>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { CellType } from '../../engine/types/CellType'
 import { AnnotationMode } from '../../input/AnnotationMode'
 import { Point } from '../../math/Point'
-import './CellComponent.css'
+import './CellContentComponent.css'
 import {
     useNumberPressedListener,
     NumberPressedEventType,
@@ -10,29 +10,35 @@ import {
     emitCellValueSet,
     useCellValueSetListener,
     CellValueSetEventType,
-} from '../../input/Events'
+    useGameFinishedListener,
+} from '../../Events'
 import { BoardContext } from '../../App'
 
-type CellComponentProps = {
+type CellContentComponentProps = {
     cell: CellType
     selected: boolean
     position: Point
 }
 
-export function CellComponent(props: CellComponentProps) {
+export function CellContentComponent(props: CellContentComponentProps) {
     const board = useContext(BoardContext)
 
+    const [readonly, setReadonly] = useState<boolean>(false)
     const [hint, setHint] = useState<boolean | undefined>()
     const [value, setValue] = useState<number | undefined>()
     const [selected, setSelected] = useState<boolean>(false)
     const [notes, setNotes] = useState<number[]>([])
+
+    useGameFinishedListener(() => {
+        setReadonly(true)
+    })
 
     useEffect(() => {
         setSelected(props.selected)
     }, [props.selected])
 
     useNumberPressedListener((data: NumberPressedEventType) => {
-        if (selected && board.isNumberAllowed(data.value)) {
+        if (!readonly && selected && board.isNumberAllowed(data.value)) {
             if (data.annotationMode === AnnotationMode.PEN) {
                 setHint(data.hint)
                 setValue(data.value)

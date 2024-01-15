@@ -2,17 +2,16 @@ import { faHourglass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import { BoardContext } from '../../App'
+import {
+    CellValueSetEventType,
+    emitTimeElapsed,
+    useCellValueSetListener,
+    useGameFinishedListener,
+    useRestartListener
+} from '../../Events'
 import { GameLevel } from '../../engine/types/GameLevel'
 import { GameMode } from '../../engine/types/GameMode'
 import { useInterval } from '../../hooks/UseInterval'
-import {
-    CellValueSetEventType,
-    emitGameFinished,
-    useAllCellsRevealedListener,
-    useCellValueSetListener,
-    useNumberPressedListener,
-    useRestartListener,
-} from '../../input/Events'
 import './Header.css'
 
 const formatDuration = (ms: number) => {
@@ -30,10 +29,12 @@ const formatDuration = (ms: number) => {
     return timer
 }
 
+const ONE_SECOND = 1000
+
 export function Header() {
     const board = useContext(BoardContext)
 
-    const [hintsCounter, setHintsCounter] = useState<number>(0)
+    const [timerEnabled, setTimerEnabled] = useState<boolean>(true)
     const [mistakesCounter, setMistakesCounter] = useState<number>(0)
     const [elapsedSeconds, setElapsedSeconds] = useState<number>(0)
 
@@ -43,23 +44,16 @@ export function Header() {
         }
     })
 
-    useAllCellsRevealedListener(() => {
-        emitGameFinished({
-            hints: hintsCounter,
-            mistakes: mistakesCounter,
-            elapsedSeconds: elapsedSeconds,
-        })
-    })
-
-    useNumberPressedListener((payload) => {
-        if (payload.hint) {
-            setHintsCounter(hintsCounter + 1)
-        }
+    useGameFinishedListener(() => {
+        setTimerEnabled(false)
     })
 
     useInterval(() => {
         setElapsedSeconds((x) => x + 1)
-    }, 1000)
+        emitTimeElapsed({
+            elapsedSeconds: elapsedSeconds + 1,
+        })
+    }, timerEnabled ? ONE_SECOND : undefined)
 
     useRestartListener(() => {
         setElapsedSeconds(0)

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react'
+import { BoardContext } from '../App'
 import './KeyHandler.css'
-import { AnnotationMode } from './input/AnnotationMode'
+import { AnnotationMode } from './AnnotationMode'
 import {
     CellSelectedEventType,
     emitAnnotationModeChanged,
@@ -9,12 +10,10 @@ import {
     emitNumberPressed,
     useAnnotationModeChangedListener,
     useCellSelectedListener,
-} from './input/Events'
-import { UserInput, isArowKey, mapInputToNumber, mapKeyToUserInput } from './input/UserInput'
-import { GameContainer } from './components/GameContainer'
-import { BoardContext } from './App'
+} from '../Events'
+import { UserInput, isArowKey, mapInputToNumber, mapKeyToUserInput } from './UserInput'
 
-export function KeyHandler() {
+export function KeyHandler(props: { children: JSX.Element }) {
     const board = useContext(BoardContext)
 
     const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PEN)
@@ -100,7 +99,7 @@ export function KeyHandler() {
                 handleKeyPress(event.code)
             }}
         >
-            <GameContainer></GameContainer>
+            {props.children}
         </div>
     )
 }

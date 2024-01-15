@@ -1,7 +1,7 @@
 import { CageType } from '../../../engine/killer/types/CageType'
 import { CellType } from '../../../engine/types/CellType'
 import { Point, pointsAreEqual } from '../../../math/Point'
-import { CellComponent } from '../CellComponent'
+import { CellContentComponent } from '../CellContentComponent'
 import './KillerCellComponent.css'
 
 type KillerCellProps = {
@@ -48,7 +48,7 @@ export function KillerCellComponent(props: KillerCellProps) {
         <>
             {hasLabel ? <small className="grid-cage-label">{props.cage.label}</small> : <></>}
             <div className={className} style={style}>
-                <CellComponent position={props.position} selected={props.selected} cell={props.cell}></CellComponent>
+                <CellContentComponent position={props.position} selected={props.selected} cell={props.cell}></CellContentComponent>
             </div>
         </>
     )

@@ -1,4 +1,4 @@
-import { CellComponent } from '../components/board/CellComponent'
+import { CellContentComponent } from '../components/board/CellContentComponent'
 import { Point } from '../math/Point'
 import { CellType } from './types/CellType'
 import { GameLevel } from './types/GameLevel'
@@ -64,7 +64,7 @@ export class Board {
     }
 
     public renderCellComponent(props: CellComponentProps): JSX.Element {
-        return <CellComponent position={props.position} selected={props.selected} cell={props.cell}></CellComponent>
+        return <CellContentComponent position={props.position} selected={props.selected} cell={props.cell}></CellContentComponent>
     }
 
     public isPositionInbound(position: Point): boolean {
@@ -87,9 +87,9 @@ export class Board {
         }
         if (
             Math.floor(selectedPosition.x / this.numOfBlocks.x) ===
-                Math.floor(currentCellPosition.x / this.numOfBlocks.x) && //same nonet
+            Math.floor(currentCellPosition.x / this.numOfBlocks.x) && //same nonet
             Math.floor(selectedPosition.y / this.numOfBlocks.y) ===
-                Math.floor(currentCellPosition.y / this.numOfBlocks.y)
+            Math.floor(currentCellPosition.y / this.numOfBlocks.y)
         ) {
             return true
         }

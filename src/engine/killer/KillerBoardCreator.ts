@@ -1,5 +1,4 @@
-import { Point } from '../../math/Point'
-import { BoardCreator } from '../BoardCreator'
+import { ClassicBoardCreator } from '../ClassicBoardCreator'
 import { GameLevel } from '../types/GameLevel'
 import { KillerBoard } from './KillerBoard'
 import { CageType } from './types/CageType'
@@ -11,24 +10,12 @@ type FileContent = {
     cages: number[][] //0 to 80
 }
 
-export class KillerBoardCreator extends BoardCreator {
-    static readonly BOARD_DIMENSION: Point = { x: 9, y: 9 }
+export class KillerBoardCreator extends ClassicBoardCreator {
     static readonly pool = {
         [GameLevel.EASY]: import.meta.glob(`../../assets/puzzles/killer/easy/*.json`),
         [GameLevel.MEDIUM]: import.meta.glob(`../../assets/puzzles/killer/medium/*.json`),
         [GameLevel.HARD]: import.meta.glob(`../../assets/puzzles/killer/hard/*.json`),
         [GameLevel.EXPERT]: import.meta.glob(`../../assets/puzzles/killer/expert/*.json`),
-    }
-
-    public constructor() {
-        super(KillerBoardCreator.BOARD_DIMENSION)
-    }
-
-    private getPointOutOfIndex(index: number): Point {
-        return {
-            y: Math.floor(index / KillerBoardCreator.BOARD_DIMENSION.y),
-            x: Math.floor(index % KillerBoardCreator.BOARD_DIMENSION.x)
-        }
     }
 
     private async randomlySelectFromPool(gameLevel: GameLevel): Promise<FileContent> {
@@ -43,7 +30,7 @@ export class KillerBoardCreator extends BoardCreator {
         const grid = this.createEmptyGrid()
         const revealedCells: boolean[] = fileContent.mission.split('').map(value => value !== '0')
         const answers: number[] = fileContent.solution.split('').map(value => Number(value))
-        for (let i = 0; i < KillerBoardCreator.BOARD_DIMENSION.y * KillerBoardCreator.BOARD_DIMENSION.x; ++i) {
+        for (let i = 0; i < ClassicBoardCreator.BOARD_DIMENSION.y * ClassicBoardCreator.BOARD_DIMENSION.x; ++i) {
             const position = this.getPointOutOfIndex(i)
             grid.cells[position.y][position.x].answer = answers[i]
             grid.cells[position.y][position.x].revealed = revealedCells[i]

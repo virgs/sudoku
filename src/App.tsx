@@ -3,7 +3,7 @@ import './App.css'
 import { ControlsComponent } from './components/controls/ControlsComponent'
 import { Header } from './components/controls/Header'
 import { BoardComponent } from './components/sudoku/BoardComponent'
-import { KillerBoardCreator } from './engine/killer/KillerBoardCreator'
+import { ClassicBoardCreator } from './engine/ClassicBoardCreator'
 import { GameLevel } from './engine/types/GameLevel'
 import { AnnotationMode } from './input/AnnotationMode'
 import {
@@ -18,7 +18,7 @@ import {
 } from './input/Events'
 import { UserInput, isArowKey, mapInputToNumber, mapKeyToUserInput } from './input/UserInput'
 
-let board = await new KillerBoardCreator().createBoard(GameLevel.EASY)
+let board = await new ClassicBoardCreator().createBoard(GameLevel.EASY)
 export let BoardContext = createContext(board)
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
     })
 
     useRestartListener(async () => {
-        board = await new KillerBoardCreator().createBoard(GameLevel.EASY)
+        // board = await new KillerBoardCreator().createBoard(GameLevel.EASY)
         BoardContext = createContext(board)
         setGameId(() => gameId + 1)
     })

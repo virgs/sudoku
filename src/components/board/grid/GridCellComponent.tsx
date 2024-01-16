@@ -82,6 +82,7 @@ export function GridCellComponent(props: GridCellComponentProps) {
         if (pointsAreEqual(payload.lastRevealedCellPosition, props.position)) {
             setTimeout(() => emitEndGameAnimationFinished(), animationDuration)
         }
+        setSameValueCellSelected(false)
         setStyle({
             ...style,
             animationDelay: delay + 'ms'

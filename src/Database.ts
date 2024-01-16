@@ -16,8 +16,8 @@ export class Database {
     private static readonly GAME_LEVEL_KEY = 'game-level'
 
     public static saveGameFinishedStats(stats: GameFinishedEventType): void {
-        const gameMode: string = GameMode[stats.board.gameMode].toLowerCase()
-        const gameLevel: string = GameLevel[stats.board.gameLevel].toLowerCase()
+        const gameMode: string = GameMode[stats.board.gameMode]
+        const gameLevel: string = GameLevel[stats.board.gameLevel]
         const currentStats: Stats[] = Database.loadGameFinishedStats()
         currentStats.push({
             hints: stats.hints,
@@ -26,7 +26,6 @@ export class Database {
             mode: gameMode,
             level: gameLevel,
         })
-        console.log(currentStats)
         localStorage.setItem(Database.STATS_KEY, JSON.stringify(currentStats))
     }
 

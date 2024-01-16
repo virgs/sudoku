@@ -49,7 +49,7 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                         <FontAwesomeIcon className="font-awesome-icon" style={{ fontSize: 'unset' }} icon={faGear} />
                         Settings
                     </h1>
-                    <div className="modal-body">
+                    <div className="modal-body mb-2">
                         <div className="accordion accordion-flush" id="gameSettingsAccordion">
                             <div className="accordion-item">
                                 <h2 className="accordion-header" id="flush-theme">

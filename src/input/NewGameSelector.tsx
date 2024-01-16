@@ -70,7 +70,7 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
             </div>
 
             <button
-                className="btn btn-sm btn-success"
+                className="btn btn-sm btn-success mb-2"
                 type="button"
                 onPointerDown={() => {
                     props.onNewGameClicked({

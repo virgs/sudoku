@@ -6,7 +6,7 @@ import { GameLevel } from './engine/types/GameLevel'
 import { useRestartListener } from './Events'
 import { GameContainer } from './components/GameContainer'
 
-let board = await new KillerBoardCreator().createBoard(GameLevel.EASY)
+let board = await new KillerBoardCreator().createBoard(GameLevel.EXPERT)
 export let BoardContext = createContext(board)
 
 function App() {

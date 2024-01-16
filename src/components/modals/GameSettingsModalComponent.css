@@ -1,0 +1,8 @@
+#gameSettingsModal {}
+
+#gameSettingsModalLabel {
+    color: var(--bs-info);
+    background-color: var(--bs-primary-rgb);
+    text-align: center;
+    margin: 5px;
+}

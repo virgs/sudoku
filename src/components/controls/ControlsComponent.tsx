@@ -19,6 +19,7 @@ import {
     useAnnotationModeChangedListener,
     useCellSelectedListener,
     useCellValueSetListener,
+    useGameFinishedListener,
     useRestartListener,
 } from '../../Events'
 import { Board } from '../../engine/Board'
@@ -51,6 +52,7 @@ function createHints(board: Board) {
 export function ControlsComponent() {
     const board = useContext(BoardContext)
 
+    const [gameIsRunning, setGameIsRunning] = useState<boolean>(true)
     const [numberOfHintsGiven, setNumberOfHintsGiven] = useState<number>(0)
     const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PENCIL)
     const [availableHints, setAvailableHints] = useState<Hint[]>(createHints(board))
@@ -64,6 +66,10 @@ export function ControlsComponent() {
             annotationMode: annotationMode,
         })
     }
+
+    useGameFinishedListener(() => {
+        setGameIsRunning(false)
+    })
 
     useCellValueSetListener((data: CellValueSetEventType) => {
         if (data.valueIsCorrect) {
@@ -109,7 +115,7 @@ export function ControlsComponent() {
                     </button>
                 </div>
                 <div className="col" style={{ textAlign: 'center' }}>
-                    <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <div className="btn-group" role="group" aria-label="annotation mode toggle button group">
                         <input
                             type="radio"
                             className="btn-check"
@@ -121,7 +127,7 @@ export function ControlsComponent() {
                         />
                         <label className="btn btn-sm btn-secondary action-button" htmlFor="pen-btn-radio">
                             <FontAwesomeIcon
-                                color={annotationMode === AnnotationMode.PEN ? 'var(--bs-primary)' : undefined}
+                                color={annotationMode === AnnotationMode.PENCIL ? 'var(--bs-primary)' : undefined}
                                 className="font-awesome-icon"
                                 icon={faPenClip}
                             />
@@ -138,7 +144,7 @@ export function ControlsComponent() {
                         />
                         <label className="btn btn-sm btn-secondary action-button" htmlFor="pencil-btn-radio">
                             <FontAwesomeIcon
-                                color={annotationMode === AnnotationMode.PENCIL ? 'var(--bs-primary)' : undefined}
+                                color={annotationMode === AnnotationMode.PEN ? 'var(--bs-primary)' : undefined}
                                 className="font-awesome-icon"
                                 icon={faPencil}
                             />
@@ -151,6 +157,7 @@ export function ControlsComponent() {
                         type="button"
                         className="btn btn-sm btn-secondary action-button"
                         disabled={
+                            !gameIsRunning ||
                             !currentSelectedCellPosition ||
                             !availableHints.find((hint) => pointsAreEqual(hint.position, currentSelectedCellPosition!))
                         }
@@ -180,7 +187,7 @@ export function ControlsComponent() {
                     onPointerDown={() => emitOpenSettingsDialog()}
                 >
                     <FontAwesomeIcon className="font-awesome-icon" icon={faEllipsisVertical} />
-                    <span className="d-none me-1 d-xl-inline">More</span>
+                    <span className="d-none me-1 d-xl-inline">Options</span>
                 </button>
             </div>
         </div>

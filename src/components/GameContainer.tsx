@@ -12,14 +12,16 @@ import {
     useTimeElapsedListener,
 } from '../Events'
 import './GameContainer.css'
-import { GameVictoryModalComponent } from './GameVictoryModalComponent'
+import { GameVictoryModalComponent } from './modals/GameVictoryModalComponent'
 import { BoardComponent } from './board/BoardComponent'
 import { ControlsComponent } from './controls/ControlsComponent'
 import { Header } from './controls/Header'
+import { GameSettingsModalComponent } from './modals/GameSettingsModalComponent'
 
 export function GameContainer() {
     const board = useContext(BoardContext)
 
+    const [showGameSettingsModal, setShowGameSettingsModal] = useState<boolean>(false)
     const [gameVictoryData, setGameVictoryData] = useState<GameFinishedEventType | undefined>()
     const [hintsCounter, setHintsCounter] = useState<number>(0)
     const [mistakesCounter, setMistakesCounter] = useState<number>(0)
@@ -54,7 +56,7 @@ export function GameContainer() {
     })
 
     useOpenSettingsDialogListener(() => {
-        console.log('open settings now')
+        setShowGameSettingsModal(true)
     })
 
     return (
@@ -73,7 +75,8 @@ export function GameContainer() {
                     <ControlsComponent></ControlsComponent>
                 </div>
             </div>
-            <GameVictoryModalComponent data={gameVictoryData}></GameVictoryModalComponent>
+            <GameVictoryModalComponent data={gameVictoryData} onDismiss={() => setGameVictoryData(undefined)} />
+            <GameSettingsModalComponent show={showGameSettingsModal} onDismiss={() => setShowGameSettingsModal(false)} />
         </div>
     )
 }

@@ -31,7 +31,11 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
                                 <a
                                     key={mode}
                                     className={classList.join(' ')}
-                                    onPointerDown={() => setCurrentSelectedMode(mode)}
+                                    onPointerDown={() => {
+                                        const availableModeLevels: GameLevel[] = modeLevelMap.get(mode)!
+                                        setCurrentSelectedLevel(availableModeLevels[Math.floor(availableModeLevels.length / 2)])
+                                        return setCurrentSelectedMode(mode)
+                                    }}
                                     style={{ textTransform: 'capitalize' }}
                                     href="#"
                                 >

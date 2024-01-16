@@ -1,4 +1,7 @@
 :root {
+    --sudoku-font-family: 'Carter One', system-ui;
+    --sudoku-font-family: 'Salsa', cursive;
+
     --board-container-size: 500px;
     --board-background-color: color-mix(in srgb, var(--bs-primary-bg-subtle) 50%, transparent);
     user-select: none;
@@ -17,7 +20,7 @@
 }
 
 #root {
-    touch-action: none;
+    touch-action: pan-y;
     background-color: color-mix(in srgb, var(--board-background-color) 20%, transparent);
     height: 100vh;
     width: 100vw;

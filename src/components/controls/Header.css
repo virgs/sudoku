@@ -1,5 +1,8 @@
-.header-info {
+.mode-level {
+    font-family: var(--sudoku-font-family);
+    color: var(--bs-primary);
     text-align: center;
-    font-family: 'Carter One', system-ui;
     text-transform: capitalize;
 }
+
+.header-info {}

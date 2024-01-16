@@ -1,12 +1,5 @@
 import fs from 'fs';
 
-// process.argv.filter((_, i) => i > 1)
-//   .forEach(filename => {
-//     const json = JSON.parse(fs.readFileSync(filename).toString())
-//     // console.log(json.id)
-//     fs.writeFileSync(`killer/expert/${json.id}.json`, JSON.stringify(json, null, 2))
-//   })
-
 //origin: https://sudoku.com/killer/expert/
 const level = 'expert'
 var options = {
@@ -27,14 +20,21 @@ var options = {
   'maxRedirects': 20
 };
 
-let remainingDownloads = 1
-const save = async () => {
-  const response = await fetch(`http://sudoku.com/api/level/${level}?mode=killer`, options)
-  const json = await response.json()
-  fs.writeFileSync(`killer/${level}/${json.id}.json`, JSON.stringify(json, null, 2))
-  if (--remainingDownloads > 0) {
-    setTimeout(save, 500)
-  }
-}
+process.argv
+  .filter((_, index) => index > 1)
+  .forEach((filename, index) => {
+    const fileContent = fs.readFileSync(filename).toString()
+    fs.writeFileSync(`killer/medium/level-${index}.json`, JSON.stringify(fileContent, null, 2))
+  })
 
-setTimeout(save, 0)
+// let remainingDownloads = 1
+// const save = async () => {
+//   const response = await fetch(`http://sudoku.com/api/level/${level}?mode=killer`, options)
+//   const json = await response.json()
+//   fs.writeFileSync(`killer/${level}/${json.id}.json`, JSON.stringify(json, null, 2))
+//   if (--remainingDownloads > 0) {
+//     setTimeout(save, 500)
+//   }
+// }
+
+// setTimeout(save, 0)

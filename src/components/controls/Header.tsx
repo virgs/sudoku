@@ -51,9 +51,11 @@ export function Header() {
 
     return (
         <div className="row justify-content-between mb-3">
-            <div className="col-12 header-info">
+            <div className="col-12 header-info" style={{ textAlign: 'center' }}>
                 <h2>
-                    <strong className="mode-level">{`${GameMode[board.gameMode]}: ${GameLevel[board.gameLevel]}`}</strong>
+                    {/* <strong className="mode-level">{`${GameMode[board.gameMode].toLowerCase()} Sudoku ˲⇾➔⟶⇛ ${GameLevel[board.gameLevel].toLowerCase()}`} */}
+                    <strong className="mode-level">{`${GameMode[board.gameMode].toLowerCase()} Sudoku ⇛ ${GameLevel[board.gameLevel].toLowerCase()}`}
+                    </strong>
                 </h2>
             </div>
             <div className="col-6 header-info" style={{ textAlign: 'left' }}>

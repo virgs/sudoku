@@ -45,10 +45,10 @@ export function StatsTable(props: { mode: GameMode }) {
                     </tr>
                     <tr>
                         <th scope="row">Hard</th>
-                        <td>Larry</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
+                        <td>45</td>
+                        <td>56:90</td>
+                        <td>1.45</td>
+                        <td>3.56</td>
                     </tr>
                     <tr>
                         <th scope="row">Expert</th>

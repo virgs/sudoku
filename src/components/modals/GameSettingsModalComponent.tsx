@@ -1,16 +1,16 @@
-import { faChartSimple, faGear, faPalette, faPlusCircle } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
-import { GameMode } from "../../engine/types/GameMode"
-import { NewGameSelector } from "../../input/NewGameSelector"
-import { ThemeSelector } from "../../input/ThemeSelector"
-import { StatsTable } from "../../math/StatsTable"
-import "./GameSettingsModalComponent.css"
-import { emitStartNewGame } from "../../Events"
-import { Database } from "../../Database"
+import { faChartSimple, faGear, faPalette, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useEffect, useState } from 'react'
+import { GameMode } from '../../engine/types/GameMode'
+import { NewGameSelector } from '../../input/NewGameSelector'
+import { ThemeSelector } from '../../input/ThemeSelector'
+import { StatsTable } from '../../math/StatsTable'
+import './GameSettingsModalComponent.css'
+import { emitStartNewGame } from '../../Events'
+import { Database } from '../../Database'
 
 type GameSettingsModalComponentType = {
-    show: boolean,
+    show: boolean
     onDismiss: () => void
 }
 
@@ -53,23 +53,47 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                         <div className="accordion accordion-flush" id="gameSettingsAccordion">
                             <div className="accordion-item">
                                 <h2 className="accordion-header" id="flush-theme">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-theme" aria-expanded="false" aria-controls="collapse-theme">
+                                    <button
+                                        className="accordion-button collapsed"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapse-theme"
+                                        aria-expanded="false"
+                                        aria-controls="collapse-theme"
+                                    >
                                         <FontAwesomeIcon className="font-awesome-icon" icon={faPalette} />
                                         Theme
                                     </button>
                                 </h2>
-                                <div id="collapse-theme" className="accordion-collapse collapse" aria-labelledby="flush-theme" data-bs-parent="#gameSettingsAccordion">
+                                <div
+                                    id="collapse-theme"
+                                    className="accordion-collapse collapse"
+                                    aria-labelledby="flush-theme"
+                                    data-bs-parent="#gameSettingsAccordion"
+                                >
                                     <ThemeSelector></ThemeSelector>
                                 </div>
                             </div>
                             <div className="accordion-item">
                                 <h2 className="accordion-header" id="flush-stats">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-stats" aria-expanded="false" aria-controls="collapse-stats">
+                                    <button
+                                        className="accordion-button collapsed"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapse-stats"
+                                        aria-expanded="false"
+                                        aria-controls="collapse-stats"
+                                    >
                                         <FontAwesomeIcon className="font-awesome-icon" icon={faChartSimple} />
                                         Stats
                                     </button>
                                 </h2>
-                                <div id="collapse-stats" className="accordion-collapse collapse" aria-labelledby="flush-stats" data-bs-parent="#gameSettingsAccordion">
+                                <div
+                                    id="collapse-stats"
+                                    className="accordion-collapse collapse"
+                                    aria-labelledby="flush-stats"
+                                    data-bs-parent="#gameSettingsAccordion"
+                                >
                                     <div className="accordion-body">
                                         <StatsTable mode={GameMode.CLASSIC}></StatsTable>
                                         <StatsTable mode={GameMode.KILLER}></StatsTable>
@@ -78,25 +102,38 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                             </div>
                             <div className="accordion-item">
                                 <h2 className="accordion-header" id="flush-new-game">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-new-game" aria-expanded="false" aria-controls="collapse-new-game">
+                                    <button
+                                        className="accordion-button collapsed"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapse-new-game"
+                                        aria-expanded="false"
+                                        aria-controls="collapse-new-game"
+                                    >
                                         <FontAwesomeIcon className="font-awesome-icon" icon={faPlusCircle} />
                                         New Game
                                     </button>
                                 </h2>
-                                <div id="collapse-new-game" className="accordion-collapse collapse show" aria-labelledby="flush-new-game" data-bs-parent="#gameSettingsAccordion">
+                                <div
+                                    id="collapse-new-game"
+                                    className="accordion-collapse collapse show"
+                                    aria-labelledby="flush-new-game"
+                                    data-bs-parent="#gameSettingsAccordion"
+                                >
                                     <div className="accordion-body">
-                                        <NewGameSelector onNewGameClicked={(payload) => {
-                                            //@ts-expect-error
-                                            modal.dispose()
-                                            Database.saveGameMode(payload.mode)
-                                            Database.saveGameLevel(payload.level)
-                                            emitStartNewGame(payload)
-                                        }}></NewGameSelector>
+                                        <NewGameSelector
+                                            onNewGameClicked={(payload) => {
+                                                //@ts-expect-error
+                                                modal.dispose()
+                                                Database.saveGameMode(payload.mode)
+                                                Database.saveGameLevel(payload.level)
+                                                emitStartNewGame(payload)
+                                            }}
+                                        ></NewGameSelector>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

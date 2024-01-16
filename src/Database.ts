@@ -57,12 +57,12 @@ export class Database {
 
     static loadGameModeOrDefault(defaultMode: GameMode): GameMode {
         const mode = localStorage.getItem(Database.GAME_MODE_KEY)
-        return mode != undefined ? mode as GameMode : defaultMode
+        return mode != undefined ? (mode as GameMode) : defaultMode
     }
 
     static loadGameLevelOrDefault(defaultLevel: GameLevel): GameLevel {
         const level = localStorage.getItem(Database.GAME_LEVEL_KEY)
-        return level != undefined ? level as GameLevel : defaultLevel
+        return level != undefined ? (level as GameLevel) : defaultLevel
     }
 
     public static clearStats(): void {

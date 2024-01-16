@@ -21,7 +21,7 @@ export type GameStartedEventType = {
 }
 
 export type StartNewGameEventType = {
-    level: GameLevel,
+    level: GameLevel
     mode: GameMode
 }
 

@@ -8,9 +8,10 @@ import { GameMode } from './engine/types/GameMode'
 import { KeyHandler } from './input/KeyHandler'
 import { Database } from './Database'
 
-
-let board = await new BoardFactory().createNewBoard(Database.loadGameModeOrDefault(GameMode.CLASSIC),
-    Database.loadGameLevelOrDefault(GameLevel.MEDIUM))
+let board = await new BoardFactory().createNewBoard(
+    Database.loadGameModeOrDefault(GameMode.CLASSIC),
+    Database.loadGameLevelOrDefault(GameLevel.MEDIUM)
+)
 export let BoardContext = createContext(board)
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
         setGameId(() => gameId + 1)
     })
 
-    useStartNewGameListener(async payload => {
+    useStartNewGameListener(async (payload) => {
         board = await new BoardFactory().createNewBoard(payload.mode, payload.level)
         BoardContext = createContext(board)
         setGameId(() => gameId + 1)

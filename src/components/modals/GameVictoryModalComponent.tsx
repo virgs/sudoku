@@ -5,7 +5,7 @@ import { GameFinishedEventType } from '../../Events'
 import { TimeFormatter } from '../../time/TimeFormatter'
 import './GameVictoryModalComponent.css'
 
-export function GameVictoryModalComponent(props: { data?: GameFinishedEventType, onDismiss: () => void }) {
+export function GameVictoryModalComponent(props: { data?: GameFinishedEventType; onDismiss: () => void }) {
     useEffect(() => {
         if (props.data) {
             //@ts-ignore
@@ -15,7 +15,6 @@ export function GameVictoryModalComponent(props: { data?: GameFinishedEventType,
             modalElement?.addEventListener('hidden.bs.modal', () => {
                 props.onDismiss()
             })
-
         }
     }, [props])
     if (!props.data) {
@@ -78,7 +77,12 @@ export function GameVictoryModalComponent(props: { data?: GameFinishedEventType,
                             </tbody>
                         </table>
                     </div>
-                    <button data-bs-dismiss="modal" type='button' className="ripple-background" data-bs-target="#gameVictoryModal" >
+                    <button
+                        data-bs-dismiss="modal"
+                        type="button"
+                        className="ripple-background"
+                        data-bs-target="#gameVictoryModal"
+                    >
                         <div className="circle xxlarge shade1"></div>
                         <div className="circle xlarge shade2"></div>
                         <div className="circle large shade3"></div>

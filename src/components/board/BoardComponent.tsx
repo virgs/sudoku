@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { BoardContext } from '../../App'
+import { CellValueSetEventType, emitAllCellsRevealed, useCellValueSetListener } from '../../Events'
 import { Board } from '../../engine/Board'
-import { CellValueSetEventType, emitAllCellsRevealed, useCellValueSetListener, useGameStartedListener } from '../../Events'
 import { Point, pointsAreEqual } from '../../math/Point'
 import './BoardComponent.css'
 import { GridComponent } from './grid/GridComponent'

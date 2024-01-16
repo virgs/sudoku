@@ -106,24 +106,32 @@ export function ControlsComponent() {
 
     const startGameButton = () => {
         if (gameFinishedConfiguration) {
-            return <button
-                className="btn btn-sm btn-success action-button me-md-2"
-                type="button"
-                onPointerDown={() => emitStartNewGame({
-                    level: gameFinishedConfiguration.board.gameLevel,
-                    mode: gameFinishedConfiguration.board.gameMode
-                })}>
-                <FontAwesomeIcon className="font-awesome-icon" icon={faCirclePlus} />
-                <span className="d-none me-1 d-xl-inline">New Game</span>
-            </button>
+            return (
+                <button
+                    className="btn btn-sm btn-success action-button me-md-2"
+                    type="button"
+                    onPointerDown={() =>
+                        emitStartNewGame({
+                            level: gameFinishedConfiguration.board.gameLevel,
+                            mode: gameFinishedConfiguration.board.gameMode,
+                        })
+                    }
+                >
+                    <FontAwesomeIcon className="font-awesome-icon" icon={faCirclePlus} />
+                    <span className="d-none me-1 d-xl-inline">New Game</span>
+                </button>
+            )
         } else {
-            return <button
-                className="btn btn-sm btn-danger action-button me-md-2"
-                type="button"
-                onPointerDown={() => emitRestart()}>
-                <FontAwesomeIcon className="font-awesome-icon" icon={faArrowRotateRight} />
-                <span className="d-none me-1 d-xl-inline">Restart</span>
-            </button>
+            return (
+                <button
+                    className="btn btn-sm btn-danger action-button me-md-2"
+                    type="button"
+                    onPointerDown={() => emitRestart()}
+                >
+                    <FontAwesomeIcon className="font-awesome-icon" icon={faArrowRotateRight} />
+                    <span className="d-none me-1 d-xl-inline">Restart</span>
+                </button>
+            )
         }
     }
 

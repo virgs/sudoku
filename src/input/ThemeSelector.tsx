@@ -1,6 +1,5 @@
-import { useState } from "react"
-import { Database } from "../Database"
-
+import { useState } from 'react'
+import { Database } from '../Database'
 
 export const themesMap: {
     [themeName: string]: () => void
@@ -25,9 +24,8 @@ export const themesMap: {
     morph: async () => await import('bootswatch/dist/morph/bootstrap.min.css'),
     litera: async () => await import('bootswatch/dist/litera/bootstrap.min.css'),
     darkly: async () => await import('bootswatch/dist/darkly/bootstrap.min.css'),
-    sketchy: async () => await import('bootswatch/dist/sketchy/bootstrap.min.css')
+    sketchy: async () => await import('bootswatch/dist/sketchy/bootstrap.min.css'),
 }
-
 
 const defaultTheme = 'sketchy'
 await themesMap[Database.loadThemeOrDefault(defaultTheme) || defaultTheme]!()
@@ -35,23 +33,32 @@ await themesMap[Database.loadThemeOrDefault(defaultTheme) || defaultTheme]!()
 export function ThemeSelector() {
     const [currentTheme, setCurrentTheme] = useState<string>(Database.loadThemeOrDefault(defaultTheme))
 
-    return <>
-        <nav className="nav nav-pills">
-            {Object.keys(themesMap).sort().map(themeKey => {
-                const classList = ['nav-link mt-1'];
-                if (themeKey === currentTheme) {
-                    classList.push('active')
-                }
-                return <a className={classList.join(' ')}
-                    key={themeKey}
-                    onPointerDown={() => {
-                        themesMap[themeKey]()
-                        Database.saveTheme(themeKey)
-                        setCurrentTheme(themeKey)
-                    }}
-                    href="#">{themeKey}</a>
-            })
-            }
-        </nav>
-    </>
+    return (
+        <>
+            <nav className="nav nav-pills">
+                {Object.keys(themesMap)
+                    .sort()
+                    .map((themeKey) => {
+                        const classList = ['nav-link mt-1']
+                        if (themeKey === currentTheme) {
+                            classList.push('active')
+                        }
+                        return (
+                            <a
+                                className={classList.join(' ')}
+                                key={themeKey}
+                                onPointerDown={() => {
+                                    themesMap[themeKey]()
+                                    Database.saveTheme(themeKey)
+                                    setCurrentTheme(themeKey)
+                                }}
+                                href="#"
+                            >
+                                {themeKey}
+                            </a>
+                        )
+                    })}
+            </nav>
+        </>
+    )
 }

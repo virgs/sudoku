@@ -76,7 +76,10 @@ export function GameContainer() {
                 </div>
             </div>
             <GameVictoryModalComponent data={gameVictoryData} onDismiss={() => setGameVictoryData(undefined)} />
-            <GameSettingsModalComponent show={showGameSettingsModal} onDismiss={() => setShowGameSettingsModal(false)} />
+            <GameSettingsModalComponent
+                show={showGameSettingsModal}
+                onDismiss={() => setShowGameSettingsModal(false)}
+            />
         </div>
     )
 }

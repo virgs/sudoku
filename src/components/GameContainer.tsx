@@ -5,19 +5,18 @@ import {
     CellValueSetEventType,
     GameFinishedEventType,
     emitGameFinished,
-    useAllCellsRevealedListener,
     useCellValueSetListener,
     useEndGameAnimationFinishedListener,
     useNumberPressedListener,
     useOpenSettingsDialogListener,
-    useTimeElapsedListener,
+    useTimeElapsedListener
 } from '../Events'
 import './GameContainer.css'
-import { GameVictoryModalComponent } from './modals/GameVictoryModalComponent'
 import { BoardComponent } from './board/BoardComponent'
 import { ControlsComponent } from './controls/ControlsComponent'
 import { Header } from './controls/Header'
 import { GameSettingsModalComponent } from './modals/GameSettingsModalComponent'
+import { GameVictoryModalComponent } from './modals/GameVictoryModalComponent'
 
 export function GameContainer() {
     const board = useContext(BoardContext)

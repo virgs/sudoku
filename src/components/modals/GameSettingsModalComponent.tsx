@@ -1,7 +1,7 @@
 import { faChartSimple, faGear, faPalette, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
-import { GameMode } from '../../engine/types/GameMode'
+import { GameMode } from '../../engine/types/AvailableGames'
 import { NewGameSelector } from '../../input/NewGameSelector'
 import { ThemeSelector } from '../../input/ThemeSelector'
 import { StatsTable } from '../../math/StatsTable'

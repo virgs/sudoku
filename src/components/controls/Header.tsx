@@ -9,8 +9,7 @@ import {
     useGameFinishedListener,
     useRestartListener,
 } from '../../Events'
-import { GameLevel } from '../../engine/types/GameLevel'
-import { GameMode } from '../../engine/types/GameMode'
+import { GameLevel, GameMode } from '../../engine/types/AvailableGames'
 import { useInterval } from '../../hooks/UseInterval'
 import { TimeFormatter } from '../../time/TimeFormatter'
 import './Header.css'
@@ -54,7 +53,8 @@ export function Header() {
             <div className="col-12 header-info" style={{ textAlign: 'center' }}>
                 <h2>
                     {/* <strong className="mode-level">{`${GameMode[board.gameMode].toLowerCase()} Sudoku ˲⇾➔⟶⇛ ${GameLevel[board.gameLevel].toLowerCase()}`} */}
-                    <strong className="mode-level">{`${GameMode[board.gameMode].toLowerCase()} Sudoku ⇛ ${GameLevel[board.gameLevel].toLowerCase()}`}
+                    <strong className="mode-level">
+                        {`${GameMode[board.gameMode].toLowerCase()} Sudoku ⇛ ${GameLevel[board.gameLevel].toLowerCase()}`}
                     </strong>
                 </h2>
             </div>

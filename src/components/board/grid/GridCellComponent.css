@@ -18,3 +18,17 @@
 .grid-cell.highlighted {
     background-color: color-mix(in srgb, var(--bs-info) 25%, transparent);
 }
+
+.grid-cell.end-game-animation {
+    animation: end-game-animation 1000ms;
+}
+
+@keyframes end-game-animation {
+    30% {
+        background-color: var(--bs-info);
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}

@@ -3,12 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import { BoardContext } from '../App'
 import { StartNewGameEventType } from '../Events'
-import { GameLevel } from '../engine/types/GameLevel'
-import { GameMode } from '../engine/types/GameMode'
-
-const modeLevelMap: Map<GameMode, GameLevel[]> = new Map()
-modeLevelMap.set(GameMode.CLASSIC, [GameLevel.EASY, GameLevel.MEDIUM, GameLevel.HARD, GameLevel.EXPERT])
-modeLevelMap.set(GameMode.KILLER, [GameLevel.EASY, GameLevel.MEDIUM, GameLevel.HARD, GameLevel.EXPERT])
+import { GameLevel, GameMode, modeLevelMap } from '../engine/types/AvailableGames'
 
 export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGameEventType) => void }) {
     const board = useContext(BoardContext)
@@ -33,7 +28,9 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
                                     className={classList.join(' ')}
                                     onPointerDown={() => {
                                         const availableModeLevels: GameLevel[] = modeLevelMap.get(mode)!
-                                        setCurrentSelectedLevel(availableModeLevels[Math.floor(availableModeLevels.length / 2)])
+                                        setCurrentSelectedLevel(
+                                            availableModeLevels[Math.floor(availableModeLevels.length / 2)]
+                                        )
                                         return setCurrentSelectedMode(mode)
                                     }}
                                     style={{ textTransform: 'capitalize' }}

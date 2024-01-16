@@ -1,9 +1,9 @@
 import { faLightbulb, faStopwatch, faTrophy, faX } from '@fortawesome/free-solid-svg-icons'
-import { GameMode } from '../engine/types/GameMode'
+import { GameMode } from '../engine/types/AvailableGames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export function StatsTable(props: { mode: GameMode }) {
-    console.log(props)
+    console.log(props.mode)
     return (
         <>
             <table className="table table-lg mx-auto" style={{ textAlign: 'center' }}>

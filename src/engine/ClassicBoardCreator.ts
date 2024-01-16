@@ -1,8 +1,7 @@
 import { Difficulty } from 'sudoku-gen/dist/types/difficulty.type'
 import { Point } from '../math/Point'
 import { Board } from './Board'
-import { GameLevel } from './types/GameLevel'
-import { GameMode } from './types/GameMode'
+import { GameLevel, GameMode } from './types/AvailableGames'
 import { GridType } from './types/GridType'
 
 import { getSudoku } from 'sudoku-gen'

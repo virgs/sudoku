@@ -1,6 +1,5 @@
 import { GameFinishedEventType } from './Events'
-import { GameLevel } from './engine/types/GameLevel'
-import { GameMode } from './engine/types/GameMode'
+import { GameLevel, GameMode } from './engine/types/AvailableGames'
 
 export type Stats = {
     hints: number

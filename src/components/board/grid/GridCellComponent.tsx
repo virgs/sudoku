@@ -5,21 +5,49 @@ import {
     CellSelectedEventType,
     CellValueSetEventType,
     emitCellSelected,
+    emitEndGameAnimationFinished,
+    useAllCellsRevealedListener,
     useCellSelectedListener,
     useCellValueSetListener,
     useCurrentValueErasedListener,
 } from '../../../Events'
-import { Point, pointsAreEqual } from '../../../math/Point'
+import { Point, pointsAreEqual, squaredDistanceBetweenPoints } from '../../../math/Point'
 import './GridCellComponent.css'
+import { Board } from '../../../engine/Board'
 
 type GridCellComponentProps = {
     position: Point
     cell: CellType
 }
 
+
+const checkBorderStyle = (board: Board, position: Point) => {
+    const style: React.CSSProperties = {}
+
+    const regions: Point[][] = board.getCellRegions(position)
+    const sharesRegionWithCellAt = (point: Point) =>
+        regions.some((region: Point[]) => region.some((cell: Point) => pointsAreEqual(cell, point)))
+
+    if (sharesRegionWithCellAt({ x: position.x, y: position.y + 1 })) {
+        style.borderBottom = 'none'
+    }
+    if (sharesRegionWithCellAt({ x: position.x, y: position.y - 1 })) {
+        style.borderTop = 'none'
+    }
+    if (sharesRegionWithCellAt({ x: position.x + 1, y: position.y })) {
+        style.borderRight = 'none'
+    }
+    if (sharesRegionWithCellAt({ x: position.x - 1, y: position.y })) {
+        style.borderLeft = 'none'
+    }
+    return style
+}
+
+
 export function GridCellComponent(props: GridCellComponentProps) {
     const board = useContext(BoardContext)
     const defaultClass = 'grid-cell'
+    const [style, setStyle] = useState<React.CSSProperties>(checkBorderStyle(board, props.position))
     const [revealed, setRevealed] = useState<boolean>(props.cell.revealed)
     const [selected, setSelected] = useState<boolean>(false)
     const [highlighted, setHighlighted] = useState<boolean>(false)
@@ -46,6 +74,21 @@ export function GridCellComponent(props: GridCellComponentProps) {
         }
     })
 
+    useAllCellsRevealedListener((payload) => {
+        const animationDuration = 1000
+        const biggestDistance = board.grid.dimension.x ** 2 + board.grid.dimension.y ** 2;
+        const distance = squaredDistanceBetweenPoints(payload.lastRevealedCellPosition, props.position) / 2
+        const delay = (distance / biggestDistance) * animationDuration
+        if (pointsAreEqual(payload.lastRevealedCellPosition, props.position)) {
+            setTimeout(() => emitEndGameAnimationFinished(), animationDuration)
+        }
+        setStyle({
+            ...style,
+            animationDelay: delay + 'ms'
+        })
+        setClassList(defaultClass.concat(' end-game-animation'))
+    })
+
     useCellValueSetListener((payload: CellValueSetEventType) => {
         if (pointsAreEqual(payload.position, props.position)) {
             setRevealed(true)
@@ -53,28 +96,6 @@ export function GridCellComponent(props: GridCellComponentProps) {
             setSameValueCellSelected(true)
         }
     })
-
-    const checkBorderStyle = () => {
-        const style: React.CSSProperties = {}
-
-        const regions: Point[][] = board.getCellRegions(props.position)
-        const sharesRegionWithCellAt = (point: Point) =>
-            regions.some((region: Point[]) => region.some((cell: Point) => pointsAreEqual(cell, point)))
-
-        if (sharesRegionWithCellAt({ x: props.position.x, y: props.position.y + 1 })) {
-            style.borderBottom = 'none'
-        }
-        if (sharesRegionWithCellAt({ x: props.position.x, y: props.position.y - 1 })) {
-            style.borderTop = 'none'
-        }
-        if (sharesRegionWithCellAt({ x: props.position.x + 1, y: props.position.y })) {
-            style.borderRight = 'none'
-        }
-        if (sharesRegionWithCellAt({ x: props.position.x - 1, y: props.position.y })) {
-            style.borderLeft = 'none'
-        }
-        return style
-    }
 
     useCellSelectedListener((payload: CellSelectedEventType) => {
         setSelected(false)
@@ -94,7 +115,7 @@ export function GridCellComponent(props: GridCellComponentProps) {
                 emitCellSelected({ position: props.position, value: revealed ? props.cell.answer : undefined })
             }
             className={classList}
-            style={checkBorderStyle()}
+            style={style}
         >
             {board.renderCellComponent({
                 selected: selected,

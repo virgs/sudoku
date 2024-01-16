@@ -1,8 +1,7 @@
 import { KillerCellComponent } from '../../components/board/killer/KillerCellComponent'
 import { Point, pointsAreEqual } from '../../math/Point'
 import { Board, CellComponentProps } from '../Board'
-import { GameLevel } from '../types/GameLevel'
-import { GameMode } from '../types/GameMode'
+import { GameLevel, GameMode } from '../types/AvailableGames'
 import { KillerGridType } from './types/KillerGridType'
 
 export class KillerBoard extends Board {

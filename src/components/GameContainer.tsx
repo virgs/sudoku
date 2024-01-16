@@ -7,6 +7,7 @@ import {
     emitGameFinished,
     useAllCellsRevealedListener,
     useCellValueSetListener,
+    useEndGameAnimationFinishedListener,
     useNumberPressedListener,
     useOpenSettingsDialogListener,
     useTimeElapsedListener,
@@ -43,7 +44,7 @@ export function GameContainer() {
         setElapsedSeconds(payload.elapsedSeconds)
     })
 
-    useAllCellsRevealedListener(() => {
+    useEndGameAnimationFinishedListener(() => {
         const finishedGameData = {
             hints: hintsCounter,
             mistakes: mistakesCounter,

@@ -22,9 +22,10 @@ var options = {
 
 process.argv
   .filter((_, index) => index > 1)
+  // .filter((_, index) => index == 2)
   .forEach((filename, index) => {
-    const fileContent = fs.readFileSync(filename).toString()
-    fs.writeFileSync(`killer/medium/level-${index}.json`, JSON.stringify(fileContent, null, 2))
+    const fileContent = JSON.parse(fs.readFileSync(filename).toString())
+    fs.writeFileSync(`killer/hard/${index}.json`, fileContent)
   })
 
 // let remainingDownloads = 1

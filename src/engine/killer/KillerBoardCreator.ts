@@ -1,5 +1,5 @@
 import { ClassicBoardCreator } from '../ClassicBoardCreator'
-import { GameLevel } from '../types/GameLevel'
+import { GameLevel } from '../types/AvailableGames'
 import { KillerBoard } from './KillerBoard'
 import { CageType } from './types/CageType'
 
@@ -10,7 +10,7 @@ type FileContent = {
     cages: number[][] //0 to 80
 }
 
-const numOfOnlineFiles = 100;
+const numOfOnlineFiles = 100
 
 export class KillerBoardCreator extends ClassicBoardCreator {
     static readonly pool = {
@@ -22,7 +22,9 @@ export class KillerBoardCreator extends ClassicBoardCreator {
 
     private async randomlySelectFromOnlineRepo(gameLevel: GameLevel): Promise<FileContent> {
         const randomLevelIndex: number = Math.floor(Math.random() * numOfOnlineFiles)
-        const response = await fetch(`https://raw.githubusercontent.com/virgs/sudoku/main/data/killer/${gameLevel.toLowerCase()}/level-${randomLevelIndex}.json`)
+        const response = await fetch(
+            `https://raw.githubusercontent.com/virgs/sudoku/main/data/killer/${gameLevel.toLowerCase()}/level-${randomLevelIndex}.json`
+        )
         return await response.json()
     }
 

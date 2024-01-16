@@ -1,8 +1,7 @@
 import { CellContentComponent } from '../components/board/CellContentComponent'
 import { Point, pointsAreEqual } from '../math/Point'
 import { CellType } from './types/CellType'
-import { GameLevel } from './types/GameLevel'
-import { GameMode } from './types/GameMode'
+import { GameLevel, GameMode } from './types/AvailableGames'
 import { GridType } from './types/GridType'
 
 export type CellComponentProps = {

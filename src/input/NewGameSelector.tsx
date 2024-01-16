@@ -1,4 +1,4 @@
-import { faCheck } from "@fortawesome/free-solid-svg-icons"
+import { faCheck, faCirclePlay } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
 import { BoardContext } from "../App"
@@ -17,11 +17,11 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
     const [currentSelectedLevel, setCurrentSelectedLevel] = useState<GameLevel>(board.gameLevel)
 
     return <>
-        <div className="row mb-2">
-            <div className="col-auto" style={{ color: 'var(--bs-info)', fontWeight: 'bold' }}>
-                Mode:
-            </div>
-            <div className="col">
+        <div className="mb-2">
+            <h5>
+                Mode
+            </h5>
+            <div>
                 <nav className="nav nav-pills nav-fill">
                     {Array.from(modeLevelMap.keys()).map(mode => {
                         const classList = ['nav-link']
@@ -36,11 +36,11 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
             </div>
         </div>
 
-        <div className="row mb-2">
-            <div className="col-auto" style={{ color: 'var(--bs-info)', fontWeight: 'bold' }}>
-                Level:
-            </div>
-            <div className="col">
+        <div className="mb-2">
+            <h5>
+                Level
+            </h5>
+            <div>
                 <nav className="nav nav-pills nav-fill">
                     {modeLevelMap.get(currentSelectedMode)!.map(level => {
                         const classList = ['nav-link']
@@ -55,7 +55,6 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
             </div>
         </div>
 
-
         <button
             className="btn btn-sm btn-success"
             type="button"
@@ -68,7 +67,7 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
             }}
             style={{ float: 'right' }}
         >
-            <FontAwesomeIcon className="font-awesome-icon" icon={faCheck} />
+            <FontAwesomeIcon className="font-awesome-icon" icon={faCirclePlay} />
             <span className="d-none me-1 d-xl-inline" >Start</span>
         </button>
     </>

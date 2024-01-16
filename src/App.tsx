@@ -28,7 +28,7 @@ function App() {
     })
 
     return (
-        <div key={gameId} id="app" className="p-2">
+        <div key={gameId} id="app" className="p-2 pt-lg-3">
             <BoardContext.Provider value={board}>
                 <KeyHandler>
                     <GameContainer></GameContainer>

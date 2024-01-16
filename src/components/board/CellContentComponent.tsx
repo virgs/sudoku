@@ -91,7 +91,7 @@ export function CellContentComponent(props: CellContentComponentProps) {
         } else if (notes.length > 0) {
             const formattedNotes = notes
                 .join('')
-                .match(/.{1,4}/g)
+                .match(/.{1,3}/g)
                 ?.join('\n')
             return <div className="sudoku-cell-notes">{formattedNotes}</div>
         }

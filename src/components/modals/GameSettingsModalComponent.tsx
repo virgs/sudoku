@@ -50,26 +50,26 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                         Settings
                     </h1>
                     <div className="modal-body">
-                        <div className="accordion accordion-flush" id="accordionFlushExample">
+                        <div className="accordion accordion-flush" id="gameSettingsAccordion">
                             <div className="accordion-item">
-                                <h2 className="accordion-header" id="flush-headingOne">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <h2 className="accordion-header" id="flush-theme">
+                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-theme" aria-expanded="false" aria-controls="collapse-theme">
                                         <FontAwesomeIcon className="font-awesome-icon" icon={faPalette} />
                                         Theme
                                     </button>
                                 </h2>
-                                <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div id="collapse-theme" className="accordion-collapse collapse" aria-labelledby="flush-theme" data-bs-parent="#gameSettingsAccordion">
                                     <ThemeSelector></ThemeSelector>
                                 </div>
                             </div>
                             <div className="accordion-item">
-                                <h2 className="accordion-header" id="flush-headingTwo">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                <h2 className="accordion-header" id="flush-stats">
+                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-stats" aria-expanded="false" aria-controls="collapse-stats">
                                         <FontAwesomeIcon className="font-awesome-icon" icon={faChartSimple} />
                                         Stats
                                     </button>
                                 </h2>
-                                <div id="flush-collapseTwo" className="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div id="collapse-stats" className="accordion-collapse collapse" aria-labelledby="flush-stats" data-bs-parent="#gameSettingsAccordion">
                                     <div className="accordion-body">
                                         <StatsTable mode={GameMode.CLASSIC}></StatsTable>
                                         <StatsTable mode={GameMode.KILLER}></StatsTable>
@@ -77,13 +77,13 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                                 </div>
                             </div>
                             <div className="accordion-item">
-                                <h2 className="accordion-header" id="flush-headingThree">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                <h2 className="accordion-header" id="flush-new-game">
+                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-new-game" aria-expanded="false" aria-controls="collapse-new-game">
                                         <FontAwesomeIcon className="font-awesome-icon" icon={faPlusCircle} />
                                         New Game
                                     </button>
                                 </h2>
-                                <div id="flush-collapseThree" className="accordion-collapse collapse show" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                <div id="collapse-new-game" className="accordion-collapse collapse show" aria-labelledby="flush-new-game" data-bs-parent="#gameSettingsAccordion">
                                     <div className="accordion-body">
                                         <NewGameSelector onNewGameClicked={(payload) => {
                                             //@ts-expect-error

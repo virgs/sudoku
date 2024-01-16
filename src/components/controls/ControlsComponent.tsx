@@ -1,5 +1,6 @@
 import {
     faArrowRotateRight,
+    faCirclePlus,
     faEllipsisVertical,
     faEraser,
     faLightbulb,
@@ -11,11 +12,13 @@ import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../App'
 import {
     CellValueSetEventType,
+    GameFinishedEventType,
     emitAnnotationModeChanged,
     emitCurrentValueErased,
     emitNumberPressed,
     emitOpenSettingsDialog,
     emitRestart,
+    emitStartNewGame,
     useAnnotationModeChangedListener,
     useCellSelectedListener,
     useCellValueSetListener,
@@ -52,7 +55,7 @@ function createHints(board: Board) {
 export function ControlsComponent() {
     const board = useContext(BoardContext)
 
-    const [gameIsRunning, setGameIsRunning] = useState<boolean>(true)
+    const [gameFinishedConfiguration, setGameFinishedConfiguration] = useState<GameFinishedEventType | undefined>()
     const [numberOfHintsGiven, setNumberOfHintsGiven] = useState<number>(0)
     const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PENCIL)
     const [availableHints, setAvailableHints] = useState<Hint[]>(createHints(board))
@@ -67,8 +70,8 @@ export function ControlsComponent() {
         })
     }
 
-    useGameFinishedListener(() => {
-        setGameIsRunning(false)
+    useGameFinishedListener((payload) => {
+        setGameFinishedConfiguration(payload)
     })
 
     useCellValueSetListener((data: CellValueSetEventType) => {
@@ -99,6 +102,29 @@ export function ControlsComponent() {
             annotationMode: AnnotationMode.PEN,
             hint: true,
         })
+    }
+
+    const startGameButton = () => {
+        if (gameFinishedConfiguration) {
+            return <button
+                className="btn btn-sm btn-success action-button me-md-2"
+                type="button"
+                onPointerDown={() => emitStartNewGame({
+                    level: gameFinishedConfiguration.board.gameLevel,
+                    mode: gameFinishedConfiguration.board.gameMode
+                })}>
+                <FontAwesomeIcon className="font-awesome-icon" icon={faCirclePlus} />
+                <span className="d-none me-1 d-xl-inline">New Game</span>
+            </button>
+        } else {
+            return <button
+                className="btn btn-sm btn-danger action-button me-md-2"
+                type="button"
+                onPointerDown={() => emitRestart()}>
+                <FontAwesomeIcon className="font-awesome-icon" icon={faArrowRotateRight} />
+                <span className="d-none me-1 d-xl-inline">Restart</span>
+            </button>
+        }
     }
 
     return (
@@ -157,7 +183,7 @@ export function ControlsComponent() {
                         type="button"
                         className="btn btn-sm btn-secondary action-button"
                         disabled={
-                            !gameIsRunning ||
+                            !!gameFinishedConfiguration ||
                             !currentSelectedCellPosition ||
                             !availableHints.find((hint) => pointsAreEqual(hint.position, currentSelectedCellPosition!))
                         }
@@ -173,14 +199,7 @@ export function ControlsComponent() {
                 <NumPadComponent onNumberPressed={onNumberPressed} />
             </div>
             <div className="d-flex gap-2 mx-2 justify-content-between ">
-                <button
-                    className="btn btn-sm btn-warning action-button me-md-2"
-                    type="button"
-                    onPointerDown={() => emitRestart()}
-                >
-                    <FontAwesomeIcon className="font-awesome-icon" icon={faArrowRotateRight} />
-                    <span className="d-none me-1 d-xl-inline">Restart</span>
-                </button>
+                {startGameButton()}
                 <button
                     className="btn btn-sm btn-secondary action-button"
                     type="button"

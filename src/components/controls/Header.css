@@ -1,8 +1,5 @@
 .header-info {
-    font-size: 1.05rem;
-}
-
-.mode-level {
-    cursor: pointer;
-    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Carter One', system-ui;
+    text-transform: capitalize;
 }

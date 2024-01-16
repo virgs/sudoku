@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { BoardContext } from '../../App'
 import { Board } from '../../engine/Board'
-import { CellValueSetEventType, emitAllCellsRevealed, useCellValueSetListener } from '../../Events'
+import { CellValueSetEventType, emitAllCellsRevealed, useCellValueSetListener, useGameStartedListener } from '../../Events'
 import { Point, pointsAreEqual } from '../../math/Point'
 import './BoardComponent.css'
 import { GridComponent } from './grid/GridComponent'
@@ -30,8 +30,7 @@ export function BoardComponent() {
             const nextNotAnsweredCells = notAnsweredCells.filter(
                 (cellPosition) => !pointsAreEqual(cellPosition, data.position)
             )
-            if (nextNotAnsweredCells.length <= 80) {
-                //TODO set it to zero once the GameVictoryModal is done
+            if (nextNotAnsweredCells.length <= 0) {
                 emitAllCellsRevealed()
             }
             setNotAnsweredCells(nextNotAnsweredCells)

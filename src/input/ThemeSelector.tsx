@@ -5,6 +5,9 @@ import { Database } from "../Database"
 export const themesMap: {
     [themeName: string]: () => void
 } = {
+    vapor: async () => await import('bootswatch/dist/vapor/bootstrap.min.css'),
+    united: async () => await import('bootswatch/dist/united/bootstrap.min.css'),
+    yeti: async () => await import('bootswatch/dist/yeti/bootstrap.min.css'),
     minty: async () => await import('bootswatch/dist/minty/bootstrap.min.css'),
     pulse: async () => await import('bootswatch/dist/pulse/bootstrap.min.css'),
     quartz: async () => await import('bootswatch/dist/quartz/bootstrap.min.css'),
@@ -35,7 +38,7 @@ export function ThemeSelector() {
     return <>
         <nav className="nav nav-pills">
             {Object.keys(themesMap).sort().map(themeKey => {
-                const classList = ['nav-link'];
+                const classList = ['nav-link mt-1'];
                 if (themeKey === currentTheme) {
                     classList.push('active')
                 }

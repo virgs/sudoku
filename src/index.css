@@ -1,11 +1,5 @@
-/* --bs-primary: #333;
---bs-secondary: #555;
---bs-success: #28a745;
---bs-info: #17a2b8;
---bs-warning: #ffc107;
---bs-danger: #dc3545; */
 :root {
-    --board-container-size: 450px;
+    --board-container-size: 500px;
     --board-background-color: color-mix(in srgb, var(--bs-primary-bg-subtle) 50%, transparent);
     user-select: none;
 

@@ -7,8 +7,9 @@
 }
 
 .sudoku-cell-notes {
-    font-size: 0.85rem;
-    color: color-mix(in srgb, var(--bs-heading-color) 50%, transparent);
+    font-size: 0.7em;
+    text-align: center;
+    color: color-mix(in srgb, var(--bs-heading-color) 30%, transparent);
 }
 
 .sudoku-cell-answer {

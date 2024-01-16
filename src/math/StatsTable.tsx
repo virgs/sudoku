@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function StatsTable(props: { mode: GameMode }) {
     return <>
-        <table className="table table-lg mx-auto">
+        <table className="table table-lg mx-auto" style={{ textAlign: 'center' }}>
             <thead>
                 <tr>
                     <th scope="col"></th>

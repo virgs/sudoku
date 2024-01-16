@@ -50,20 +50,20 @@ export function Header() {
     })
 
     return (
-        <div className="row justify-content-between mb-3 ml-2">
-            <div className="col-auto header-info">
-                <h6>
+        <div className="row justify-content-between mb-3">
+            <div className="col-12 header-info">
+                <h2>
                     <strong className="mode-level">{`${GameMode[board.gameMode]}: ${GameLevel[board.gameLevel]}`}</strong>
-                </h6>
+                </h2>
             </div>
-            <div className="col-auto header-info">
-                <FontAwesomeIcon className="font-awesome-icon" icon={faXmark} color="var(--bs-danger)" />
+            <div className="col-6 header-info" style={{ textAlign: 'left' }}>
+                <FontAwesomeIcon className="font-awesome-icon" icon={faXmark} color="var(--bs-warning)" />
                 <span>
                     <strong>{mistakesCounter}</strong>
                 </span>
             </div>
-            <div className="col-auto header-info">
-                <FontAwesomeIcon className="font-awesome-icon" icon={faStopwatch} color="var(--bs-primary)" />
+            <div className="col-6 header-info" style={{ textAlign: 'right' }}>
+                <FontAwesomeIcon className="font-awesome-icon" icon={faStopwatch} color="var(--bs-warning)" />
                 <span style={{ width: '3rem', display: 'inline-block' }}>
                     <strong>{new TimeFormatter().formatDuration(elapsedSeconds)}</strong>
                 </span>

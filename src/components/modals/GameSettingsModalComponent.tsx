@@ -5,6 +5,7 @@ import { BoardContext } from "../../App"
 import { StatsTable } from "../../math/StatsTable"
 import "./GameSettingsModalComponent.css"
 import { GameMode } from "../../engine/types/GameMode"
+import { ThemeSelector } from "../../input/ThemeSelector"
 
 type GameSettingsModalComponentType = {
     show: boolean,
@@ -53,13 +54,7 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                                 </h2>
                                 <div id="flush-collapse-theme" className="accordion-collapse collapse" style={{ boxShadow: 'none !important' }}>
                                     <div className="accordion-body px-0">
-                                        <nav className="nav nav-pills nav-fill">
-                                            <a className="nav-link" href="#">Lumen</a>
-                                            <a className="nav-link" href="#">Darkly</a>
-                                            <a className="nav-link active" href="#">Killer</a>
-                                            <a className="nav-link" href="#">Sketchy</a>
-                                            <a className="nav-link" href="#">Blacla</a>
-                                        </nav>
+                                        <ThemeSelector></ThemeSelector>
                                     </div>
                                 </div>
                             </div>

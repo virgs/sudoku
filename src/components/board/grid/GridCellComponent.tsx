@@ -20,7 +20,6 @@ type GridCellComponentProps = {
     cell: CellType
 }
 
-
 const checkBorderStyle = (board: Board, position: Point) => {
     const style: React.CSSProperties = {}
 
@@ -42,7 +41,6 @@ const checkBorderStyle = (board: Board, position: Point) => {
     }
     return style
 }
-
 
 export function GridCellComponent(props: GridCellComponentProps) {
     const board = useContext(BoardContext)
@@ -76,7 +74,7 @@ export function GridCellComponent(props: GridCellComponentProps) {
 
     useAllCellsRevealedListener((payload) => {
         const animationDuration = 1000
-        const biggestDistance = board.grid.dimension.x ** 2 + board.grid.dimension.y ** 2;
+        const biggestDistance = board.grid.dimension.x ** 2 + board.grid.dimension.y ** 2
         const distance = squaredDistanceBetweenPoints(payload.lastRevealedCellPosition, props.position) / 2
         const delay = (distance / biggestDistance) * animationDuration
         if (pointsAreEqual(payload.lastRevealedCellPosition, props.position)) {
@@ -85,7 +83,7 @@ export function GridCellComponent(props: GridCellComponentProps) {
         setSameValueCellSelected(false)
         setStyle({
             ...style,
-            animationDelay: delay + 'ms'
+            animationDelay: delay + 'ms',
         })
         setClassList(defaultClass.concat(' end-game-animation'))
     })

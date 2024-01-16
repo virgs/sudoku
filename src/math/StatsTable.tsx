@@ -6,10 +6,11 @@ import { Database } from '../Database'
 import { TimeFormatter } from '../time/TimeFormatter'
 
 export function StatsTable(props: { mode: GameMode }) {
-    const modeStats = Database.loadGameFinishedStats()
-        .filter(stat => stat.mode === props.mode)
+    const modeStats = Database.loadGameFinishedStats().filter((stat) => stat.mode === props.mode)
     const formattedTime = (level: GameLevel) => {
-        const average = NumberListOperations.getAverage(modeStats.filter(stat => stat.level === level).map(stat => stat.totalTime))
+        const average = NumberListOperations.getAverage(
+            modeStats.filter((stat) => stat.level === level).map((stat) => stat.totalTime)
+        )
         if (average === undefined) {
             return '-'
         }
@@ -17,8 +18,7 @@ export function StatsTable(props: { mode: GameMode }) {
     }
     return (
         <>
-            <h5 style={{ textTransform: 'capitalize' }}>{`${GameMode[props.mode].toLowerCase()}`}
-            </h5>
+            <h5 style={{ textTransform: 'capitalize' }}>{`${GameMode[props.mode].toLowerCase()}`}</h5>
             <table className="table table-lg mx-auto" style={{ textAlign: 'center' }}>
                 <thead>
                     <tr>
@@ -42,17 +42,27 @@ export function StatsTable(props: { mode: GameMode }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        modeLevelMap.get(props.mode)?.map(level => {
-                            return <tr key={props.mode + level}>
-                                <th scope="row" style={{ textTransform: 'capitalize', width: '10%' }}>{level.toLowerCase()}</th>
-                                <td>{modeStats.filter(stat => stat.level === level).length || 0}</td>
+                    {modeLevelMap.get(props.mode)?.map((level) => {
+                        return (
+                            <tr key={props.mode + level}>
+                                <th scope="row" style={{ textTransform: 'capitalize', width: '10%' }}>
+                                    {level.toLowerCase()}
+                                </th>
+                                <td>{modeStats.filter((stat) => stat.level === level).length || 0}</td>
                                 <td>{formattedTime(level)}</td>
-                                <td>{NumberListOperations.getAverage(modeStats.filter(stat => stat.level === level).map(stat => stat.mistakes))?.toFixed(2) ?? '-'}</td>
-                                <td>{NumberListOperations.getAverage(modeStats.filter(stat => stat.level === level).map(stat => stat.hints))?.toFixed(2) ?? '-'}</td>
+                                <td>
+                                    {NumberListOperations.getAverage(
+                                        modeStats.filter((stat) => stat.level === level).map((stat) => stat.mistakes)
+                                    )?.toFixed(2) ?? '-'}
+                                </td>
+                                <td>
+                                    {NumberListOperations.getAverage(
+                                        modeStats.filter((stat) => stat.level === level).map((stat) => stat.hints)
+                                    )?.toFixed(2) ?? '-'}
+                                </td>
                             </tr>
-                        })
-                    }
+                        )
+                    })}
                 </tbody>
             </table>
         </>

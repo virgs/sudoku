@@ -1,6 +1,7 @@
 export enum GameMode {
     CLASSIC = 'CLASSIC',
     KILLER = 'KILLER',
+    MINI = 'MINI',
 }
 
 export enum GameLevel {
@@ -13,3 +14,4 @@ export enum GameLevel {
 export const modeLevelMap: Map<GameMode, GameLevel[]> = new Map()
 modeLevelMap.set(GameMode.CLASSIC, [GameLevel.EASY, GameLevel.MEDIUM, GameLevel.HARD, GameLevel.EXPERT])
 modeLevelMap.set(GameMode.KILLER, [GameLevel.EASY, GameLevel.MEDIUM, GameLevel.HARD, GameLevel.EXPERT])
+modeLevelMap.set(GameMode.MINI, [GameLevel.EASY])

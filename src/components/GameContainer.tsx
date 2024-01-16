@@ -9,7 +9,7 @@ import {
     useEndGameAnimationFinishedListener,
     useNumberPressedListener,
     useOpenSettingsDialogListener,
-    useTimeElapsedListener
+    useTimeElapsedListener,
 } from '../Events'
 import './GameContainer.css'
 import { BoardComponent } from './board/BoardComponent'

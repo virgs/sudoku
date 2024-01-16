@@ -30,7 +30,7 @@ export function BoardComponent() {
             const nextNotAnsweredCells = notAnsweredCells.filter(
                 (cellPosition) => !pointsAreEqual(cellPosition, data.position)
             )
-            if (nextNotAnsweredCells.length <= 80) {
+            if (nextNotAnsweredCells.length <= 0) {
                 emitAllCellsRevealed({ lastRevealedCellPosition: data.position })
             }
             setNotAnsweredCells(nextNotAnsweredCells)

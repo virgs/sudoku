@@ -5,5 +5,4 @@ export class NumberListOperations {
         }
         return values.reduce((acc, value) => acc + value, 0) / values.length
     }
-
 }

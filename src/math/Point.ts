@@ -8,5 +8,5 @@ export const pointsAreEqual = (a: Point, b: Point): boolean => {
 }
 
 export const squaredDistanceBetweenPoints = (a: Point, b: Point): number => {
-    return ((a.x - b.x) ** 2) + ((a.y - b.y) ** 2)
+    return (a.x - b.x) ** 2 + (a.y - b.y) ** 2
 }

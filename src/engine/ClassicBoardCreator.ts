@@ -13,18 +13,21 @@ type FileContent = {
 }
 
 export class ClassicBoardCreator {
-    static readonly BOARD_DIMENSION: Point = { x: 9, y: 9 }
     private readonly matricesOperationsShuffle: MatrixOperationsType[]
+    protected readonly dimension
 
-    public constructor() {
-        const matrixOperations = new MatrixOperations(ClassicBoardCreator.BOARD_DIMENSION)
-        const validMatricesOperations: MatrixOperationsType[] = [(point) => matrixOperations.flipHorizontally(point),
-        (point) => matrixOperations.flipVertically(point),
-        (point) => matrixOperations.transposePoint(point),
-        (point) => matrixOperations.rotateClockwise(point)]
+    public constructor(dimension: Point = { x: 9, y: 9 }) {
+        this.dimension = dimension
+        const matrixOperations = new MatrixOperations(this.dimension)
+        const validMatricesOperations: MatrixOperationsType[] = [
+            (point) => matrixOperations.flipHorizontally(point),
+            (point) => matrixOperations.flipVertically(point),
+            (point) => matrixOperations.transposePoint(point),
+            (point) => matrixOperations.rotateClockwise(point),
+        ]
         this.matricesOperationsShuffle = validMatricesOperations
-            .sort(() => Math.random() - .5)
-            .filter(() => Math.random() > .5)
+            .sort(() => Math.random() - 0.5)
+            .filter(() => Math.random() > 0.5)
     }
 
     public async createBoard(level: GameLevel): Promise<Board> {
@@ -36,7 +39,7 @@ export class ClassicBoardCreator {
 
         const grid = this.createEmptyGrid()
 
-        for (let i = 0; i < ClassicBoardCreator.BOARD_DIMENSION.y * ClassicBoardCreator.BOARD_DIMENSION.x; ++i) {
+        for (let i = 0; i < grid.dimension.y * grid.dimension.x; ++i) {
             const position = this.getPointOutOfIndex(i)
             grid.cells[position.y][position.x].answer = answers[i]
             grid.cells[position.y][position.x].revealed = revealedCells[i]
@@ -46,14 +49,11 @@ export class ClassicBoardCreator {
             grid: grid,
             gameLevel: level,
             gameMode: GameMode.CLASSIC,
-            regions: this.createNonets(),
+            regions: this.createSquareRegions({ y: 3, x: 3 }, { y: 3, x: 3 }),
         })
     }
 
-    protected createNonets() {
-        const numberOfNonets = { y: 3, x: 3 }
-        const nonetsDimension = { y: 3, x: 3 }
-
+    protected createSquareRegions(numberOfNonets: Point, nonetsDimension: Point) {
         const regions: Point[][] = []
         Array.from(Array(numberOfNonets.y).keys()).forEach((regionY) =>
             Array.from(Array(numberOfNonets.x).keys()).forEach((regionX) => {
@@ -74,11 +74,10 @@ export class ClassicBoardCreator {
 
     protected getPointOutOfIndex(index: number): Point {
         const original = {
-            y: Math.floor(index % ClassicBoardCreator.BOARD_DIMENSION.x),
-            x: Math.floor(index / ClassicBoardCreator.BOARD_DIMENSION.y),
+            y: Math.floor(index % this.dimension.x),
+            x: Math.floor(index / this.dimension.y),
         }
-        return this.matricesOperationsShuffle
-            .reduce((acc, operation) => operation(acc), original)
+        return this.matricesOperationsShuffle.reduce((acc, operation) => operation(acc), original)
     }
 
     private mapLevelToDifficulty(level: GameLevel): Difficulty {
@@ -95,9 +94,9 @@ export class ClassicBoardCreator {
 
     protected createEmptyGrid(): GridType {
         return {
-            dimension: ClassicBoardCreator.BOARD_DIMENSION,
-            cells: Array.from(Array(ClassicBoardCreator.BOARD_DIMENSION.y).keys()).map(() =>
-                Array.from(Array(ClassicBoardCreator.BOARD_DIMENSION.x).keys()).map(() => ({
+            dimension: this.dimension,
+            cells: Array.from(Array(this.dimension.y).keys()).map(() =>
+                Array.from(Array(this.dimension.x).keys()).map(() => ({
                     answer: 0,
                     revealed: false,
                 }))

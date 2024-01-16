@@ -25,7 +25,7 @@ export class KillerBoardCreator extends ClassicBoardCreator {
         const grid = this.createEmptyGrid()
         const revealedCells: boolean[] = fileContent.mission.split('').map((value) => value !== '0')
         const answers: number[] = fileContent.solution.split('').map((value) => Number(value))
-        for (let i = 0; i < ClassicBoardCreator.BOARD_DIMENSION.y * ClassicBoardCreator.BOARD_DIMENSION.x; ++i) {
+        for (let i = 0; i < grid.dimension.y * grid.dimension.x; ++i) {
             const position = this.getPointOutOfIndex(i)
             grid.cells[position.y][position.x].answer = answers[i]
             grid.cells[position.y][position.x].revealed = revealedCells[i]
@@ -42,14 +42,14 @@ export class KillerBoardCreator extends ClassicBoardCreator {
                 cages: cages,
             },
             level,
-            this.createNonets()
+            this.createSquareRegions({ y: 3, x: 3 }, { y: 3, x: 3 })
         )
     }
 
     private async randomlySelectFromOnlineRepo(gameLevel: GameLevel): Promise<FileContent> {
         const randomLevelIndex: number = Math.floor(Math.random() * numOfOnlineFiles)
         const response = await fetch(
-            `https://raw.githubusercontent.com/virgs/sudoku/main/data/killer/${gameLevel.toLowerCase()}/level-${randomLevelIndex}.json`
+            `https://raw.githubusercontent.com/virgs/sudoku/main/data/killer/${gameLevel.toLowerCase()}/${randomLevelIndex}.json`
         )
         return await response.json()
     }
@@ -69,5 +69,4 @@ export class KillerBoardCreator extends ClassicBoardCreator {
             return await this.randomlySelectFromFilePool(gameLevel)
         }
     }
-
 }

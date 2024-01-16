@@ -1,11 +1,13 @@
-import { faChartSimple, faCheck, faGear, faPalette, faPlusCircle } from "@fortawesome/free-solid-svg-icons"
+import { faChartSimple, faGear, faPalette, faPlusCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useContext, useEffect } from "react"
-import { BoardContext } from "../../App"
+import { useEffect, useState } from "react"
+import { GameMode } from "../../engine/types/GameMode"
+import { NewGameSelector } from "../../input/NewGameSelector"
+import { ThemeSelector } from "../../input/ThemeSelector"
 import { StatsTable } from "../../math/StatsTable"
 import "./GameSettingsModalComponent.css"
-import { GameMode } from "../../engine/types/GameMode"
-import { ThemeSelector } from "../../input/ThemeSelector"
+import { emitStartNewGame } from "../../Events"
+import { Database } from "../../Database"
 
 type GameSettingsModalComponentType = {
     show: boolean,
@@ -13,11 +15,14 @@ type GameSettingsModalComponentType = {
 }
 
 export function GameSettingsModalComponent(props: GameSettingsModalComponentType) {
-    const board = useContext(BoardContext)
+    const [modal, setModal] = useState()
+
     useEffect(() => {
         if (props.show) {
-            //@ts-ignore
-            new bootstrap.Modal('#gameSettingsModal', { focus: true }).show()
+            //@ts-expect-error
+            const modal = new bootstrap.Modal('#gameSettingsModal', { focus: true })
+            setModal(modal)
+            modal.show()
 
             const modalElement = document.getElementById('gameSettingsModal')
             modalElement?.addEventListener('hidden.bs.modal', () => {
@@ -25,6 +30,7 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
             })
         }
     }, [props.show])
+
     if (!props.show) {
         return <></>
     }
@@ -44,79 +50,52 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                         Settings
                     </h1>
                     <div className="modal-body">
-                        <div className="accordion accordion-flush">
+                        <div className="accordion accordion-flush" id="accordionFlushExample">
                             <div className="accordion-item">
-                                <h2 className="accordion-header">
-                                    <button className="accordion-button collapsed ps-0" style={{ boxShadow: 'none !important' }} type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#flush-collapse-theme" aria-expanded="false" aria-controls="flush-collapse-theme">
-                                        <FontAwesomeIcon className="font-awesome-icon" icon={faPalette} /> Theme
+                                <h2 className="accordion-header" id="flush-headingOne">
+                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <FontAwesomeIcon className="font-awesome-icon" icon={faPalette} />
+                                        Theme
                                     </button>
                                 </h2>
-                                <div id="flush-collapse-theme" className="accordion-collapse collapse" style={{ boxShadow: 'none !important' }}>
-                                    <div className="accordion-body px-0">
-                                        <ThemeSelector></ThemeSelector>
-                                    </div>
+                                <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                    <ThemeSelector></ThemeSelector>
                                 </div>
                             </div>
-                        </div>
-
-
-                        <div className="accordion accordion-flush">
                             <div className="accordion-item">
-                                <h2 className="accordion-header">
-                                    <button className="accordion-button collapsed ps-0" style={{ boxShadow: 'none !important' }} type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#flush-collapse-stats" aria-expanded="false" aria-controls="flush-collapse-stats">
+                                <h2 className="accordion-header" id="flush-headingTwo">
+                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                                         <FontAwesomeIcon className="font-awesome-icon" icon={faChartSimple} />
                                         Stats
                                     </button>
                                 </h2>
-                                <div id="flush-collapse-stats" className="accordion-collapse collapse" style={{ boxShadow: 'none !important' }}>
-                                    <div className="accordion-body px-0">
+                                <div id="flush-collapseTwo" className="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                    <div className="accordion-body">
                                         <StatsTable mode={GameMode.CLASSIC}></StatsTable>
                                         <StatsTable mode={GameMode.KILLER}></StatsTable>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="accordion accordion-flush">
                             <div className="accordion-item">
-                                <h2 className="accordion-header">
-                                    <button className="accordion-button collapsed ps-0" style={{ boxShadow: 'none !important' }} type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#flush-collapse-new-game" aria-expanded="false" aria-controls="flush-collapse-new-game">
+                                <h2 className="accordion-header" id="flush-headingThree">
+                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                                         <FontAwesomeIcon className="font-awesome-icon" icon={faPlusCircle} />
                                         New Game
                                     </button>
                                 </h2>
-                                <div id="flush-collapse-new-game" className="accordion-collapse collapse" style={{ boxShadow: 'none !important' }}>
-                                    <div className="accordion-body px-0">
-
-                                        <nav className="nav nav-pills nav-fill">
-                                            <a className="nav-link" href="#">Mini</a>
-                                            <a className="nav-link" href="#">Classic</a>
-                                            <a className="nav-link active" href="#">Killer</a>
-                                        </nav>
-                                        <nav className="nav nav-pills nav-fill">
-                                            <a className="nav-link" href="#">Easy</a>
-                                            <a className="nav-link" href="#">Medium</a>
-                                            <a className="nav-link" href="#">Hard</a>
-                                            <a className="nav-link active" href="#">Expert</a>
-                                        </nav>
-
-                                        <button
-                                            className="btn btn-sm btn-secondary"
-                                            type="button"
-                                            style={{ float: 'right' }}
-                                        >
-                                            <FontAwesomeIcon className="font-awesome-icon" icon={faCheck} />
-                                            <span className="d-none me-1 d-xl-inline">Options</span>
-                                        </button>
-
+                                <div id="flush-collapseThree" className="accordion-collapse collapse show" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                    <div className="accordion-body">
+                                        <NewGameSelector onNewGameClicked={(payload) => {
+                                            //@ts-expect-error
+                                            modal.dispose()
+                                            Database.saveGameMode(payload.mode)
+                                            Database.saveGameLevel(payload.level)
+                                            emitStartNewGame(payload)
+                                        }}></NewGameSelector>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 
                     </div>
                 </div>

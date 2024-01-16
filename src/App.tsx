@@ -1,19 +1,28 @@
 import { createContext, useState } from 'react'
 import './App.css'
-import { KeyHandler } from './input/KeyHandler'
-import { KillerBoardCreator } from './engine/killer/KillerBoardCreator'
-import { GameLevel } from './engine/types/GameLevel'
-import { useRestartListener } from './Events'
+import { useRestartListener, useStartNewGameListener } from './Events'
 import { GameContainer } from './components/GameContainer'
+import { BoardFactory } from './engine/BoardFactory'
+import { GameLevel } from './engine/types/GameLevel'
+import { GameMode } from './engine/types/GameMode'
+import { KeyHandler } from './input/KeyHandler'
+import { Database } from './Database'
 
-let board = await new KillerBoardCreator().createBoard(GameLevel.EXPERT)
+
+let board = await new BoardFactory().createNewBoard(Database.loadGameModeOrDefault(GameMode.CLASSIC),
+    Database.loadGameLevelOrDefault(GameLevel.MEDIUM))
 export let BoardContext = createContext(board)
 
 function App() {
     const [gameId, setGameId] = useState<number>(0)
 
     useRestartListener(async () => {
-        //to create a new game: board = await new KillerBoardCreator().createBoard(GameLevel.EASY)
+        BoardContext = createContext(board)
+        setGameId(() => gameId + 1)
+    })
+
+    useStartNewGameListener(async payload => {
+        board = await new BoardFactory().createNewBoard(payload.mode, payload.level)
         BoardContext = createContext(board)
         setGameId(() => gameId + 1)
     })

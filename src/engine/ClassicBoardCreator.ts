@@ -5,6 +5,7 @@ import { GameLevel, GameMode } from './types/AvailableGames'
 import { GridType } from './types/GridType'
 
 import { getSudoku } from 'sudoku-gen'
+import { MatrixOperations, MatrixOperationsType } from '../math/Matrix'
 
 type FileContent = {
     puzzle: string //"-----81---8---467361-9--58---8--5---3--8764--15-4237985--------46-3---57-7-5-9361"
@@ -13,6 +14,18 @@ type FileContent = {
 
 export class ClassicBoardCreator {
     static readonly BOARD_DIMENSION: Point = { x: 9, y: 9 }
+    private readonly matricesOperationsShuffle: MatrixOperationsType[]
+
+    public constructor() {
+        const matrixOperations = new MatrixOperations(ClassicBoardCreator.BOARD_DIMENSION)
+        const validMatricesOperations: MatrixOperationsType[] = [(point) => matrixOperations.flipHorizontally(point),
+        (point) => matrixOperations.flipVertically(point),
+        (point) => matrixOperations.transposePoint(point),
+        (point) => matrixOperations.rotateClockwise(point)]
+        this.matricesOperationsShuffle = validMatricesOperations
+            .sort(() => Math.random() - .5)
+            .filter(() => Math.random() > .5)
+    }
 
     public async createBoard(level: GameLevel): Promise<Board> {
         const difficulty: Difficulty = this.mapLevelToDifficulty(level)
@@ -38,15 +51,18 @@ export class ClassicBoardCreator {
     }
 
     protected createNonets() {
+        const numberOfNonets = { y: 3, x: 3 }
+        const nonetsDimension = { y: 3, x: 3 }
+
         const regions: Point[][] = []
-        Array.from(Array(3).keys()).forEach((regionY) =>
-            Array.from(Array(3).keys()).forEach((regionX) => {
+        Array.from(Array(numberOfNonets.y).keys()).forEach((regionY) =>
+            Array.from(Array(numberOfNonets.x).keys()).forEach((regionX) => {
                 const currentRegion: Point[] = []
-                Array.from(Array(3).keys()).forEach((y) =>
-                    Array.from(Array(3).keys()).forEach((x) => {
+                Array.from(Array(nonetsDimension.y).keys()).forEach((y) =>
+                    Array.from(Array(nonetsDimension.x).keys()).forEach((x) => {
                         currentRegion.push({
-                            y: regionY * 3 + y,
-                            x: regionX * 3 + x,
+                            y: regionY * numberOfNonets.y + y,
+                            x: regionX * numberOfNonets.x + x,
                         })
                     })
                 )
@@ -57,10 +73,12 @@ export class ClassicBoardCreator {
     }
 
     protected getPointOutOfIndex(index: number): Point {
-        return {
-            y: Math.floor(index / ClassicBoardCreator.BOARD_DIMENSION.y),
-            x: Math.floor(index % ClassicBoardCreator.BOARD_DIMENSION.x),
+        const original = {
+            y: Math.floor(index % ClassicBoardCreator.BOARD_DIMENSION.x),
+            x: Math.floor(index / ClassicBoardCreator.BOARD_DIMENSION.y),
         }
+        return this.matricesOperationsShuffle
+            .reduce((acc, operation) => operation(acc), original)
     }
 
     private mapLevelToDifficulty(level: GameLevel): Difficulty {

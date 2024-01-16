@@ -13,5 +13,3 @@ export enum GameLevel {
 export const modeLevelMap: Map<GameMode, GameLevel[]> = new Map()
 modeLevelMap.set(GameMode.CLASSIC, [GameLevel.EASY, GameLevel.MEDIUM, GameLevel.HARD, GameLevel.EXPERT])
 modeLevelMap.set(GameMode.KILLER, [GameLevel.EASY, GameLevel.MEDIUM, GameLevel.HARD, GameLevel.EXPERT])
-
-export const gameLevels = Object.values(GameLevel).filter((key) => isNaN(Number(key)))

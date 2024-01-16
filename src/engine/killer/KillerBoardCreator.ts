@@ -20,30 +20,6 @@ export class KillerBoardCreator extends ClassicBoardCreator {
         [GameLevel.EXPERT]: import.meta.glob(`../../assets/puzzles/killer/expert/*.json`),
     }
 
-    private async randomlySelectFromOnlineRepo(gameLevel: GameLevel): Promise<FileContent> {
-        const randomLevelIndex: number = Math.floor(Math.random() * numOfOnlineFiles)
-        const response = await fetch(
-            `https://raw.githubusercontent.com/virgs/sudoku/main/data/killer/${gameLevel.toLowerCase()}/level-${randomLevelIndex}.json`
-        )
-        return await response.json()
-    }
-
-    private async randomlySelectFromFilePool(gameLevel: GameLevel): Promise<FileContent> {
-        const pool = KillerBoardCreator.pool[gameLevel]
-        const levelsModules = Object.keys(pool)
-        const randomLevelIndex: number = Math.floor(Math.random() * levelsModules.length)
-        return (await pool[levelsModules[randomLevelIndex]]()) as FileContent
-    }
-
-    private async randomlySelectLevel(gameLevel: GameLevel): Promise<FileContent> {
-        try {
-            return await this.randomlySelectFromOnlineRepo(gameLevel)
-        } catch (err) {
-            console.log('Unable to retrieve online board. Fallback to file pool')
-        }
-        return await this.randomlySelectFromFilePool(gameLevel)
-    }
-
     public async createBoard(level: GameLevel): Promise<KillerBoard> {
         const fileContent: FileContent = await this.randomlySelectLevel(level)
         const grid = this.createEmptyGrid()
@@ -69,4 +45,29 @@ export class KillerBoardCreator extends ClassicBoardCreator {
             this.createNonets()
         )
     }
+
+    private async randomlySelectFromOnlineRepo(gameLevel: GameLevel): Promise<FileContent> {
+        const randomLevelIndex: number = Math.floor(Math.random() * numOfOnlineFiles)
+        const response = await fetch(
+            `https://raw.githubusercontent.com/virgs/sudoku/main/data/killer/${gameLevel.toLowerCase()}/level-${randomLevelIndex}.json`
+        )
+        return await response.json()
+    }
+
+    private async randomlySelectFromFilePool(gameLevel: GameLevel): Promise<FileContent> {
+        const pool = KillerBoardCreator.pool[gameLevel]
+        const levelsModules = Object.keys(pool)
+        const randomLevelIndex: number = Math.floor(Math.random() * levelsModules.length)
+        return (await pool[levelsModules[randomLevelIndex]]()) as FileContent
+    }
+
+    private async randomlySelectLevel(gameLevel: GameLevel): Promise<FileContent> {
+        try {
+            return await this.randomlySelectFromOnlineRepo(gameLevel)
+        } catch (err) {
+            console.log('Unable to retrieve online board. Fallback to file pool')
+            return await this.randomlySelectFromFilePool(gameLevel)
+        }
+    }
+
 }

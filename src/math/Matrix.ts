@@ -1,25 +1,36 @@
-export class Matrix<T> {
-    public transpose(matrix: T[][]): T[][] {
-        const numRows = matrix.length
-        const numCols = matrix[0].length
+import { Point } from "./Point";
 
-        const transposedMatrix: T[][] = []
+export type MatrixOperationsType = ((point: Point) => Point)
 
-        for (let i = 0; i < numCols; i++) {
-            transposedMatrix[i] = []
-            for (let j = 0; j < numRows; j++) {
-                transposedMatrix[i][j] = matrix[j][i]
-            }
+export class MatrixOperations {
+    private readonly dimension: Point;
+    public constructor(dimension: Point) {
+        this.dimension = dimension
+    }
+
+    public transposePoint(point: Point): Point {
+        return {
+            x: point.y,
+            y: point.x
         }
-
-        return transposedMatrix
     }
 
-    public flipHorizontally(matrix: T[][]): T[][] {
-        return matrix.map((row) => row.reverse())
+    public flipHorizontally(point: Point): Point {
+        return {
+            x: this.dimension.x - point.x - 1,
+            y: point.y
+        }
     }
 
-    public rotateClockwise(matrix: T[][]): T[][] {
-        return this.flipHorizontally(this.transpose(matrix))
+    public flipVertically(point: Point): Point {
+        return {
+            y: this.dimension.y - point.y - 1,
+            x: point.x
+        }
     }
+
+    public rotateClockwise(point: Point): Point {
+        return this.flipHorizontally(this.transposePoint(point))
+    }
+
 }

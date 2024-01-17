@@ -6,13 +6,65 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig({
   plugins: [react(),
   VitePWA({
-    registerType: 'autoUpdate',
+    registerType: 'prompt',
+    devOptions: {
+      enabled: true
+    },
+    scope: '/',
+    injectRegister: 'auto',
     includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
-    // registerType
-    // injectRegister
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'bootstrap-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+        {
+          urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'google-fonts-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+        {
+          urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'gstatic-fonts-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            },
+          }
+        }
+      ]
+    },
+    strategies: 'generateSW',
     manifest: {
       name: 'Sudoku',
       short_name: 'Sudoku',
+      description: 'Sudoku',
       theme_color: '#8936FF',
       background_color: '#2EC6FE',
       orientation: 'any',

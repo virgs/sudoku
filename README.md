@@ -1,5 +1,6 @@
 # React + TypeScript + Vite
 
+https://www.webpagetest.org/result/240117_BiDcW3_FE8/
 https://pwa-workshop.js.org/1-manifest/
 Generated manifest with https://progressier.com/pwa-manifest-generator
 

@@ -5,6 +5,7 @@ export type Stats = {
     hints: number
     mistakes: number
     totalTime: number
+    timestamp: number
     mode: string
     level: string
 }
@@ -22,6 +23,7 @@ export class Database {
         currentStats.push({
             hints: stats.hints,
             mistakes: stats.mistakes,
+            timestamp: Date.now(),
             totalTime: stats.elapsedSeconds,
             mode: gameMode,
             level: gameLevel,

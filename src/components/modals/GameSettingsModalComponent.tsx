@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { Database } from '../../Database'
 import { emitStartNewGame } from '../../Events'
-import { modeLevelMap } from '../../engine/types/AvailableGames'
+import { GameMode, modeLevelMap } from '../../engine/types/AvailableGames'
 import { NewGameSelector } from '../../input/NewGameSelector'
 import { ThemeSelector } from '../../input/ThemeSelector'
 import { StatsTable } from '../../math/StatsTable'
@@ -95,9 +95,7 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                                     data-bs-parent="#gameSettingsAccordion"
                                 >
                                     <div className="accordion-body">
-                                        {Array.from(modeLevelMap.keys()).map((mode) => (
-                                            <StatsTable key={mode + '-stats'} mode={mode}></StatsTable>
-                                        ))}
+                                        <StatsTable></StatsTable>
                                     </div>
                                 </div>
                             </div>

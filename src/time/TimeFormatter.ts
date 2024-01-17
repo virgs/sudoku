@@ -5,7 +5,7 @@ export class TimeFormatter {
         const minutes = (Math.floor(ms / 60) % 60).toString().padStart(2, '0')
         const seconds = (ms % 60).toString().padStart(2, '0')
 
-        let timer = `${minutes}:${seconds}`
+        let timer = `${minutes}' ${seconds}"`
         if (days > 0) {
             timer = `${days}d, ${hours} h, ` + timer
         } else if (hours > 0) {

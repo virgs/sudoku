@@ -54,7 +54,7 @@ export function Header() {
                 <h2>
                     {/* <strong className="mode-level">{`${GameMode[board.gameMode].toLowerCase()} Sudoku ˲⇾➔⟶⇛ ${GameLevel[board.gameLevel].toLowerCase()}`} */}
                     <strong className="mode-level">
-                        {`${GameMode[board.gameMode].toLowerCase()} Sudoku ⇛ ${GameLevel[board.gameLevel].toLowerCase()}`}
+                        {`${GameMode[board.gameMode].toLowerCase()} ⇛ ${GameLevel[board.gameLevel].toLowerCase()}`}
                     </strong>
                 </h2>
             </div>
@@ -66,7 +66,7 @@ export function Header() {
             </div>
             <div className="col-6 header-info" style={{ textAlign: 'right' }}>
                 <FontAwesomeIcon className="font-awesome-icon" icon={faStopwatch} color="var(--bs-warning)" />
-                <span style={{ width: '3rem', display: 'inline-block', textAlign: 'left' }}>
+                <span style={{ width: '5rem', display: 'inline-block', textAlign: 'left' }}>
                     <strong>{new TimeFormatter().formatDuration(elapsedSeconds)}</strong>
                 </span>
             </div>

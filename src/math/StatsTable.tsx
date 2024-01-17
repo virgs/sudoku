@@ -8,8 +8,8 @@ import { NumberListOperations } from './NumberListOperations'
 export function StatsTable() {
     const databaseStats = Database.loadGameFinishedStats()
     const getModeStats = (mode: GameMode) => databaseStats.filter((stat) => stat.mode === mode)
-    const getLatestTimeAModeWasFinished = (mode: GameMode) => getModeStats(mode)
-        .reduce((acc, stat) => stat.timestamp > acc ? stat.timestamp : acc, 0)
+    const getLatestTimeAModeWasFinished = (mode: GameMode) =>
+        getModeStats(mode).reduce((acc, stat) => (stat.timestamp > acc ? stat.timestamp : acc), 0)
 
     const renderGameMode = (mode: GameMode) => {
         const getLevelStats = (level: GameLevel) => getModeStats(mode).filter((stat) => stat.level === level)

@@ -102,6 +102,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
       }
+
     },
     outDir: 'docs',
     assetsDir: '.'

@@ -74,8 +74,8 @@ export function GridCellComponent(props: GridCellComponentProps) {
 
     useAllCellsRevealedListener((payload) => {
         const animationDuration = 1000
-        const biggestDistance = board.grid.dimension.x ** 2 + board.grid.dimension.y ** 2
-        const distance = squaredDistanceBetweenPoints(payload.lastRevealedCellPosition, props.position) / 2
+        const biggestDistance = squaredDistanceBetweenPoints({ x: 0, y: 0 }, board.grid.dimension)
+        const distance = squaredDistanceBetweenPoints(payload.lastRevealedCellPosition, props.position)
         const delay = (distance / biggestDistance) * animationDuration
         if (pointsAreEqual(payload.lastRevealedCellPosition, props.position)) {
             setTimeout(() => emitEndGameAnimationFinished(), animationDuration)

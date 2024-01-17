@@ -1,13 +1,13 @@
 import { faChartSimple, faGear, faPalette, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
-import { GameMode } from '../../engine/types/AvailableGames'
+import { Database } from '../../Database'
+import { emitStartNewGame } from '../../Events'
+import { modeLevelMap } from '../../engine/types/AvailableGames'
 import { NewGameSelector } from '../../input/NewGameSelector'
 import { ThemeSelector } from '../../input/ThemeSelector'
 import { StatsTable } from '../../math/StatsTable'
 import './GameSettingsModalComponent.css'
-import { emitStartNewGame } from '../../Events'
-import { Database } from '../../Database'
 
 type GameSettingsModalComponentType = {
     show: boolean
@@ -95,8 +95,9 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                                     data-bs-parent="#gameSettingsAccordion"
                                 >
                                     <div className="accordion-body">
-                                        <StatsTable mode={GameMode.CLASSIC}></StatsTable>
-                                        <StatsTable mode={GameMode.KILLER}></StatsTable>
+                                        {Array.from(modeLevelMap.keys()).map((mode) => (
+                                            <StatsTable key={mode + '-stats'} mode={mode}></StatsTable>
+                                        ))}
                                     </div>
                                 </div>
                             </div>

@@ -8,6 +8,8 @@ export default defineConfig({
   VitePWA({
     registerType: 'autoUpdate',
     includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+    // registerType
+    // injectRegister
     manifest: {
       name: 'Sudoku',
       short_name: 'Sudoku',
@@ -42,7 +44,6 @@ export default defineConfig({
       ],
     },
   })
-
   ],
   base: '/sudoku',
   build: {

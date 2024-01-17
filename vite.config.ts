@@ -10,7 +10,6 @@ export default defineConfig({
     devOptions: {
       enabled: true
     },
-    scope: '/',
     injectRegister: 'auto',
     includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
     workbox: {
@@ -103,7 +102,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
       }
-
     },
     outDir: 'docs',
     assetsDir: '.'

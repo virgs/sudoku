@@ -7,17 +7,13 @@ import { NumberListOperations } from './NumberListOperations'
 
 export function StatsTable() {
     const databaseStats = Database.loadGameFinishedStats()
-    const getModeStats = (mode: GameMode) => databaseStats
-        .filter((stat) => stat.mode === mode)
+    const getModeStats = (mode: GameMode) => databaseStats.filter((stat) => stat.mode === mode)
 
     const renderGameMode = (mode: GameMode) => {
-        const getLevelStats = (level: GameLevel) => getModeStats(mode)
-            .filter((stat) => stat.level === level)
+        const getLevelStats = (level: GameLevel) => getModeStats(mode).filter((stat) => stat.level === level)
 
         const formatLevelAverageTime = (level: GameLevel) => {
-            const average = NumberListOperations.getAverage(
-                getLevelStats(level).map((stat) => stat.totalTime)
-            )
+            const average = NumberListOperations.getAverage(getLevelStats(level).map((stat) => stat.totalTime))
             if (average === undefined) {
                 return '-'
             }
@@ -50,8 +46,9 @@ export function StatsTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {modeLevelMap.get(mode)
-                            ?.filter(level => getLevelStats(level).length > 0)
+                        {modeLevelMap
+                            .get(mode)
+                            ?.filter((level) => getLevelStats(level).length > 0)
                             .map((level) => {
                                 return (
                                     <tr key={mode + level}>
@@ -80,7 +77,7 @@ export function StatsTable() {
     }
 
     return Array.from(modeLevelMap.keys())
-        .filter(mode => getModeStats(mode).length > 0)
+        .filter((mode) => getModeStats(mode).length > 0)
         .sort((a: GameMode, b: GameMode) => getModeStats(a).length - getModeStats(b).length)
         .map((mode) => renderGameMode(mode))
 }

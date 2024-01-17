@@ -78,7 +78,7 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
                         mode: currentSelectedMode,
                     })
                 }}
-                style={{ float: 'right' }}
+                style={{ marginLeft: 'auto', display: 'block' }}
             >
                 <FontAwesomeIcon className="font-awesome-icon" icon={faCirclePlay} />
                 <span className="d-none me-1 d-xl-inline">Start</span>

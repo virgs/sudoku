@@ -1,3 +1,7 @@
+#key-handler {
+    height: 100%;
+}
+
 #key-handler:focus-visible {
     outline: none;
 }

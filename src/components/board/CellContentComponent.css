@@ -7,6 +7,12 @@
 }
 
 .sudoku-cell-notes {
+    position: relative;
+    left: -8%;
+
+    max-width: 3ch;
+    line-height: 12px;
+    letter-spacing: 3px;
     font-size: 0.7em;
     text-align: center;
     color: color-mix(in srgb, var(--bs-heading-color) 30%, transparent);

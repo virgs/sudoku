@@ -67,7 +67,7 @@ export function CellContentComponent(props: CellContentComponentProps) {
         }
     })
     useCurrentValueErasedListener(() => {
-        if (selected) {
+        if (!readonly && selected) {
             if (!hint) {
                 setValue(undefined)
             }

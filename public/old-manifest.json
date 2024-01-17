@@ -1,0 +1,22 @@
+{
+    "icons": [
+        {
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "icon512_maskable.png",
+            "type": "image/png"
+        },
+        {
+            "purpose": "any",
+            "sizes": "512x512",
+            "src": "icon512_rounded.png",
+            "type": "image/png"
+        }
+    ],
+    "orientation": "any",
+    "display": "fullscreen",
+    "start_url": "https://virgs.github.io/sudoku/",
+    "scope": "https://virgs.github.io/sudoku/",
+    "description": "Sudoku",
+    "id": "https://virgs.github.io/sudoku/"
+}

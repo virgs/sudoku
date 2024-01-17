@@ -1,5 +1,10 @@
 # React + TypeScript + Vite
 
+https://pwa-workshop.js.org/1-manifest/
+Generated manifest with https://progressier.com/pwa-manifest-generator
+
+https://www.saurabhmisra.dev/setup-react-pwa-using-vite/
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

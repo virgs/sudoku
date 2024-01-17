@@ -42,11 +42,15 @@ export function CellContentComponent(props: CellContentComponentProps) {
             if (data.annotationMode === AnnotationMode.PEN) {
                 setHint(data.hint)
                 setValue(data.value)
+                const valueIsCorrect = props.cell.answer === data.value
                 emitCellValueSet({
                     value: data.value,
                     position: props.position,
-                    valueIsCorrect: props.cell.answer === data.value,
+                    valueIsCorrect: valueIsCorrect,
                 })
+                if (valueIsCorrect) {
+                    setReadonly(true)
+                }
             } else if (data.annotationMode === AnnotationMode.PENCIL) {
                 if (notes.includes(data.value)) {
                     setNotes(notes.filter((item) => item !== data.value))

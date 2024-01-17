@@ -5,6 +5,10 @@ https://pwa-workshop.js.org/1-manifest/
 https://vite-pwa-org.netlify.app/frameworks/react.html
 https://www.saurabhmisra.dev/setup-react-pwa-using-vite/
 
+
+Solution:
+https://bartp5.github.io/gss/
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

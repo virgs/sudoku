@@ -1,4 +1,5 @@
-import { ClassicBoardCreator } from '../ClassicBoardCreator'
+import { MatrixOperations, MatrixOperationsType } from '../../math/Matrix'
+import { BoardCreator } from '../BoardCreator'
 import { GameLevel } from '../types/AvailableGames'
 import { MiniBoard } from './MiniBoard'
 
@@ -13,13 +14,20 @@ type FileContent = {
 
 const numOfOnlineFiles = 100
 
-export class MiniBoardCreator extends ClassicBoardCreator {
+export class MiniBoardCreator extends BoardCreator {
     static readonly pool = {
         [GameLevel.EASY]: import.meta.glob(`../../assets/puzzles/mini/*.json`),
     }
 
     public constructor() {
-        super({ x: 6, y: 6 })
+        const dimension = { x: 6, y: 6 }
+        const matrixOperations = new MatrixOperations(dimension)
+        const validMatricesOperations: MatrixOperationsType[] = [
+            (point) => matrixOperations.flipHorizontally(point),
+            (point) => matrixOperations.flipVertically(point),
+        ]
+
+        super(validMatricesOperations, dimension)
     }
 
     public async createBoard(_level: GameLevel): Promise<MiniBoard> {
@@ -32,7 +40,7 @@ export class MiniBoardCreator extends ClassicBoardCreator {
             grid.cells[position.y][position.x].answer = answers[i]
             grid.cells[position.y][position.x].revealed = revealedCells[i]
         }
-        return new MiniBoard(grid, GameLevel.EASY, this.createSquareRegions({ y: 3, x: 2 }, { y: 2, x: 3 }))
+        return new MiniBoard(grid, GameLevel.EASY, this.createSquareRegions({ y: 2, x: 3 }, { y: 3, x: 2 }))
     }
 
     private async randomlySelectFromOnlineRepo(): Promise<FileContent> {

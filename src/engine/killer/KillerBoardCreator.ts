@@ -1,4 +1,5 @@
-import { ClassicBoardCreator } from '../ClassicBoardCreator'
+import { MatrixOperations, MatrixOperationsType } from '../../math/Matrix'
+import { BoardCreator } from '../BoardCreator'
 import { GameLevel } from '../types/AvailableGames'
 import { KillerBoard } from './KillerBoard'
 import { CageType } from './types/CageType'
@@ -12,12 +13,25 @@ type FileContent = {
 
 const numOfOnlineFiles = 100
 
-export class KillerBoardCreator extends ClassicBoardCreator {
+export class KillerBoardCreator extends BoardCreator {
     static readonly pool = {
         [GameLevel.EASY]: import.meta.glob(`../../assets/puzzles/killer/easy/*.json`),
         [GameLevel.MEDIUM]: import.meta.glob(`../../assets/puzzles/killer/medium/*.json`),
         [GameLevel.HARD]: import.meta.glob(`../../assets/puzzles/killer/hard/*.json`),
         [GameLevel.EXPERT]: import.meta.glob(`../../assets/puzzles/killer/expert/*.json`),
+    }
+
+    public constructor() {
+        const dimension = { x: 9, y: 9 }
+        const matrixOperations = new MatrixOperations(dimension)
+        const validMatricesOperations: MatrixOperationsType[] = [
+            (point) => matrixOperations.transposePoint(point),
+            (point) => matrixOperations.rotateClockwise(point),
+            (point) => matrixOperations.flipHorizontally(point),
+            (point) => matrixOperations.flipVertically(point),
+        ]
+
+        super(validMatricesOperations, dimension)
     }
 
     public async createBoard(level: GameLevel): Promise<KillerBoard> {

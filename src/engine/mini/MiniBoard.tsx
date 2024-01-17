@@ -11,8 +11,6 @@ export class MiniBoard extends Board {
             gameLevel: gameLevel,
             regions: regions,
         })
-        console.log(grid)
-        console.log(regions)
     }
 
     public isNumberAllowed(value: number): boolean {

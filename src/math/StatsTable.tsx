@@ -8,6 +8,8 @@ import { NumberListOperations } from './NumberListOperations'
 export function StatsTable() {
     const databaseStats = Database.loadGameFinishedStats()
     const getModeStats = (mode: GameMode) => databaseStats.filter((stat) => stat.mode === mode)
+    const getLatestTimeAModeWasFinished = (mode: GameMode) => getModeStats(mode)
+        .reduce((acc, stat) => stat.timestamp > acc ? stat.timestamp : acc, 0)
 
     const renderGameMode = (mode: GameMode) => {
         const getLevelStats = (level: GameLevel) => getModeStats(mode).filter((stat) => stat.level === level)
@@ -78,6 +80,6 @@ export function StatsTable() {
 
     return Array.from(modeLevelMap.keys())
         .filter((mode) => getModeStats(mode).length > 0)
-        .sort((a: GameMode, b: GameMode) => getModeStats(a).length - getModeStats(b).length)
+        .sort((a: GameMode, b: GameMode) => getLatestTimeAModeWasFinished(b) - getLatestTimeAModeWasFinished(a)) //Most recently played first
         .map((mode) => renderGameMode(mode))
 }

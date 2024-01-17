@@ -13,7 +13,7 @@ export default defineConfig({
     injectRegister: 'auto',
     includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
     workbox: {
-      globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+      globPatterns: ['**/*.{js,css,html,json}'],
       runtimeCaching: [
         {
           urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/.*/i,

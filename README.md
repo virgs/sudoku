@@ -2,8 +2,7 @@
 
 https://www.webpagetest.org/result/240117_BiDcW3_FE8/
 https://pwa-workshop.js.org/1-manifest/
-Generated manifest with https://progressier.com/pwa-manifest-generator
-
+https://vite-pwa-org.netlify.app/frameworks/react.html
 https://www.saurabhmisra.dev/setup-react-pwa-using-vite/
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

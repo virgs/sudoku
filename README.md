@@ -20,6 +20,12 @@ Currently, two official plugins are available:
 
 If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
+
+Tabs:
+- https://pats.cs.cf.ac.uk/@archive_file?p=557&n=final&f=1-1119707_Final_Report.pdf&SIG=45e8701589300b803b1f37add69ff2d1aeb432d7898492365590e9ab4ef94c60
+- https://www.geeksforgeeks.org/solve-sudoku-on-the-basis-of-the-given-irregular-regions/amp/
+- https://www.ocf.berkeley.edu/~arel/sudoku/main.html
+
 - Configure the top-level `parserOptions` property like this:
 
 ```js

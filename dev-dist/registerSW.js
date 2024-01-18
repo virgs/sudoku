@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) navigator.serviceWorker.register('/sudoku/dev-sw.js?dev-sw', { scope: '/', type: 'classic' })

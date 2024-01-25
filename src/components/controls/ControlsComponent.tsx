@@ -1,11 +1,10 @@
 import {
-    faArrowRotateRight,
     faCirclePlus,
     faEllipsisVertical,
     faEraser,
     faLightbulb,
     faPenClip,
-    faPencil,
+    faPencil
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
@@ -17,13 +16,12 @@ import {
     emitCurrentValueErased,
     emitNumberPressed,
     emitOpenSettingsDialog,
-    emitRestart,
     emitStartNewGame,
     useAnnotationModeChangedListener,
     useCellSelectedListener,
     useCellValueSetListener,
     useGameFinishedListener,
-    useRestartListener,
+    useRestartListener
 } from '../../Events'
 import { Board } from '../../engine/Board'
 import { AnnotationMode } from '../../input/AnnotationMode'
@@ -122,16 +120,17 @@ export function ControlsComponent() {
                 </button>
             )
         } else {
-            return (
-                <button
-                    className="btn btn-sm btn-danger action-button me-md-2"
-                    type="button"
-                    onPointerDown={() => emitRestart()}
-                >
-                    <FontAwesomeIcon className="font-awesome-icon" icon={faArrowRotateRight} />
-                    <span className="d-none me-1 d-xl-inline">Restart</span>
-                </button>
-            )
+            return <></>
+            // return (
+            //     <button
+            //         className="btn btn-sm btn-danger action-button me-md-2"
+            //         type="button"
+            //         onPointerDown={() => emitRestart()}
+            //     >
+            //         <FontAwesomeIcon className="font-awesome-icon" icon={faArrowRotateRight} />
+            //         <span className="d-none me-1 d-xl-inline">Restart</span>
+            //     </button>
+            // )
         }
     }
 
@@ -206,10 +205,10 @@ export function ControlsComponent() {
             <div className="my-3">
                 <NumPadComponent onNumberPressed={onNumberPressed} />
             </div>
-            <div className="d-flex gap-2 mx-2 justify-content-between ">
+            <div className="d-flex gap-2 mx-2">
                 {startGameButton()}
                 <button
-                    className="btn btn-sm btn-secondary action-button"
+                    className="btn btn-sm btn-secondary action-button ms-auto"
                     type="button"
                     onPointerDown={() => emitOpenSettingsDialog()}
                 >

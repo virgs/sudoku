@@ -1,15 +1,17 @@
+import { GameLevel } from "../types/AvailableGames"
+
 export class JigsawBoardCreator {
     private board: number[][]
     private size: number
     private boxSize: number
     private difficulty: number
-    private irregularRegions: number[][]
+    private template: number[][]
 
-    constructor(size: number, difficulty: number, irregularRegions: number[][]) {
+    constructor(size: number, level: GameLevel, template: number[][]) {
         this.size = size
         this.boxSize = Math.sqrt(size)
-        this.difficulty = difficulty
-        this.irregularRegions = irregularRegions
+        this.difficulty = this.mapLevelToDifficulty(level)
+        this.template = template
         this.board = this.generateEmptyBoard()
         this.generateJigsawSudoku()
         this.removeCells()
@@ -19,6 +21,17 @@ export class JigsawBoardCreator {
         return this.board
     }
 
+    private mapLevelToDifficulty(level: GameLevel): number {
+        switch (level) {
+            case GameLevel.MEDIUM:
+                return .3
+            case GameLevel.HARD:
+                return .7
+            case GameLevel.EXPERT:
+                return 1
+        }
+        return .15
+    }
     private generateEmptyBoard(): number[][] {
         return Array.from({ length: this.size }, () => Array(this.size).fill(0))
     }
@@ -26,17 +39,17 @@ export class JigsawBoardCreator {
     private shuffleArray<T>(array: T[]): T[] {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1))
-            ;[array[i], array[j]] = [array[j], array[i]]
+                ;[array[i], array[j]] = [array[j], array[i]]
         }
         return array
     }
 
     private isValidMoveInRegion(row: number, col: number, num: number): boolean {
-        const region = this.irregularRegions[row][col]
+        const region = this.template[row][col]
 
         for (let i = 0; i < this.size; i++) {
             for (let j = 0; j < this.size; j++) {
-                if (this.irregularRegions[i][j] === region && this.board[i][j] === num) {
+                if (this.template[i][j] === region && this.board[i][j] === num) {
                     return false
                 }
             }

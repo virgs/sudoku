@@ -20,8 +20,7 @@ import {
     useAnnotationModeChangedListener,
     useCellSelectedListener,
     useCellValueSetListener,
-    useGameFinishedListener,
-    useRestartListener
+    useGameFinishedListener
 } from '../../Events'
 import { Board } from '../../engine/Board'
 import { AnnotationMode } from '../../input/AnnotationMode'
@@ -83,10 +82,6 @@ export function ControlsComponent() {
     }, [])
 
     useAnnotationModeChangedListener((annotationMode) => setAnnotationMode(annotationMode))
-
-    useRestartListener(() => {
-        setNumberOfHintsGiven(0)
-    })
 
     const onAnnotationModeButtonClick = (annotationMode: AnnotationMode) => {
         setAnnotationMode(annotationMode)

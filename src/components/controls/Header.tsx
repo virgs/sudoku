@@ -7,7 +7,6 @@ import {
     emitTimeElapsed,
     useCellValueSetListener,
     useGameFinishedListener,
-    useRestartListener,
 } from '../../Events'
 import { GameLevel, GameMode } from '../../engine/types/AvailableGames'
 import { useInterval } from '../../hooks/UseInterval'
@@ -43,16 +42,10 @@ export function Header() {
         timerEnabled ? ONE_SECOND : undefined
     )
 
-    useRestartListener(() => {
-        setElapsedSeconds(0)
-        setMistakesCounter(0)
-    })
-
     return (
         <div className="row justify-content-between mb-3">
             <div className="col-12 header-info" style={{ textAlign: 'center' }}>
                 <h2>
-                    {/* <strong className="mode-level">{`${GameMode[board.gameMode].toLowerCase()} Sudoku ˲⇾➔⟶⇛ ${GameLevel[board.gameLevel].toLowerCase()}`} */}
                     <strong className="mode-level">
                         {`${GameMode[board.gameMode].toLowerCase()} ⇛ ${GameLevel[board.gameLevel].toLowerCase()}`}
                     </strong>

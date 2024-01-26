@@ -21,6 +21,7 @@
 
 #root {
     touch-action: pan-y;
+    overflow: hidden;
     height: 100lvh;
     width: 100lvw;
     user-select: none;
@@ -32,6 +33,7 @@ body {
     display: flex;
     place-items: center;
     min-width: 320px;
+    overflow: hidden;
     height: 100lvh;
     width: 100lvw;
 }

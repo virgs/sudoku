@@ -24,13 +24,13 @@ export class JigsawBoardCreator {
     private mapLevelToDifficulty(level: GameLevel): number {
         switch (level) {
             case GameLevel.MEDIUM:
-                return .3
+                return 30
             case GameLevel.HARD:
-                return .7
+                return 70
             case GameLevel.EXPERT:
-                return 1
+                return 100
         }
-        return .15
+        return 15
     }
     private generateEmptyBoard(): number[][] {
         return Array.from({ length: this.size }, () => Array(this.size).fill(0))

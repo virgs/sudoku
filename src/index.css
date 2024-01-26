@@ -22,12 +22,13 @@
 #root {
     touch-action: pan-y;
     background-color: var(--background-color);
-    height: 100vh;
-    width: 100vw;
+    height: 100svh;
+    width: 100svw;
 }
 
 body {
     margin: 0;
+    background-color: var(--background-color);
     display: flex;
     place-items: center;
     min-width: 320px;

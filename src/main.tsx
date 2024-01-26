@@ -32,11 +32,11 @@ const irregularRegions = [
 const jigsawBoard = new JigsawBoardCreator(9, GameLevel.MEDIUM, irregularRegions)
 console.table(jigsawBoard.getBoard())
 
-console.log('hello there')
-navigator.serviceWorker.getRegistrations().then((registrations) => {
+navigator.serviceWorker.getRegistrations().then(async (registrations) => {
     console.log(registrations)
     for (let registration of registrations) {
-        registration.unregister();
+        const unregistration = await registration.unregister();
+        console.log(unregistration)
     }
 });
 

@@ -36,7 +36,6 @@ export const { useAllCellsRevealedListener, emitAllCellsRevealed } =
     createEvent('all-cells-revealed')<AllCellsRevealdEventType>()
 export const { useEndGameAnimationFinishedListener, emitEndGameAnimationFinished } =
     createEvent('end-game-animation-finished')<void>()
-export const { useRestartListener, emitRestart } = createEvent('restart')<void>()
 export const { useOpenSettingsDialogListener, emitOpenSettingsDialog } = createEvent('open-settings-dialog')<void>()
 export const { useCellValueSetListener, emitCellValueSet } = createEvent('cell-value-set')<CellValueSetEventType>()
 export const { useCurrentValueErasedListener, emitCurrentValueErased } = createEvent('current-value-erased')<void>()

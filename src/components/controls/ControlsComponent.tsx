@@ -119,18 +119,6 @@ export function ControlsComponent() {
                     <span className="d-none me-1 d-xl-inline">New Game</span>
                 </button>
             )
-        } else {
-            return <></>
-            // return (
-            //     <button
-            //         className="btn btn-sm btn-danger action-button me-md-2"
-            //         type="button"
-            //         onPointerDown={() => emitRestart()}
-            //     >
-            //         <FontAwesomeIcon className="font-awesome-icon" icon={faArrowRotateRight} />
-            //         <span className="d-none me-1 d-xl-inline">Restart</span>
-            //     </button>
-            // )
         }
     }
 

@@ -1,11 +1,11 @@
 import { createContext, useState } from 'react'
 import './App.css'
-import { useRestartListener, useStartNewGameListener } from './Events'
+import { Database } from './Database'
+import { useStartNewGameListener } from './Events'
 import { GameContainer } from './components/GameContainer'
 import { BoardFactory } from './engine/BoardFactory'
 import { GameLevel, GameMode } from './engine/types/AvailableGames'
 import { KeyHandler } from './input/KeyHandler'
-import { Database } from './Database'
 
 let board = await new BoardFactory().createNewBoard(
     Database.loadGameModeOrDefault(GameMode.CLASSIC),
@@ -15,11 +15,6 @@ export let BoardContext = createContext(board)
 
 function App() {
     const [gameId, setGameId] = useState<number>(0)
-
-    useRestartListener(async () => {
-        BoardContext = createContext(board)
-        setGameId(() => gameId + 1)
-    })
 
     useStartNewGameListener(async (payload) => {
         board = await new BoardFactory().createNewBoard(payload.mode, payload.level)

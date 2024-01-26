@@ -23,10 +23,12 @@
     touch-action: pan-y;
     height: 100lvh;
     width: 100lvw;
+    user-select: none;
 }
 
 body {
     margin: 0;
+    user-select: none;
     display: flex;
     place-items: center;
     min-width: 320px;
@@ -44,6 +46,7 @@ a {
 }
 
 h1 {
+    user-select: none;
     font-size: 3.2em;
     line-height: 1.1;
 }

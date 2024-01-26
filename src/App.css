@@ -1,5 +1,6 @@
 #app {
-    width: 100lvw;
-    height: 100lvh;
+    touch-action: pan-y;
+    width: 100svw;
+    height: 100svh;
     overflow: hidden;
 }

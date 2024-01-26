@@ -21,23 +21,12 @@
 
 #root {
     touch-action: pan-y;
-    height: 100svh;
-    width: 100svw;
-}
-
-/* html {
-    background-color: darkmagenta;
     height: 100lvh;
     width: 100lvw;
-    overflow: hidden;
-} */
+}
 
 body {
-    overflow: hidden;
-    /* touch-action: pan-y; */
     margin: 0;
-    /* background-color: var(--background-color); */
-    background-color: greenyellow;
     display: flex;
     place-items: center;
     min-width: 320px;

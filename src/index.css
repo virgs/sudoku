@@ -21,19 +21,28 @@
 
 #root {
     touch-action: pan-y;
-    height: 100vh;
-    width: 100vw;
+    height: 100svh;
+    width: 100svw;
+}
+
+html {
+    background-color: blueviolet;
+    height: 100lvh;
+    width: 100lvw;
+    overflow: hidden;
 }
 
 body {
+    overflow: hidden;
+    touch-action: pan-y;
     margin: 0;
     /* background-color: var(--background-color); */
-    background-color: red;
+    background-color: gray;
     display: flex;
     place-items: center;
     min-width: 320px;
-    height: 100lvh;
-    width: 100lvw;
+    height: 100svh;
+    width: 100svw;
 }
 
 .font-awesome-icon {

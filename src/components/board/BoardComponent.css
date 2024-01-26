@@ -1,8 +1,7 @@
 .board-component {
     width: 97.5svmin;
     height: 97.5svmin;
-    /* background-color: var(--board-background-color); */
-    background-color: darkgoldenrod;
+    background-color: var(--board-background-color);
     max-width: min(var(--board-container-size), 100%);
     max-height: var(--board-container-size);
     display: flex;

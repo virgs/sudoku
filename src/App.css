@@ -1,6 +1,6 @@
 #app {
-    width: 100svw;
-    height: 100svh;
+    width: 100lvw;
+    height: 100lvh;
     background-color: green;
     overflow: hidden;
 }

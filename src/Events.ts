@@ -5,7 +5,7 @@ import { Board } from './engine/Board'
 import { GameLevel, GameMode } from './engine/types/AvailableGames'
 
 export type NumberPressedEventType = { value: number; annotationMode: AnnotationMode; hint?: boolean }
-export type CellValueSetEventType = { value: number; position: Point; valueIsCorrect: boolean }
+export type CellValueSetEventType = { value: number; position: Point; valueIsCorrect: boolean; }
 export type CellSelectedEventType = { value?: number; position: Point }
 export type TimeElapsedEventType = { elapsedSeconds: number }
 export type GameFinishedEventType = {

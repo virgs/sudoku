@@ -24,22 +24,23 @@ const checkBorderStyle = (board: Board, position: Point) => {
     const style: React.CSSProperties = {
         boxShadow: '0px 0px 0px 0.5px color-mix(in srgb, var(--bs-primary) 50%, transparent) inset'
     }
+    const boxShadowSuffix = ' 0px 0px var(--bs-primary)'
 
     const regions: Point[][] = board.getCellRegions(position)
     const sharesRegionWithCellAt = (point: Point) =>
         regions.some((region: Point[]) => region.some((cell: Point) => pointsAreEqual(cell, point)))
 
     if (!sharesRegionWithCellAt({ x: position.x, y: position.y + 1 })) {
-        style.boxShadow += ', 0px 1px 0px 0px var(--bs-primary)'
+        style.boxShadow += ', 0px 1px' + boxShadowSuffix
     }
     if (!sharesRegionWithCellAt({ x: position.x, y: position.y - 1 })) {
-        style.boxShadow += ', 0px -1px 0px 0px var(--bs-primary)'
+        style.boxShadow += ', 0px -1px' + boxShadowSuffix
     }
     if (!sharesRegionWithCellAt({ x: position.x + 1, y: position.y })) {
-        style.boxShadow += ', 1px 0px 0px 0px var(--bs-primary)'
+        style.boxShadow += ', 1px 0px' + boxShadowSuffix
     }
     if (!sharesRegionWithCellAt({ x: position.x - 1, y: position.y })) {
-        style.boxShadow += ', -1px 0px 0px 0px var(--bs-primary)'
+        style.boxShadow += ', -1px 0px' + boxShadowSuffix
     }
     return style
 }
@@ -75,7 +76,7 @@ export function GridCellComponent(props: GridCellComponentProps) {
     })
 
     useAllCellsRevealedListener((payload) => {
-        const animationDuration = 1250
+        const animationDuration = 1500
         const biggestDistance = squaredDistanceBetweenPoints({ x: 0, y: 0 }, board.grid.dimension)
         const distance = squaredDistanceBetweenPoints(payload.lastRevealedCellPosition, props.position)
         const delay = (distance / biggestDistance) * animationDuration

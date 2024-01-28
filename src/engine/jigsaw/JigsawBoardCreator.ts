@@ -1,141 +1,90 @@
-import { GameLevel } from "../types/AvailableGames"
+import { MatrixOperations, MatrixOperationsType } from '../../math/Matrix'
+import { BoardCreator } from '../BoardCreator'
+import { GameLevel } from '../types/AvailableGames'
 
-export class JigsawBoardCreator {
-    private board: number[][]
-    private size: number
-    private boxSize: number
-    private difficulty: number
-    private template: number[][]
+type FileContent = {
+    puzzleData: {
+        type: number,
+        gridWidth: number,
+        gridHeight: number,
+        source: any,
+        startingGrid: number[],
+        layout: number[]
+    },
+    title: string,
+    nextPuzzleURL: string
+}
 
-    constructor(size: number, level: GameLevel, template: number[][]) {
-        this.size = size
-        this.boxSize = Math.sqrt(size)
-        this.difficulty = this.mapLevelToDifficulty(level)
-        this.template = template
-        this.board = this.generateEmptyBoard()
-        this.generateJigsawSudoku()
-        this.removeCells()
+const numOfOnlineFiles = 100
+
+export class JigsawBoardCreator extends BoardCreator {
+    static readonly pool = {
+        [GameLevel.EASY]: import.meta.glob(`../../assets/puzzles/jigsaw/easy/*.json`),
+        [GameLevel.MEDIUM]: import.meta.glob(`../../assets/puzzles/jigsaw/medium/*.json`),
+        [GameLevel.HARD]: import.meta.glob(`../../assets/puzzles/jigsaw/hard/*.json`),
+        [GameLevel.EXPERT]: import.meta.glob(`../../assets/puzzles/jigsaw/expert/*.json`),
     }
 
-    public getBoard(): number[][] {
-        return this.board
+    public constructor() {
+        const dimension = { x: 9, y: 9 }
+        const matrixOperations = new MatrixOperations(dimension)
+        const validMatricesOperations: MatrixOperationsType[] = [
+            (point) => matrixOperations.transposePoint(point),
+            (point) => matrixOperations.rotateClockwise(point),
+            (point) => matrixOperations.flipHorizontally(point),
+            (point) => matrixOperations.flipVertically(point),
+        ]
+
+        super(validMatricesOperations, dimension)
     }
 
-    private mapLevelToDifficulty(level: GameLevel): number {
-        switch (level) {
-            case GameLevel.MEDIUM:
-                return 30
-            case GameLevel.HARD:
-                return 70
-            case GameLevel.EXPERT:
-                return 100
+    public async createBoard(level: GameLevel): Promise<KillerBoard> {
+        const fileContent: FileContent = await this.randomlySelectLevel(level)
+        const grid = this.createEmptyGrid()
+        const revealedCells: boolean[] = fileContent.mission.split('').map((value) => value !== '0')
+        const answers: number[] = fileContent.solution.split('').map((value) => Number(value))
+        for (let i = 0; i < grid.dimension.y * grid.dimension.x; ++i) {
+            const position = this.getPointOutOfIndex(i)
+            grid.cells[position.y][position.x].answer = answers[i]
+            grid.cells[position.y][position.x].revealed = revealedCells[i]
         }
-        return 15
-    }
-    private generateEmptyBoard(): number[][] {
-        return Array.from({ length: this.size }, () => Array(this.size).fill(0))
-    }
+        const cages: CageType[] = fileContent.cages.map((fileCage) => ({
+            label: fileCage.reduce((acc, cageCell) => acc + answers[cageCell], 0),
+            cells: fileCage.map((cageCell) => this.getPointOutOfIndex(cageCell)),
+        }))
 
-    private shuffleArray<T>(array: T[]): T[] {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1))
-                ;[array[i], array[j]] = [array[j], array[i]]
-        }
-        return array
-    }
-
-    private isValidMoveInRegion(row: number, col: number, num: number): boolean {
-        const region = this.template[row][col]
-
-        for (let i = 0; i < this.size; i++) {
-            for (let j = 0; j < this.size; j++) {
-                if (this.template[i][j] === region && this.board[i][j] === num) {
-                    return false
-                }
-            }
-        }
-
-        return true
+        return new KillerBoard(
+            {
+                dimension: grid.dimension,
+                cells: grid.cells,
+                cages: cages,
+            },
+            level,
+            this.createSquareRegions({ y: 3, x: 3 }, { y: 3, x: 3 })
+        )
     }
 
-    private isValidMove(row: number, col: number, num: number): boolean {
-        if (!this.isValidMoveInRegion(row, col, num)) {
-            return false
-        }
-
-        for (let i = 0; i < this.size; i++) {
-            if (this.board[row][i] === num || this.board[i][col] === num) {
-                return false
-            }
-        }
-
-        const startRow = Math.floor(row / this.boxSize) * this.boxSize
-        const startCol = Math.floor(col / this.boxSize) * this.boxSize
-
-        for (let i = 0; i < this.boxSize; i++) {
-            for (let j = 0; j < this.boxSize; j++) {
-                if (this.board[startRow + i][startCol + j] === num) {
-                    return false
-                }
-            }
-        }
-
-        return true
+    private async randomlySelectFromOnlineRepo(gameLevel: GameLevel): Promise<FileContent> {
+        const randomLevelIndex: number = Math.floor(Math.random() * numOfOnlineFiles)
+        const response = await fetch(
+            `https://raw.githubusercontent.com/virgs/sudoku/main/data/killer/${gameLevel.toLowerCase()}/${randomLevelIndex}.json`
+        )
+        return await response.json()
     }
 
-    private solve(): boolean {
-        for (let row = 0; row < this.size; row++) {
-            for (let col = 0; col < this.size; col++) {
-                if (this.board[row][col] === 0) {
-                    for (let num = 1; num <= this.size; num++) {
-                        if (this.isValidMove(row, col, num)) {
-                            this.board[row][col] = num
-
-                            if (this.solve()) {
-                                return true
-                            }
-
-                            this.board[row][col] = 0
-                        }
-                    }
-
-                    return false
-                }
-            }
-        }
-
-        return true
+    private async randomlySelectFromFilePool(gameLevel: GameLevel): Promise<FileContent> {
+        const pool = KillerBoardCreator.pool[gameLevel]
+        const levelsModules = Object.keys(pool)
+        const randomLevelIndex: number = Math.floor(Math.random() * levelsModules.length)
+        return (await pool[levelsModules[randomLevelIndex]]()) as FileContent
     }
 
-    private removeCells(): void {
-        let cellsToRemove = Math.floor((this.size * this.size * this.difficulty) / 100)
-
-        while (cellsToRemove > 0) {
-            const row = Math.floor(Math.random() * this.size)
-            const col = Math.floor(Math.random() * this.size)
-
-            if (this.board[row][col] !== 0) {
-                this.board[row][col] = 0
-                cellsToRemove--
-            }
+    private async randomlySelectLevel(gameLevel: GameLevel): Promise<FileContent> {
+        try {
+            return await this.randomlySelectFromOnlineRepo(gameLevel)
+        } catch (err) {
+            console.log('Unable to retrieve online board. Fallback to file pool')
+            return await this.randomlySelectFromFilePool(gameLevel)
         }
-    }
-
-    private generateJigsawSudoku(): void {
-        const base = Array.from({ length: this.size }, (_, index) => index + 1)
-        const shuffledBase = this.shuffleArray(base)
-
-        for (let i = 0; i < this.size; i++) {
-            this.board[0][i] = shuffledBase[i]
-        }
-
-        for (let row = 1; row < this.size; row++) {
-            for (let col = 0; col < this.size; col++) {
-                this.board[row][col] = this.board[0][(col + row * this.boxSize) % this.size]
-            }
-        }
-
-        this.shuffleArray(this.board)
-        this.solve()
     }
 }

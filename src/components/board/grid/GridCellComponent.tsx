@@ -73,7 +73,7 @@ export function GridCellComponent(props: GridCellComponentProps) {
     })
 
     useAllCellsRevealedListener((payload) => {
-        const animationDuration = 1000
+        const animationDuration = 1250
         const biggestDistance = squaredDistanceBetweenPoints({ x: 0, y: 0 }, board.grid.dimension)
         const distance = squaredDistanceBetweenPoints(payload.lastRevealedCellPosition, props.position)
         const delay = (distance / biggestDistance) * animationDuration

@@ -27,6 +27,7 @@ import { AnnotationMode } from '../../input/AnnotationMode'
 import { Point, pointsAreEqual } from '../../math/Point'
 import './ControlsComponent.css'
 import { NumPadComponent } from './NumPadComponent'
+import { Database } from '../../Database'
 
 type Hint = {
     position: Point
@@ -54,6 +55,7 @@ export function ControlsComponent() {
 
     const [gameFinishedConfiguration, setGameFinishedConfiguration] = useState<GameFinishedEventType | undefined>()
     const [numberOfHintsGiven, setNumberOfHintsGiven] = useState<number>(0)
+    const [numberOfDeletions, setNumberOfDeletions] = useState<number>(0)
     const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PENCIL)
     const [availableHints, setAvailableHints] = useState<Hint[]>(createHints(board))
     const [currentSelectedCellPosition, setCurrentSelectedCellPosition] = useState<Point | undefined>()
@@ -117,6 +119,16 @@ export function ControlsComponent() {
         }
     }
 
+    const onDeleteButtonClicked = (): void => {
+        const nextNumberOfDeletions = numberOfDeletions + 1
+        setNumberOfDeletions(nextNumberOfDeletions)
+        if (nextNumberOfDeletions === 20) {
+            console.log('clear stats')
+            Database.clearData()
+        }
+        emitCurrentValueErased()
+    }
+
     return (
         <div id="controls-component">
             <div className="row justify-content-between g-0 mx-2">
@@ -124,7 +136,7 @@ export function ControlsComponent() {
                     <button
                         type="button"
                         className="btn btn-sm btn-secondary action-button"
-                        onPointerDown={() => emitCurrentValueErased()}
+                        onPointerDown={() => onDeleteButtonClicked()}
                     >
                         <FontAwesomeIcon className="font-awesome-icon" icon={faEraser} />
                         <span className="d-none d-xl-inline">Delete</span>

@@ -65,7 +65,7 @@ export class Database {
         return level != undefined ? (level as GameLevel) : defaultLevel
     }
 
-    public static clearStats(): void {
+    public static clearData(): void {
         localStorage.clear()
     }
 }

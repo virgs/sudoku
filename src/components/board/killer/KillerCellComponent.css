@@ -1,15 +1,15 @@
 .grid-cage {
-    border: 2px dashed color-mix(in srgb, var(--bs-primary) 95%, transparent);
+    border: 1.5px dashed color-mix(in srgb, var(--bs-primary) 95%, transparent);
     position: absolute;
-    width: 90%;
-    height: 90%;
+    width: 87.5%;
+    height: 87.5%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .grid-cage.labeled {
-    clip-path: polygon(50% 0, 100% 0, 100% 100%, 0 100%, 0 50%);
+    clip-path: polygon(40% 0, 100% 0, 100% 100%, 0 100%, 0 40%);
 }
 
 .grid-cage-label {

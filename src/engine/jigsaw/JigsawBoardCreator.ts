@@ -11,6 +11,7 @@ type FileContent = {
         gridHeight: number,
         source: any,
         startingGrid: number[], // different than 0 if revealed
+        answers: number[],
         layout: number[] //same number belong to the same regions
     },
     title: string,
@@ -43,12 +44,12 @@ export class JigsawBoardCreator extends BoardCreator {
     public async createBoard(level: GameLevel): Promise<JigsawBoard> {
         const fileContent: FileContent = await this.randomlySelectLevel(level)
         const grid = this.createEmptyGrid()
-        //    startingGrid: number[], // different than 0 if revealed
-        // layout: number[] //same number belong to the same regions
+        console.log(fileContent)
         for (let i = 0; i < grid.dimension.y * grid.dimension.x; ++i) {
             const value = fileContent.puzzleData.startingGrid[i]
+            const answer = fileContent.puzzleData.answers[i]
             const position = this.getPointOutOfIndex(i)
-            grid.cells[position.y][position.x].answer = value !== 0 ? value : undefined
+            grid.cells[position.y][position.x].answer = answer
             grid.cells[position.y][position.x].revealed = value !== 0
         }
         const layout = fileContent.puzzleData.layout

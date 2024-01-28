@@ -1,18 +1,18 @@
 import { useContext, useEffect, useState } from 'react'
+import { BoardContext } from '../../App'
+import {
+    CellValueSetEventType,
+    NumberPressedEventType,
+    emitCellValueSet,
+    useCellValueSetListener,
+    useCurrentValueErasedListener,
+    useGameFinishedListener,
+    useNumberPressedListener,
+} from '../../Events'
 import { CellType } from '../../engine/types/CellType'
 import { AnnotationMode } from '../../input/AnnotationMode'
 import { Point } from '../../math/Point'
 import './CellContentComponent.css'
-import {
-    useNumberPressedListener,
-    NumberPressedEventType,
-    useCurrentValueErasedListener,
-    emitCellValueSet,
-    useCellValueSetListener,
-    CellValueSetEventType,
-    useGameFinishedListener,
-} from '../../Events'
-import { BoardContext } from '../../App'
 
 type CellContentComponentProps = {
     cell: CellType
@@ -70,6 +70,7 @@ export function CellContentComponent(props: CellContentComponentProps) {
             }
         }
     })
+
     useCurrentValueErasedListener(() => {
         if (!readonly && selected) {
             if (!hint) {

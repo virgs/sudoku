@@ -1,4 +1,4 @@
 export interface CellType {
-    answer: number
+    answer?: number
     revealed: boolean
 }

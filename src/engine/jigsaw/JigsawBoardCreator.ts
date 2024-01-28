@@ -1,6 +1,8 @@
 import { MatrixOperations, MatrixOperationsType } from '../../math/Matrix'
+import { Point } from '../../math/Point'
 import { BoardCreator } from '../BoardCreator'
 import { GameLevel } from '../types/AvailableGames'
+import { JigsawBoard } from './JigsawBoard'
 
 type FileContent = {
     puzzleData: {
@@ -8,8 +10,8 @@ type FileContent = {
         gridWidth: number,
         gridHeight: number,
         source: any,
-        startingGrid: number[],
-        layout: number[]
+        startingGrid: number[], // different than 0 if revealed
+        layout: number[] //same number belong to the same regions
     },
     title: string,
     nextPuzzleURL: string
@@ -38,42 +40,44 @@ export class JigsawBoardCreator extends BoardCreator {
         super(validMatricesOperations, dimension)
     }
 
-    public async createBoard(level: GameLevel): Promise<KillerBoard> {
+    public async createBoard(level: GameLevel): Promise<JigsawBoard> {
         const fileContent: FileContent = await this.randomlySelectLevel(level)
         const grid = this.createEmptyGrid()
-        const revealedCells: boolean[] = fileContent.mission.split('').map((value) => value !== '0')
-        const answers: number[] = fileContent.solution.split('').map((value) => Number(value))
+        //    startingGrid: number[], // different than 0 if revealed
+        // layout: number[] //same number belong to the same regions
         for (let i = 0; i < grid.dimension.y * grid.dimension.x; ++i) {
+            const value = fileContent.puzzleData.startingGrid[i]
             const position = this.getPointOutOfIndex(i)
-            grid.cells[position.y][position.x].answer = answers[i]
-            grid.cells[position.y][position.x].revealed = revealedCells[i]
+            grid.cells[position.y][position.x].answer = value !== 0 ? value : undefined
+            grid.cells[position.y][position.x].revealed = value !== 0
         }
-        const cages: CageType[] = fileContent.cages.map((fileCage) => ({
-            label: fileCage.reduce((acc, cageCell) => acc + answers[cageCell], 0),
-            cells: fileCage.map((cageCell) => this.getPointOutOfIndex(cageCell)),
-        }))
+        const layout = fileContent.puzzleData.layout
+            .reduce((acc: Map<number, Point[]>, value: number, index: number) => {
+                const position = this.getPointOutOfIndex(index)
+                acc.get(value)?.push(position) ?? acc.set(value, [position])
+                return acc
+            }, new Map<number, Point[]>).values()
 
-        return new KillerBoard(
+        return new JigsawBoard(
             {
                 dimension: grid.dimension,
-                cells: grid.cells,
-                cages: cages,
+                cells: grid.cells
             },
             level,
-            this.createSquareRegions({ y: 3, x: 3 }, { y: 3, x: 3 })
+            Array.from(layout)
         )
     }
 
     private async randomlySelectFromOnlineRepo(gameLevel: GameLevel): Promise<FileContent> {
         const randomLevelIndex: number = Math.floor(Math.random() * numOfOnlineFiles)
         const response = await fetch(
-            `https://raw.githubusercontent.com/virgs/sudoku/main/data/killer/${gameLevel.toLowerCase()}/${randomLevelIndex}.json`
+            `https://raw.githubusercontent.com/virgs/sudoku/main/data/jigsaw/${gameLevel.toLowerCase()}/${randomLevelIndex}.json`
         )
         return await response.json()
     }
 
     private async randomlySelectFromFilePool(gameLevel: GameLevel): Promise<FileContent> {
-        const pool = KillerBoardCreator.pool[gameLevel]
+        const pool = JigsawBoardCreator.pool[gameLevel]
         const levelsModules = Object.keys(pool)
         const randomLevelIndex: number = Math.floor(Math.random() * levelsModules.length)
         return (await pool[levelsModules[randomLevelIndex]]()) as FileContent

@@ -22,10 +22,10 @@ type GridCellComponentProps = {
 
 const checkBorderStyle = (board: Board, position: Point) => {
     const style: React.CSSProperties = {
-        boxShadow: '0px 0px 0px 0.5px color-mix(in srgb, var(--bs-primary) 50%, transparent) inset'
+        boxShadow: '0px 0px 0px 0.5px color-mix(in srgb, var(--bs-primary) 50%, transparent) inset',
     }
     const boxShadowSuffix = ' 0px 0px var(--bs-primary)'
-    const thickness = '1.5px';
+    const thickness = '1.5px'
 
     const regions: Point[][] = board.getCellRegions(position)
     const sharesRegionWithCellAt = (point: Point) =>

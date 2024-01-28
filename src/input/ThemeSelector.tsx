@@ -7,7 +7,7 @@ export const themesMap: {
     darkly: async () => await import('bootswatch/dist/darkly/bootstrap.min.css'),
     sketchy: async () => await import('bootswatch/dist/sketchy/bootstrap.min.css'),
     journal: async () => await import('bootswatch/dist/journal/bootstrap.min.css'),
-    cosmo: async () => await import('bootswatch/dist/cosmo/bootstrap.min.css')
+    cosmo: async () => await import('bootswatch/dist/cosmo/bootstrap.min.css'),
 }
 
 const defaultTheme = 'sketchy'

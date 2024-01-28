@@ -6,15 +6,15 @@ import { JigsawBoard } from './JigsawBoard'
 
 type FileContent = {
     puzzleData: {
-        type: number,
-        gridWidth: number,
-        gridHeight: number,
-        source: any,
-        startingGrid: number[], // different than 0 if revealed
-        answers: number[],
+        type: number
+        gridWidth: number
+        gridHeight: number
+        source: any
+        startingGrid: number[] // different than 0 if revealed
+        answers: number[]
         layout: number[] //same number belong to the same regions
-    },
-    title: string,
+    }
+    title: string
     nextPuzzleURL: string
 }
 
@@ -56,12 +56,13 @@ export class JigsawBoardCreator extends BoardCreator {
                 const position = this.getPointOutOfIndex(index)
                 acc.get(value)?.push(position) ?? acc.set(value, [position])
                 return acc
-            }, new Map<number, Point[]>).values()
+            }, new Map<number, Point[]>())
+            .values()
 
         return new JigsawBoard(
             {
                 dimension: grid.dimension,
-                cells: grid.cells
+                cells: grid.cells,
             },
             level,
             Array.from(layout)

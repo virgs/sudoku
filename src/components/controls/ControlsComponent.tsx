@@ -4,7 +4,7 @@ import {
     faEraser,
     faLightbulb,
     faPenClip,
-    faPencil
+    faPencil,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
@@ -20,7 +20,7 @@ import {
     useAnnotationModeChangedListener,
     useCellSelectedListener,
     useCellValueSetListener,
-    useGameFinishedListener
+    useGameFinishedListener,
 } from '../../Events'
 import { Board } from '../../engine/Board'
 import { AnnotationMode } from '../../input/AnnotationMode'

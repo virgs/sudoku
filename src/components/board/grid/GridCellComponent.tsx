@@ -21,23 +21,25 @@ type GridCellComponentProps = {
 }
 
 const checkBorderStyle = (board: Board, position: Point) => {
-    const style: React.CSSProperties = {}
+    const style: React.CSSProperties = {
+        boxShadow: '0px 0px 0px 0.5px color-mix(in srgb, var(--bs-primary) 50%, transparent) inset'
+    }
 
     const regions: Point[][] = board.getCellRegions(position)
     const sharesRegionWithCellAt = (point: Point) =>
         regions.some((region: Point[]) => region.some((cell: Point) => pointsAreEqual(cell, point)))
 
-    if (sharesRegionWithCellAt({ x: position.x, y: position.y + 1 })) {
-        style.borderBottom = 'none'
+    if (!sharesRegionWithCellAt({ x: position.x, y: position.y + 1 })) {
+        style.boxShadow += ', 0px 1px 0px 0px var(--bs-primary)'
     }
-    if (sharesRegionWithCellAt({ x: position.x, y: position.y - 1 })) {
-        style.borderTop = 'none'
+    if (!sharesRegionWithCellAt({ x: position.x, y: position.y - 1 })) {
+        style.boxShadow += ', 0px -1px 0px 0px var(--bs-primary)'
     }
-    if (sharesRegionWithCellAt({ x: position.x + 1, y: position.y })) {
-        style.borderRight = 'none'
+    if (!sharesRegionWithCellAt({ x: position.x + 1, y: position.y })) {
+        style.boxShadow += ', 1px 0px 0px 0px var(--bs-primary)'
     }
-    if (sharesRegionWithCellAt({ x: position.x - 1, y: position.y })) {
-        style.borderLeft = 'none'
+    if (!sharesRegionWithCellAt({ x: position.x - 1, y: position.y })) {
+        style.boxShadow += ', -1px 0px 0px 0px var(--bs-primary)'
     }
     return style
 }

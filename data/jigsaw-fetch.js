@@ -34,8 +34,8 @@ function rc2i(row, col) {
 
 process.argv
   .filter((_, index) => index > 1)
-  // .filter((_, index) => index === 0)
   .forEach(filename => {
+    //https://lisperator.net/blog/javascript-sudoku-solver/
     console.log('doing ' + filename)
     const fileContent = JSON.parse(fs.readFileSync(filename).toString())
     if (fileContent.puzzleData.answers) {

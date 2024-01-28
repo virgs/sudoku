@@ -44,7 +44,6 @@ export class JigsawBoardCreator extends BoardCreator {
     public async createBoard(level: GameLevel): Promise<JigsawBoard> {
         const fileContent: FileContent = await this.randomlySelectLevel(level)
         const grid = this.createEmptyGrid()
-        console.log(fileContent)
         for (let i = 0; i < grid.dimension.y * grid.dimension.x; ++i) {
             const value = fileContent.puzzleData.startingGrid[i]
             const answer = fileContent.puzzleData.answers[i]

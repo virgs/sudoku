@@ -25,22 +25,23 @@ const checkBorderStyle = (board: Board, position: Point) => {
         boxShadow: '0px 0px 0px 0.5px color-mix(in srgb, var(--bs-primary) 50%, transparent) inset'
     }
     const boxShadowSuffix = ' 0px 0px var(--bs-primary)'
+    const thickness = '1.5px';
 
     const regions: Point[][] = board.getCellRegions(position)
     const sharesRegionWithCellAt = (point: Point) =>
         regions.some((region: Point[]) => region.some((cell: Point) => pointsAreEqual(cell, point)))
 
     if (!sharesRegionWithCellAt({ x: position.x, y: position.y + 1 })) {
-        style.boxShadow += ', 0px 1px' + boxShadowSuffix
+        style.boxShadow += `, 0 ${thickness} ${boxShadowSuffix}`
     }
     if (!sharesRegionWithCellAt({ x: position.x, y: position.y - 1 })) {
-        style.boxShadow += ', 0px -1px' + boxShadowSuffix
+        style.boxShadow += `, 0 -${thickness} ${boxShadowSuffix}`
     }
     if (!sharesRegionWithCellAt({ x: position.x + 1, y: position.y })) {
-        style.boxShadow += ', 1px 0px' + boxShadowSuffix
+        style.boxShadow += `, ${thickness} 0 ${boxShadowSuffix}`
     }
     if (!sharesRegionWithCellAt({ x: position.x - 1, y: position.y })) {
-        style.boxShadow += ', -1px 0px' + boxShadowSuffix
+        style.boxShadow += `, -${thickness} 0 ${boxShadowSuffix}`
     }
     return style
 }
@@ -51,7 +52,7 @@ export function GridCellComponent(props: GridCellComponentProps) {
     const [style, setStyle] = useState<React.CSSProperties>(checkBorderStyle(board, props.position))
     const [revealed, setRevealed] = useState<boolean>(props.cell.revealed)
     const [selected, setSelected] = useState<boolean>(false)
-    const [highlighted, setHighlighted] = useState<boolean>(false)
+    const [sameRegion, setSameRegion] = useState<boolean>(false)
     const [sameValueCellSelected, setSameValueCellSelected] = useState<boolean>(false)
     const [classList, setClassList] = useState<string>(defaultClass)
 
@@ -59,15 +60,13 @@ export function GridCellComponent(props: GridCellComponentProps) {
         const list = [defaultClass]
         if (selected) {
             list.push('selected')
-        }
-        if (highlighted) {
-            list.push('highlighted')
-        }
-        if (sameValueCellSelected) {
+        } else if (sameRegion) {
+            list.push('same-region')
+        } else if (sameValueCellSelected) {
             list.push('same-value')
         }
         setClassList(list.join(' '))
-    }, [selected, highlighted, sameValueCellSelected])
+    }, [selected, sameRegion, sameValueCellSelected])
 
     useCurrentValueErasedListener(() => {
         if (selected) {
@@ -101,14 +100,14 @@ export function GridCellComponent(props: GridCellComponentProps) {
 
     useCellSelectedListener((payload: CellSelectedEventType) => {
         setSelected(false)
-        setHighlighted(false)
+        setSameRegion(false)
         setSameValueCellSelected(false)
         if (pointsAreEqual(props.position, payload.position)) {
             setSelected(true)
         } else if (payload.value === props.cell.answer && revealed) {
             setSameValueCellSelected(true)
         } else if (board.cellsShareSameRegion(payload.position, props.position)) {
-            setHighlighted(true)
+            setSameRegion(true)
         }
     })
     return (

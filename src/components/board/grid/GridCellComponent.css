@@ -3,7 +3,6 @@
     width: 100%;
     padding: 2px;
     cursor: pointer;
-    /* border: 1px solid var(--bs-primary); */
     box-shadow: 0px 0px 0px 0.5px color-mix(in srgb, var(--bs-primary) 50%, transparent) inset;
 }
 
@@ -15,12 +14,12 @@
     background-color: color-mix(in srgb, var(--bs-info) 50%, transparent);
 }
 
-.grid-cell.highlighted {
+.grid-cell.same-region {
     background-color: color-mix(in srgb, var(--bs-info) 25%, transparent);
 }
 
 .grid-cell.end-game-animation {
-    animation: end-game-animation 1000ms;
+    animation: end-game-animation 750ms;
 }
 
 @keyframes end-game-animation {

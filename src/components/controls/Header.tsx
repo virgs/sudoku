@@ -38,7 +38,7 @@ export function Header() {
     )
 
     return (
-        <div className="row justify-content-between mb-3">
+        <div className="row justify-content-between mb-2 mb-md-3">
             <div className="col-12 header-info" style={{ textAlign: 'center' }}>
                 <h2>
                     <strong className="mode-level">

@@ -61,8 +61,8 @@ export function GameContainer() {
 
     return (
         <div className="container-lg p-0" style={{ height: '100%' }}>
-            <div className="row justify-content-center gt-3 gb-3" style={{ height: '100%', maxHeight: '100svw' }}>
-                <div className="col-12 col-sm-6 col-lg-7 m-0">
+            <div className="row justify-content-center gt-3 gb-3" style={{ height: '100%' }}>
+                <div className="col-12 col-sm-6 col-lg-7 m-0" style={{ height: '100%', maxHeight: '100svw' }}>
                     <div className="d-sm-none mt-2">
                         <Header></Header>
                     </div>

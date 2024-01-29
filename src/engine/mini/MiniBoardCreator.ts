@@ -12,7 +12,7 @@ type FileContent = {
     }
 }
 
-const numOfOnlineFiles = 100
+const numOfOnlineFiles = 50
 
 export class MiniBoardCreator extends BoardCreator {
     static readonly pool = {

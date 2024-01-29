@@ -5,7 +5,6 @@ import './index.css'
 import { GithubCorner } from './components/GithubCorner.tsx'
 
 navigator.serviceWorker.getRegistrations().then(async (registrations) => {
-    console.log(registrations)
     for (let registration of registrations) {
         const unregistration = await registration.unregister()
         console.log(unregistration)

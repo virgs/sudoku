@@ -38,7 +38,7 @@ export function BoardComponent() {
     })
 
     return (
-        <div className="board-component mx-auto">
+        <div className="board-component mx-auto p-1 p-lg-2">
             <GridComponent />
         </div>
     )

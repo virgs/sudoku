@@ -1,5 +1,5 @@
 .grid-cage {
-    border: 1.5px dashed color-mix(in srgb, var(--bs-primary) 95%, transparent);
+    border: 2px dashed color-mix(in srgb, var(--bs-primary) 80%, transparent);
     width: 100%;
     height: 100%;
 }

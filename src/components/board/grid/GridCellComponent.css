@@ -3,7 +3,6 @@
     width: 100%;
     padding: 3px;
     cursor: pointer;
-    box-shadow: 0px 0px 0px 0.5px color-mix(in srgb, var(--bs-primary) 50%, transparent) inset;
 }
 
 .grid-cell.selected {

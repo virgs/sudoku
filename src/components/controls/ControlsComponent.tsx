@@ -12,7 +12,6 @@ import { BoardContext } from '../../App'
 import { Database } from '../../Database'
 import {
     CellValueSetEventType,
-    GameFinishedEventType,
     emitAnnotationModeChanged,
     emitCurrentValueErased,
     emitNumberPressed,
@@ -21,7 +20,7 @@ import {
     useAnnotationModeChangedListener,
     useCellSelectedListener,
     useCellValueSetListener,
-    useGameFinishedListener,
+    useEndGameAnimationFinishedListener
 } from '../../Events'
 import { Board } from '../../engine/Board'
 import { AnnotationMode } from '../../input/AnnotationMode'
@@ -53,7 +52,7 @@ function createHints(board: Board) {
 export function ControlsComponent() {
     const board = useContext(BoardContext)
 
-    const [gameFinishedConfiguration, setGameFinishedConfiguration] = useState<GameFinishedEventType | undefined>()
+    const [gameFinishedConfiguration, setGameFinishedConfiguration] = useState<boolean>(false)
     const [numberOfHintsGiven, setNumberOfHintsGiven] = useState<number>(0)
     const [numberOfDeletions, setNumberOfDeletions] = useState<number>(0)
     const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PENCIL)
@@ -69,8 +68,8 @@ export function ControlsComponent() {
         })
     }
 
-    useGameFinishedListener((payload) => {
-        setGameFinishedConfiguration(payload)
+    useEndGameAnimationFinishedListener(() => {
+        setGameFinishedConfiguration(true)
     })
 
     useCellValueSetListener((data: CellValueSetEventType) => {
@@ -103,12 +102,12 @@ export function ControlsComponent() {
         if (gameFinishedConfiguration) {
             return (
                 <button
-                    className="btn btn-sm btn-success action-button me-md-2"
+                    className="btn btn-sm btn-success action-button me-md-2 fa-bounce"
                     type="button"
                     onPointerDown={() =>
                         emitStartNewGame({
-                            level: gameFinishedConfiguration.board.gameLevel,
-                            mode: gameFinishedConfiguration.board.gameMode,
+                            level: board.gameLevel,
+                            mode: board.gameMode,
                         })
                     }
                 >

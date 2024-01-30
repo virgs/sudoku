@@ -14,13 +14,18 @@ export function StatsTable() {
 
     useEffect(() => {
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        Array.from([...tooltipTriggerList]).map(
-            (tooltipTriggerEl) =>
-                //@ts-expect-error
-                new bootstrap.Tooltip(tooltipTriggerEl, {
-                    trigger: 'hover',
-                })
-        )
+        Array.from([...tooltipTriggerList]).map((tooltip) => {
+            //@ts-expect-error
+            new bootstrap.Tooltip(tooltip, {
+                trigger: 'hover',
+            })
+
+            tooltip.addEventListener('inserted.bs.tooltip', () => {
+                const titleElement = document.querySelector('.tooltip-title i')
+                const icon = renderToStaticMarkup(<FontAwesomeIcon className="px-2" icon={faMedal} />)
+                titleElement!.innerHTML = icon
+            })
+        })
     }, [])
 
     const getModeStats = (mode: GameMode) => databaseStats.filter((stat) => stat.mode === mode)
@@ -91,7 +96,7 @@ export function StatsTable() {
                                     return renderToStaticMarkup(
                                         <div className="tooltip-title">
                                             <h3>
-                                                <FontAwesomeIcon icon={faMedal} />
+                                                <i data-info="dynamic-icon-template"></i>
                                                 Unassisted games stats
                                             </h3>
                                             <div>

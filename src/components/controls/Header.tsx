@@ -47,13 +47,13 @@ export function Header() {
                 </h2>
             </div>
             <div className="col-6 header-info" style={{ textAlign: 'left' }}>
-                <FontAwesomeIcon className="font-awesome-icon" icon={faXmark} color="var(--bs-warning)" />
+                <FontAwesomeIcon className="font-awesome-icon" icon={faXmark} color="var(--bs-primary)" />
                 <span>
                     <strong>{mistakesCounter}</strong>
                 </span>
             </div>
             <div className="col-6 header-info" style={{ textAlign: 'right' }}>
-                <FontAwesomeIcon className="font-awesome-icon" icon={faStopwatch} color="var(--bs-warning)" />
+                <FontAwesomeIcon className="font-awesome-icon" icon={faStopwatch} color="var(--bs-primary)" />
                 <span style={{ width: '5rem', display: 'inline-block', textAlign: 'left' }}>
                     <strong>{new TimeFormatter().formatDuration(elapsedSeconds)}</strong>
                 </span>

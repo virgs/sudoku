@@ -21,9 +21,9 @@ export function GameVictoryModalComponent(props: { data?: GameFinishedEventType;
         return <></>
     }
     const flawlessVictoryHeader = () => {
-        if (props.data?.hints === 0 && props.data.hints === 0) {
+        if (props.data?.hints === 0 && props.data.mistakes === 0) {
             return (
-                <h3 className="modal-title ms-2 text-info-emphasis text-center">
+                <h3 className="modal-title text-info-emphasis text-center">
                     <FontAwesomeIcon className="font-awesome-icon" style={{ fontSize: 'unset' }} icon={faMedal} />
                     Unassisted victory
                 </h3>
@@ -41,7 +41,7 @@ export function GameVictoryModalComponent(props: { data?: GameFinishedEventType;
         >
             <div className="modal-dialog">
                 <div className="modal-content">
-                    <h1 className="modal-title ms-2 text-info" id="gameVictoryModalLabel">
+                    <h1 className="modal-title text-info" id="gameVictoryModalLabel">
                         <FontAwesomeIcon className="font-awesome-icon" style={{ fontSize: 'unset' }} icon={faTrophy} />
                         Congratulations
                     </h1>

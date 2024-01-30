@@ -1,5 +1,5 @@
 import {
-    faCirclePlus,
+    faCirclePlay,
     faEllipsisVertical,
     faEraser,
     faLightbulb,
@@ -20,7 +20,7 @@ import {
     useAnnotationModeChangedListener,
     useCellSelectedListener,
     useCellValueSetListener,
-    useEndGameAnimationFinishedListener
+    useEndGameAnimationFinishedListener,
 } from '../../Events'
 import { Board } from '../../engine/Board'
 import { AnnotationMode } from '../../input/AnnotationMode'
@@ -111,7 +111,7 @@ export function ControlsComponent() {
                         })
                     }
                 >
-                    <FontAwesomeIcon className="font-awesome-icon" icon={faCirclePlus} />
+                    <FontAwesomeIcon className="font-awesome-icon" icon={faCirclePlay} />
                     <span className="d-none me-1 d-xl-inline">New Game</span>
                 </button>
             )
@@ -152,9 +152,14 @@ export function ControlsComponent() {
                             checked={annotationMode === AnnotationMode.PEN}
                             onChange={() => onAnnotationModeButtonClick(AnnotationMode.PEN)}
                         />
-                        <label className="btn btn-sm btn-secondary action-button" htmlFor="pen-btn-radio">
+                        <label
+                            className={'btn btn-sm action-button '.concat(
+                                annotationMode === AnnotationMode.PEN ? 'btn-secondary' : 'btn-secondary-outline'
+                            )}
+                            htmlFor="pen-btn-radio"
+                        >
                             <FontAwesomeIcon
-                                color={annotationMode === AnnotationMode.PENCIL ? 'var(--bs-primary)' : undefined}
+                                opacity={annotationMode === AnnotationMode.PENCIL ? 0.5 : 1}
                                 className="font-awesome-icon"
                                 icon={faPenClip}
                             />
@@ -169,9 +174,14 @@ export function ControlsComponent() {
                             checked={annotationMode === AnnotationMode.PENCIL}
                             onChange={() => onAnnotationModeButtonClick(AnnotationMode.PENCIL)}
                         />
-                        <label className="btn btn-sm btn-secondary action-button" htmlFor="pencil-btn-radio">
+                        <label
+                            className={'btn btn-sm action-button '.concat(
+                                annotationMode === AnnotationMode.PENCIL ? 'btn-secondary' : 'btn-secondary-outline'
+                            )}
+                            htmlFor="pencil-btn-radio"
+                        >
                             <FontAwesomeIcon
-                                color={annotationMode === AnnotationMode.PEN ? 'var(--bs-primary)' : undefined}
+                                opacity={annotationMode === AnnotationMode.PEN ? 0.5 : 1}
                                 className="font-awesome-icon"
                                 icon={faPencil}
                             />

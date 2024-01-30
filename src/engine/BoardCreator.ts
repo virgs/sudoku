@@ -46,14 +46,13 @@ export abstract class BoardCreator {
     }
 
     protected static createNumbersSwapMap(maxNumberAllowed: number): Map<number, number> {
-        return Array
-            .from(Array(maxNumberAllowed).keys())
-            .map(value => value + 1)
+        return Array.from(Array(maxNumberAllowed).keys())
+            .map((value) => value + 1)
             .sort(() => Math.random() - 0.5)
             .reduce((acc, value, index) => {
                 acc.set(index + 1, value)
                 return acc
-            }, new Map<number, number>());
+            }, new Map<number, number>())
     }
 
     protected createEmptyGrid(): GridType {

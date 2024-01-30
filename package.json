@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "randomize-cached-files": "node data/randomize-assets-files.js 25",
     "dev": "vite",
     "mobile-dev": "vite --host",
-    "build": "tsc && vite build",
+    "build": "npm run randomize-cached-files && tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "generate-pwa-assets": "pwa-assets-generator --preset minimal public/logo.svg",

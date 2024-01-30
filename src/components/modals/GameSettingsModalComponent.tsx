@@ -1,4 +1,4 @@
-import { faChartSimple, faGear, faPalette, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faChartSimple, faPalette, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { Database } from '../../Database'
@@ -45,8 +45,7 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
             <div className="modal-dialog modal-lg modal-dialog-scrollable">
                 <div className="modal-content">
                     <h1 className="modal-title ms-2" id="gameSettingsModalLabel">
-                        <FontAwesomeIcon className="font-awesome-icon" style={{ fontSize: 'unset' }} icon={faGear} />
-                        Settings
+                        Menu
                     </h1>
                     <div className="modal-body mb-2">
                         <div className="accordion accordion-flush" id="gameSettingsAccordion">

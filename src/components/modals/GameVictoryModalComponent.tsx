@@ -1,4 +1,4 @@
-import { faGear, faLightbulb, faSignal, faStopwatch, faTrophy, faX } from '@fortawesome/free-solid-svg-icons'
+import { faGear, faLightbulb, faMedal, faSignal, faStopwatch, faTrophy, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect } from 'react'
 import { GameFinishedEventType } from '../../Events'
@@ -20,6 +20,17 @@ export function GameVictoryModalComponent(props: { data?: GameFinishedEventType;
     if (!props.data) {
         return <></>
     }
+    const flawlessVictoryHeader = () => {
+        if (props.data?.hints === 0 && props.data.hints === 0) {
+            return (
+                <h3 className="modal-title ms-2 text-info-emphasis text-center">
+                    <FontAwesomeIcon className="font-awesome-icon" style={{ fontSize: 'unset' }} icon={faMedal} />
+                    Unassisted victory
+                </h3>
+            )
+        }
+    }
+
     return (
         <div
             className="modal fade"
@@ -30,10 +41,11 @@ export function GameVictoryModalComponent(props: { data?: GameFinishedEventType;
         >
             <div className="modal-dialog">
                 <div className="modal-content">
-                    <h1 className="modal-title ms-2" id="gameVictoryModalLabel">
+                    <h1 className="modal-title ms-2 text-info" id="gameVictoryModalLabel">
                         <FontAwesomeIcon className="font-awesome-icon" style={{ fontSize: 'unset' }} icon={faTrophy} />
-                        Congratulations!
+                        Congratulations
                     </h1>
+                    {flawlessVictoryHeader()}
                     <div className="modal-body">
                         <table className="table table-lg mx-auto">
                             <tbody>

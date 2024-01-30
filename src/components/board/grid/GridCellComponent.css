@@ -1,7 +1,6 @@
 .grid-cell {
     position: relative;
     width: 100%;
-    padding: 3px;
     cursor: pointer;
 }
 

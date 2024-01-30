@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../App'
+import { Database } from '../../Database'
 import {
     CellValueSetEventType,
     GameFinishedEventType,
@@ -27,7 +28,6 @@ import { AnnotationMode } from '../../input/AnnotationMode'
 import { Point, pointsAreEqual } from '../../math/Point'
 import './ControlsComponent.css'
 import { NumPadComponent } from './NumPadComponent'
-import { Database } from '../../Database'
 
 type Hint = {
     position: Point
@@ -208,7 +208,7 @@ export function ControlsComponent() {
                     onPointerDown={() => emitOpenSettingsDialog()}
                 >
                     <FontAwesomeIcon className="font-awesome-icon" icon={faEllipsisVertical} />
-                    <span className="d-none me-1 d-xl-inline">Options</span>
+                    <span className="d-none me-1 d-xl-inline">Menu</span>
                 </button>
             </div>
         </div>

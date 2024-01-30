@@ -1,13 +1,17 @@
-import { faLightbulb, faStopwatch, faTrophy, faX } from '@fortawesome/free-solid-svg-icons'
+import { faLightbulb, faMedal, faStopwatch, faTrophy, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useEffect } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
 import { Database, Stats } from '../Database'
 import { GameLevel, GameMode, modeLevelMap } from '../engine/types/AvailableGames'
 import { TimeFormatter } from '../time/TimeFormatter'
 import { NumberListOperations } from './NumberListOperations'
-import { useEffect } from 'react'
 import './StatsTable.css'
 
 export function StatsTable() {
+    const timeFormatter = new TimeFormatter()
+    const databaseStats = Database.loadGameFinishedStats()
+
     useEffect(() => {
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         Array.from([...tooltipTriggerList]).map(
@@ -18,23 +22,13 @@ export function StatsTable() {
                 })
         )
     }, [])
-    const databaseStats = Database.loadGameFinishedStats()
 
     const getModeStats = (mode: GameMode) => databaseStats.filter((stat) => stat.mode === mode)
-    const getLatestTimeAModeWasFinished = (mode: GameMode) =>
+    const getLatestTimeModeWasPlayed = (mode: GameMode) =>
         getModeStats(mode).reduce((acc, stat) => (stat.timestamp > acc ? stat.timestamp : acc), 0)
 
     const renderGameMode = (mode: GameMode) => {
         const getLevelStats = (level: GameLevel) => getModeStats(mode).filter((stat) => stat.level === level)
-
-        const formatLevelAverageTime = (level: GameLevel) => {
-            const average = NumberListOperations.getAverage(getLevelStats(level).map((stat) => stat.totalTime))
-            if (average === undefined) {
-                return '-'
-            }
-            return new TimeFormatter().formatDuration(Math.trunc(average))
-        }
-
         return (
             <div key={'stats-table-' + mode}>
                 <h5 style={{ textTransform: 'capitalize' }}>{`${GameMode[mode].toLowerCase()}`}</h5>
@@ -66,8 +60,12 @@ export function StatsTable() {
                             ?.filter((level) => getLevelStats(level).length > 0)
                             .map((level) => {
                                 const levelStats = getLevelStats(level)
-                                const getBestTimeStats = () => {
-                                    const bestTimeStat = levelStats.reduce(
+
+                                const getUnassistedStats = () => {
+                                    const unassistedStats = levelStats.filter(
+                                        (stat) => stat.hints === 0 && stat.mistakes === 0
+                                    )
+                                    const bestTimeStat = unassistedStats.reduce(
                                         (acc, stat) => {
                                             if (acc === undefined || stat.totalTime < acc.totalTime) {
                                                 return stat
@@ -75,11 +73,34 @@ export function StatsTable() {
                                             return acc
                                         },
                                         undefined as Stats | undefined
-                                    )!
-                                    const time = new TimeFormatter().formatDuration(Math.trunc(bestTimeStat.totalTime))
-                                    const mistakes = bestTimeStat.mistakes
-                                    const hints = bestTimeStat.hints
-                                    return `<div class='tooltip-title'><h3>Best game</h3><span><h6>Time: ${time}</h6><h6>Mistakes: ${mistakes}</h6><h6>Hints: ${hints}</h6></div>`
+                                    )
+                                    const bestTime =
+                                        unassistedStats.length > 0
+                                            ? timeFormatter.formatDuration(Math.trunc(bestTimeStat!.totalTime))
+                                            : '-'
+                                    const averageTime =
+                                        unassistedStats.length > 0
+                                            ? timeFormatter.formatDuration(
+                                                  Math.trunc(
+                                                      NumberListOperations.getAverage(
+                                                          unassistedStats.map((stat) => stat.totalTime)
+                                                      )!
+                                                  )
+                                              )
+                                            : '-'
+                                    return renderToStaticMarkup(
+                                        <div className="tooltip-title">
+                                            <h3>
+                                                <FontAwesomeIcon icon={faMedal} />
+                                                Unassisted games stats
+                                            </h3>
+                                            <div>
+                                                <h6>Victories: {unassistedStats.length}</h6>
+                                                <h6>Best time: {bestTime}</h6>
+                                                <h6>Average time: {averageTime}</h6>
+                                            </div>
+                                        </div>
+                                    )
                                 }
                                 return (
                                     <tr
@@ -87,13 +108,21 @@ export function StatsTable() {
                                         data-bs-toggle="tooltip"
                                         data-bs-custom-class="sudoku-stats-tooltip"
                                         data-bs-html="true"
-                                        data-bs-title={getBestTimeStats()}
+                                        data-bs-title={getUnassistedStats()}
                                     >
                                         <th scope="row" style={{ textTransform: 'capitalize', width: '10%' }}>
                                             {level.toLowerCase()}
                                         </th>
                                         <td>{levelStats.length || 0}</td>
-                                        <td>{formatLevelAverageTime(level)}</td>
+                                        <td>
+                                            {timeFormatter.formatDuration(
+                                                Math.trunc(
+                                                    NumberListOperations.getAverage(
+                                                        levelStats.map((stat) => stat.totalTime)
+                                                    )!
+                                                )
+                                            )}
+                                        </td>
                                         <td>
                                             {NumberListOperations.getAverage(
                                                 levelStats.map((stat) => stat.mistakes)
@@ -115,6 +144,6 @@ export function StatsTable() {
 
     return Array.from(modeLevelMap.keys())
         .filter((mode) => getModeStats(mode).length > 0)
-        .sort((a: GameMode, b: GameMode) => getLatestTimeAModeWasFinished(b) - getLatestTimeAModeWasFinished(a)) //Most recently played first
+        .sort((a: GameMode, b: GameMode) => getLatestTimeModeWasPlayed(b) - getLatestTimeModeWasPlayed(a)) //Most recently played first
         .map((mode) => renderGameMode(mode))
 }

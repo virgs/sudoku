@@ -35,9 +35,12 @@ export class MiniBoardCreator extends BoardCreator {
         const grid = this.createEmptyGrid()
         const revealedCells: boolean[] = fileContent.puzzle.data.map((value) => value > 100)
         const answers: number[] = fileContent.puzzle.data.map((value) => value % 100)
+        const numberSwapMap = BoardCreator.createNumbersSwapMap(6)
+
         for (let i = 0; i < this.dimension.y * this.dimension.x; ++i) {
             const position = this.getPointOutOfIndex(i)
-            grid.cells[position.y][position.x].answer = answers[i]
+            const swappedValue = numberSwapMap.get(answers[i])
+            grid.cells[position.y][position.x].answer = swappedValue!
             grid.cells[position.y][position.x].revealed = revealedCells[i]
         }
         return new MiniBoard(grid, GameLevel.EASY, this.createSquareRegions({ y: 2, x: 3 }, { y: 3, x: 2 }))

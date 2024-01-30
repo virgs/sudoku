@@ -45,6 +45,17 @@ export abstract class BoardCreator {
         return this.matricesOperationsShuffle.reduce((acc, operation) => operation(acc), original)
     }
 
+    protected static createNumbersSwapMap(maxNumberAllowed: number): Map<number, number> {
+        return Array
+            .from(Array(maxNumberAllowed).keys())
+            .map(value => value + 1)
+            .sort(() => Math.random() - 0.5)
+            .reduce((acc, value, index) => {
+                acc.set(index + 1, value)
+                return acc
+            }, new Map<number, number>());
+    }
+
     protected createEmptyGrid(): GridType {
         return {
             dimension: this.dimension,

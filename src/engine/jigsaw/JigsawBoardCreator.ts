@@ -44,12 +44,14 @@ export class JigsawBoardCreator extends BoardCreator {
     public async createBoard(level: GameLevel): Promise<JigsawBoard> {
         const fileContent: FileContent = await this.randomlySelectLevel(level)
         const grid = this.createEmptyGrid()
+        const numberSwapMap = BoardCreator.createNumbersSwapMap(9)
         for (let i = 0; i < grid.dimension.y * grid.dimension.x; ++i) {
-            const value = fileContent.puzzleData.startingGrid[i]
-            const answer = fileContent.puzzleData.answers[i]
             const position = this.getPointOutOfIndex(i)
-            grid.cells[position.y][position.x].answer = answer
-            grid.cells[position.y][position.x].revealed = value !== 0
+            const answer = fileContent.puzzleData.answers[i]
+            const revealed = fileContent.puzzleData.startingGrid[i] !== 0
+            const swappedValue = numberSwapMap.get(answer)
+            grid.cells[position.y][position.x].answer = swappedValue!
+            grid.cells[position.y][position.x].revealed = revealed
         }
         const layout = fileContent.puzzleData.layout
             .reduce((acc: Map<number, Point[]>, value: number, index: number) => {

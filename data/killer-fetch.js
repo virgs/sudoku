@@ -1,11 +1,23 @@
 import fs from 'fs';
 
 //origin: https://sudoku.com/killer/expert/
-const level = 'expert'
+//Usage: 
+// node killer-fetch.js medium killer/medium/*.json
+const downloadedIds = []
+
+const level = process.argv[2]
+
+process.argv
+  .filter((_, index) => index > 2)
+  .forEach((filename) => {
+    const fileContent = JSON.parse(fs.readFileSync(filename).toString())
+    downloadedIds.push(fileContent.id)
+  })
+
+console.log(level, 'different ids: ' + downloadedIds.length)
+
 var options = {
   'method': 'GET',
-  // 'hostname': 'sudoku.com',
-  // 'path': '/api/level/expert?mode=killer&id=1',
   'headers': {
     // 'Referer': 'https://sudoku.com/killer/expert/',
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -20,22 +32,22 @@ var options = {
   'maxRedirects': 20
 };
 
-process.argv
-  .filter((_, index) => index > 1)
-  // .filter((_, index) => index == 2)
-  .forEach((filename, index) => {
-    const fileContent = JSON.parse(fs.readFileSync(filename).toString())
-    fs.writeFileSync(`killer/hard/${index}.json`, fileContent)
-  })
+let desiredTotalFiles = 300
+const save = async () => {
+  const response = await fetch(`http://sudoku.com/api/level/${level}?mode=killer`, options)
+  const json = await response.json()
+  const gameId = json.id;
+  if (!downloadedIds.includes(gameId)) {
+    const filename = `killer/${level}/${downloadedIds.length}.json`
+    console.log(desiredTotalFiles - downloadedIds.length, 'saving ' + gameId)
+    fs.writeFileSync(filename, JSON.stringify(json, null, 2))
+    downloadedIds.push(gameId)
+  } else {
+    console.log('skipping', gameId, downloadedIds.findIndex(downloadedId => downloadedId === gameId))
+  }
+  if (desiredTotalFiles > downloadedIds.length) {
+    setTimeout(save, 300)
+  }
+}
 
-// let remainingDownloads = 1
-// const save = async () => {
-//   const response = await fetch(`http://sudoku.com/api/level/${level}?mode=killer`, options)
-//   const json = await response.json()
-//   fs.writeFileSync(`killer/${level}/${json.id}.json`, JSON.stringify(json, null, 2))
-//   if (--remainingDownloads > 0) {
-//     setTimeout(save, 500)
-//   }
-// }
-
-// setTimeout(save, 0)
+setTimeout(save, 0)

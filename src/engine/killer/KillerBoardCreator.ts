@@ -11,7 +11,7 @@ type FileContent = {
     cages: number[][] //0 to 80
 }
 
-const numOfOnlineFiles = 100
+const numOfOnlineFiles = 300
 
 export class KillerBoardCreator extends BoardCreator {
     static readonly pool = {

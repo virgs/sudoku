@@ -1,11 +1,4 @@
-import {
-    faBars,
-    faCirclePlay,
-    faEraser,
-    faLightbulb,
-    faPenClip,
-    faPencil
-} from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCirclePlay, faEraser, faLightbulb, faPenClip, faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../App'

@@ -4,6 +4,7 @@ import { GameLevel } from './types/AvailableGames'
 import { GridType } from './types/GridType'
 
 import { MatrixOperationsType } from '../math/Matrix'
+import { shuffle } from '../math/Shuffle'
 
 export abstract class BoardCreator {
     private readonly matricesOperationsShuffle: MatrixOperationsType[]
@@ -11,9 +12,7 @@ export abstract class BoardCreator {
 
     public constructor(validMatricesOperations: MatrixOperationsType[], dimension: Point) {
         this.dimension = dimension
-        this.matricesOperationsShuffle = validMatricesOperations
-            .sort(() => Math.random() - 0.5)
-            .filter(() => Math.random() > 0.5)
+        this.matricesOperationsShuffle = shuffle(validMatricesOperations).filter(() => Math.random() > 0.5)
     }
 
     public abstract createBoard(level: GameLevel): Promise<Board>
@@ -46,13 +45,13 @@ export abstract class BoardCreator {
     }
 
     protected static createNumbersSwapMap(maxNumberAllowed: number): Map<number, number> {
-        return Array.from(Array(maxNumberAllowed).keys())
-            .map((value) => value + 1)
-            .sort(() => Math.random() - 0.5)
-            .reduce((acc, value, index) => {
+        return shuffle(Array.from(Array(maxNumberAllowed).keys()).map((value) => value + 1)).reduce(
+            (acc, value, index) => {
                 acc.set(index + 1, value)
                 return acc
-            }, new Map<number, number>())
+            },
+            new Map<number, number>()
+        )
     }
 
     protected createEmptyGrid(): GridType {

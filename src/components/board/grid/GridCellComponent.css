@@ -17,12 +17,20 @@
 }
 
 .grid-cell.end-game-animation {
-    animation: end-game-animation 750ms;
+    animation: end-game-animation 850ms;
 }
 
 @keyframes end-game-animation {
+    20% {
+        background-color: color-mix(in srgb, var(--bs-info) 100%, transparent);
+    }
+
+    25% {
+        background-color: color-mix(in srgb, var(--bs-info) 85%, transparent);
+    }
+
     30% {
-        background-color: var(--bs-info);
+        background-color: color-mix(in srgb, var(--bs-info) 95%, transparent);
     }
 
     100% {

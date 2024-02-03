@@ -9,7 +9,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../App'
-import { Database } from '../../Database'
 import {
     CellValueSetEventType,
     emitAnnotationModeChanged,
@@ -54,7 +53,6 @@ export function ControlsComponent() {
 
     const [gameFinishedConfiguration, setGameFinishedConfiguration] = useState<boolean>(false)
     const [numberOfHintsGiven, setNumberOfHintsGiven] = useState<number>(0)
-    const [numberOfDeletions, setNumberOfDeletions] = useState<number>(0)
     const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PENCIL)
     const [availableHints, setAvailableHints] = useState<Hint[]>(createHints(board))
     const [currentSelectedCellPosition, setCurrentSelectedCellPosition] = useState<Point | undefined>()
@@ -119,12 +117,6 @@ export function ControlsComponent() {
     }
 
     const onDeleteButtonClicked = (): void => {
-        const nextNumberOfDeletions = numberOfDeletions + 1
-        setNumberOfDeletions(nextNumberOfDeletions)
-        if (nextNumberOfDeletions === 20) {
-            console.log('clear stats')
-            Database.clearData()
-        }
         emitCurrentValueErased()
     }
 

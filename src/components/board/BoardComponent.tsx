@@ -6,6 +6,8 @@ import { Point, pointsAreEqual } from '../../math/Point'
 import './BoardComponent.css'
 import { GridComponent } from './grid/GridComponent'
 
+const endGameThreshold = 80
+
 function getNotRevealedYetCells(board: Board) {
     const notRevealedCells: Point[] = []
     board.grid.cells.forEach((cellLines, y) =>
@@ -30,7 +32,7 @@ export function BoardComponent() {
             const nextNotAnsweredCells = notAnsweredCells.filter(
                 (cellPosition) => !pointsAreEqual(cellPosition, data.position)
             )
-            if (nextNotAnsweredCells.length <= 0) {
+            if (nextNotAnsweredCells.length <= endGameThreshold) {
                 emitAllCellsRevealed({ lastRevealedCellPosition: data.position })
             }
             setNotAnsweredCells(nextNotAnsweredCells)

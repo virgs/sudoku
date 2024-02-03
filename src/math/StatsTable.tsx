@@ -1,6 +1,6 @@
 import { faLightbulb, faMedal, faStopwatch, faTrophy, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { Database, Stats } from '../Database'
 import { GameLevel, GameMode, modeLevelMap } from '../engine/types/AvailableGames'
@@ -8,9 +8,25 @@ import { TimeFormatter } from '../time/TimeFormatter'
 import { NumberListOperations } from './NumberListOperations'
 import './StatsTable.css'
 
+const thresholdToClearStat = 20
+
 export function StatsTable() {
     const timeFormatter = new TimeFormatter()
-    const databaseStats = Database.loadGameFinishedStats()
+    const [databaseStats, setDatabaseStats] = useState<Stats[]>(Database.loadGameFinishedStats())
+    const [levelStatsPressingTimes, setLevelStatsPressingTimes] = useState<Map<string, number>>(
+        new Map<string, number>()
+    )
+
+    function incrementLevelStatsPressingTimes(level: GameLevel, mode: GameMode): void {
+        const key = `${mode}.${level}`
+        const numberOfPressingTimes = levelStatsPressingTimes.get(key) ?? 0
+        levelStatsPressingTimes.set(key, numberOfPressingTimes + 1)
+        setLevelStatsPressingTimes(levelStatsPressingTimes)
+        if (numberOfPressingTimes > thresholdToClearStat) {
+            Database.clearModeLevelStats(mode, level)
+            setDatabaseStats(Database.loadGameFinishedStats())
+        }
+    }
 
     useEffect(() => {
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -109,6 +125,7 @@ export function StatsTable() {
                                 }
                                 return (
                                     <tr
+                                        onPointerUp={() => incrementLevelStatsPressingTimes(level, mode)}
                                         key={mode + level}
                                         data-bs-toggle="tooltip"
                                         data-bs-custom-class="sudoku-stats-tooltip"

@@ -16,6 +16,14 @@ export class Database {
     private static readonly GAME_MODE_KEY = 'game-mode'
     private static readonly GAME_LEVEL_KEY = 'game-level'
 
+    static clearModeLevelStats(mode: GameMode, level: GameLevel) {
+        const currentStats = Database.loadGameFinishedStats()
+        const updatedStats = currentStats.filter(
+            (stat) => stat.level !== GameLevel[level] || stat.mode !== GameMode[mode]
+        )
+        localStorage.setItem(Database.STATS_KEY, JSON.stringify(updatedStats))
+    }
+
     public static saveGameFinishedStats(stats: GameFinishedEventType): void {
         const gameMode: string = GameMode[stats.board.gameMode]
         const gameLevel: string = GameLevel[stats.board.gameLevel]

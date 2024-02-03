@@ -6,7 +6,7 @@ import { Point, pointsAreEqual } from '../../math/Point'
 import './BoardComponent.css'
 import { GridComponent } from './grid/GridComponent'
 
-const endGameThreshold = 80
+const endGameThreshold = 0
 
 function getNotRevealedYetCells(board: Board) {
     const notRevealedCells: Point[] = []

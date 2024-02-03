@@ -1,10 +1,10 @@
 import {
+    faBars,
     faCirclePlay,
-    faEllipsisVertical,
     faEraser,
     faLightbulb,
     faPenClip,
-    faPencil,
+    faPencil
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
@@ -208,7 +208,7 @@ export function ControlsComponent() {
                     type="button"
                     onPointerDown={() => emitOpenSettingsDialog()}
                 >
-                    <FontAwesomeIcon className="font-awesome-icon" icon={faEllipsisVertical} />
+                    <FontAwesomeIcon className="font-awesome-icon" icon={faBars} />
                     <span className="d-none me-1 d-xl-inline">Menu</span>
                 </button>
             </div>

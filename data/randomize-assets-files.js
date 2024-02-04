@@ -24,7 +24,7 @@ directories.forEach(dir => {
         .sort(() => Math.random() - .5)
         .filter((_, index) => index < numberOfCachedFiles)
         .map((filename, index) => {
-            console.log(index, filename);
+            console.log(dir, index, filename);
             fs.copyFileSync(`data/${dir}/${filename}`, `src/assets/puzzles/${dir}/${filename}`)
         })
 })

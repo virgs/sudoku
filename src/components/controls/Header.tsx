@@ -2,7 +2,12 @@ import { faStopwatch, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import { BoardContext } from '../../App'
-import { CellValueSetEventType, emitTimeElapsed, useCellValueSetListener, useGameFinishedListener } from '../../Events'
+import {
+    CellValueSetEventType,
+    emitTimeElapsed,
+    useAllCellsRevealedListener,
+    useCellValueSetListener,
+} from '../../Events'
 import { GameLevel, GameMode } from '../../engine/types/AvailableGames'
 import { useInterval } from '../../hooks/UseInterval'
 import { TimeFormatter } from '../../time/TimeFormatter'
@@ -23,7 +28,7 @@ export function Header() {
         }
     })
 
-    useGameFinishedListener(() => {
+    useAllCellsRevealedListener(() => {
         setTimerEnabled(false)
     })
 

@@ -13,7 +13,8 @@ navigator.serviceWorker.getRegistrations().then(async (registrations) => {
     }
 })
 
-const router = createHashRouter([ //ghpage doesnt work with browser router: https://stackoverflow.com/a/71985764
+const router = createHashRouter([
+    //ghpage doesnt work with browser router: https://stackoverflow.com/a/71985764
     {
         path: ':mode?/:level?/*',
         element: (

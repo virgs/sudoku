@@ -22,7 +22,7 @@ function App() {
 
     const updateBoard = async (mode: GameMode, level: GameLevel) => {
         const newBoard = await new BoardFactory().createNewBoard(mode, level)
-        navigate(`../../${mode.toLowerCase()}/${level.toLowerCase()}/`, { replace: true, relative: 'route' })
+        navigate(`../${mode.toLowerCase()}/${level.toLowerCase()}/`, { replace: true, relative: 'route' })
 
         Database.saveGameLevel(level)
         Database.saveGameMode(mode)

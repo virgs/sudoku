@@ -24,19 +24,6 @@ const router = createHashRouter([
             </>
         ),
     },
-    {
-        path: '*',
-        element: (
-            <>
-                <GithubCorner />
-                <App />
-            </>
-        ),
-        loader: () => {
-            console.log('not found')
-            return 4
-        },
-    },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

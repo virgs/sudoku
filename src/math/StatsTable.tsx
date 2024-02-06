@@ -7,6 +7,7 @@ import { GameLevel, GameMode, modeLevelMap } from '../engine/types/AvailableGame
 import { TimeFormatter } from '../time/TimeFormatter'
 import { NumberListOperations } from './NumberListOperations'
 import './StatsTable.css'
+import * as bootstrap from 'bootstrap'
 
 const thresholdToClearStat = 20
 
@@ -31,7 +32,6 @@ export function StatsTable() {
     useEffect(() => {
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         Array.from([...tooltipTriggerList]).map((tooltip) => {
-            //@ts-expect-error
             new bootstrap.Tooltip(tooltip, {
                 trigger: 'hover',
             })

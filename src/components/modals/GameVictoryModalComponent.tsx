@@ -4,11 +4,11 @@ import { useEffect } from 'react'
 import { GameFinishedEventType } from '../../Events'
 import { TimeFormatter } from '../../time/TimeFormatter'
 import './GameVictoryModalComponent.css'
+import * as bootstrap from 'bootstrap'
 
 export function GameVictoryModalComponent(props: { data?: GameFinishedEventType; onDismiss: () => void }) {
     useEffect(() => {
         if (props.data) {
-            //@ts-ignore
             new bootstrap.Modal('#gameVictoryModal', { focus: true }).show()
 
             const modalElement = document.getElementById('gameVictoryModal')

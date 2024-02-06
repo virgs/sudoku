@@ -7,7 +7,6 @@ import { NewGameSelector } from '../../input/NewGameSelector'
 import { ThemeSelector } from '../../input/ThemeSelector'
 import { StatsTable } from '../../math/StatsTable'
 import './GameSettingsModalComponent.css'
-// Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
 
 type GameSettingsModalComponentType = {

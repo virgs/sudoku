@@ -28,7 +28,7 @@ export function ThemeSelector() {
                             classList.push('active')
                         }
                         return (
-                            <a
+                            <button
                                 className={classList.join(' ')}
                                 key={themeKey}
                                 onPointerDown={() => {
@@ -36,10 +36,10 @@ export function ThemeSelector() {
                                     Database.saveTheme(themeKey)
                                     setCurrentTheme(themeKey)
                                 }}
-                                href="#"
+                                type="button"
                             >
                                 {themeKey}
-                            </a>
+                            </button>
                         )
                     })}
             </nav>

@@ -23,7 +23,7 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
                                 classList.push('active')
                             }
                             return (
-                                <a
+                                <button
                                     key={mode}
                                     className={classList.join(' ')}
                                     onPointerDown={() => {
@@ -31,13 +31,13 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
                                         setCurrentSelectedLevel(
                                             availableModeLevels[Math.floor(availableModeLevels.length / 2)]
                                         )
-                                        return setCurrentSelectedMode(mode)
+                                        setCurrentSelectedMode(mode)
                                     }}
                                     style={{ textTransform: 'capitalize' }}
-                                    href="#"
+                                    type="button"
                                 >
                                     {mode.toLowerCase()}
-                                </a>
+                                </button>
                             )
                         })}
                     </nav>
@@ -54,15 +54,15 @@ export function NewGameSelector(props: { onNewGameClicked: (payload: StartNewGam
                                 classList.push('active')
                             }
                             return (
-                                <a
+                                <button
+                                    type="button"
                                     key={level}
                                     className={classList.join(' ')}
                                     onPointerDown={() => setCurrentSelectedLevel(level)}
                                     style={{ textTransform: 'capitalize' }}
-                                    href="#"
                                 >
                                     {level.toLowerCase()}
-                                </a>
+                                </button>
                             )
                         })}
                     </nav>

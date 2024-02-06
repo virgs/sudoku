@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://virgs.github.io/sudoku",
   "scripts": {
-    "randomize-cached-files": "node data/randomize-assets-files.js 25",
+    "randomize-cached-files": "node data/randomize-assets-files.js 20",
     "dev": "vite",
     "mobile-dev": "vite --host",
     "build": "npm run randomize-cached-files && tsc && vite build",

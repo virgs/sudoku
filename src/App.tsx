@@ -22,7 +22,7 @@ function App() {
 
     const updateBoard = async (mode: GameMode, level: GameLevel) => {
         const newBoard = await new BoardFactory().createNewBoard(mode, level)
-        navigate(`/sudoku/${mode.toLowerCase()}/${level.toLowerCase()}/`)
+        navigate(`${mode.toLowerCase()}/${level.toLowerCase()}/`)
 
         Database.saveGameLevel(level)
         Database.saveGameMode(mode)
@@ -32,7 +32,6 @@ function App() {
     }
 
     useEffect(() => {
-        console.log('use effect', mode, level)
         if (mode && level) {
             const validMode = modeFromString(mode)
             const validLevel = levelFromString(level)

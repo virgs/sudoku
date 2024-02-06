@@ -7,6 +7,8 @@ import { NewGameSelector } from '../../input/NewGameSelector'
 import { ThemeSelector } from '../../input/ThemeSelector'
 import { StatsTable } from '../../math/StatsTable'
 import './GameSettingsModalComponent.css'
+// Import all of Bootstrap's JS
+import * as bootstrap from 'bootstrap'
 
 type GameSettingsModalComponentType = {
     show: boolean
@@ -14,11 +16,10 @@ type GameSettingsModalComponentType = {
 }
 
 export function GameSettingsModalComponent(props: GameSettingsModalComponentType) {
-    const [modal, setModal] = useState()
+    const [modal, setModal] = useState<bootstrap.Modal | undefined>()
 
     useEffect(() => {
         if (props.show) {
-            //@ts-expect-error
             const modal = new bootstrap.Modal('#gameSettingsModal', { focus: true })
             setModal(modal)
             modal.show()
@@ -120,8 +121,7 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                                     <div className="accordion-body">
                                         <NewGameSelector
                                             onNewGameClicked={(payload) => {
-                                                //@ts-expect-error
-                                                modal.dispose()
+                                                modal?.dispose()
                                                 Database.saveGameMode(payload.mode)
                                                 Database.saveGameLevel(payload.level)
                                                 emitStartNewGame(payload)

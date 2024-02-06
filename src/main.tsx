@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 import App from './App.tsx'
 import { GithubCorner } from './components/GithubCorner.tsx'
 import './index.css'
@@ -13,7 +13,7 @@ navigator.serviceWorker.getRegistrations().then(async (registrations) => {
     }
 })
 
-const router = createBrowserRouter([
+const router = createHashRouter([ //ghpage doesnt work with browser router: https://stackoverflow.com/a/71985764
     {
         path: ':mode?/:level?/*',
         element: (

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://virgs.github.io/sudoku",
+  "homepage": "/sudoku/#",
   "scripts": {
     "randomize-cached-files": "node data/randomize-assets-files.js 20",
     "dev": "vite",

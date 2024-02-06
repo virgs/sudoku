@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App.tsx'
 import { GithubCorner } from './components/GithubCorner.tsx'
 import './index.css'
@@ -13,7 +13,7 @@ navigator.serviceWorker.getRegistrations().then(async (registrations) => {
     }
 })
 
-const router = createHashRouter([
+const router = createBrowserRouter([
     {
         path: ':mode?/:level?/*',
         element: (
@@ -22,9 +22,18 @@ const router = createHashRouter([
                 <App />
             </>
         ),
+    },
+    {
+        path: '*',
+        element: (
+            <>
+                <GithubCorner />
+                <App />
+            </>
+        ),
         loader: () => {
-            console.log('third')
-            return 2
+            console.log('not found')
+            return 4
         },
     },
 ])

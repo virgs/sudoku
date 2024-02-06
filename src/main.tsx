@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 import App from './App.tsx'
-import './index.css'
 import { GithubCorner } from './components/GithubCorner.tsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './index.css'
 
 //Removes pwa remainings
 navigator.serviceWorker.getRegistrations().then(async (registrations) => {
@@ -13,7 +13,7 @@ navigator.serviceWorker.getRegistrations().then(async (registrations) => {
     }
 })
 
-const router = createBrowserRouter([
+const router = createHashRouter([
     {
         path: 'sudoku/:mode?/:level?/*',
         element: (

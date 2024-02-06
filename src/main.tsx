@@ -13,65 +13,21 @@ navigator.serviceWorker.getRegistrations().then(async (registrations) => {
     }
 })
 
-const router = createHashRouter(
-    [
-        {
-            path: 'sudoku/:mode?/:level?/*',
-            element: (
-                <>
-                    <GithubCorner />
-                    <App />
-                </>
-            ),
-            loader: () => {
-                console.log('first')
-                return 2
-            },
-        },
-        {
-            path: '/sudoku/:mode?/:level?/*',
-            element: (
-                <>
-                    <GithubCorner />
-                    <App />
-                </>
-            ),
-            loader: () => {
-                console.log('second')
-                return 2
-            },
-        },
-        {
-            path: '/:mode?/:level?/*',
-            element: (
-                <>
-                    <GithubCorner />
-                    <App />
-                </>
-            ),
-            loader: () => {
-                console.log('third')
-                return 2
-            },
-        },
-        {
-            path: '*',
-            element: (
-                <>
-                    <GithubCorner />
-                    <App />
-                </>
-            ),
-            loader: () => {
-                console.log('fourth')
-                return 2
-            },
-        },
-    ],
+const router = createHashRouter([
     {
-        // basename: '/sudoku'
-    }
-)
+        path: ':mode?/:level?/*',
+        element: (
+            <>
+                <GithubCorner />
+                <App />
+            </>
+        ),
+        loader: () => {
+            console.log('third')
+            return 2
+        },
+    },
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

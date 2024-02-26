@@ -46,7 +46,7 @@ export function ControlsComponent() {
 
     const [gameFinishedConfiguration, setGameFinishedConfiguration] = useState<boolean>(false)
     const [numberOfHintsGiven, setNumberOfHintsGiven] = useState<number>(0)
-    const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PENCIL)
+    const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PEN)
     const [availableHints, setAvailableHints] = useState<Hint[]>(createHints(board))
     const [currentSelectedCellPosition, setCurrentSelectedCellPosition] = useState<Point | undefined>()
 

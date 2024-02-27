@@ -2,7 +2,16 @@
 
 ![Screenshot](./screenshot.png)
 
-Yet another game-oriented-fun-and-studying-project
+Yeap. As you might think, this is yet another game development project of mine.
+If you haven't done it yet, I highly recommend checking the other ones I have on GitHub:
+
+- [Pacman](https://github.com/virgs/pacman)
+- [Minesweeper AI](https://github.com/virgs/minesweeper-ai)
+- [Flappy Bird AI](https://github.com/virgs/flappy-bird-ai)
+- [2048 AI](https://github.com/virgs/2048-ai)
+- [Rubik's Cubes AI](https://github.com/virgs/rubiks-cubes-ai)
+- [Mancala](https://github.com/virgs/mancala)
+- [Tetris](https://github.com/virgs/tetris)
 
 ## Overview
 

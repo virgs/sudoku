@@ -50,9 +50,12 @@ export function StatsTable() {
 
     const renderGameMode = (mode: GameMode) => {
         const getLevelStats = (level: GameLevel) => getModeStats(mode).filter((stat) => stat.level === level)
+        const getTotalHours = timeFormatter.formatDuration(
+            getModeStats(mode).reduce((acc, stat) => acc + stat.totalTime, 0)
+        )
         return (
             <div key={'stats-table-' + mode}>
-                <h5 style={{ textTransform: 'capitalize' }}>{`${GameMode[mode].toLowerCase()}`}</h5>
+                <h5 style={{ textTransform: 'capitalize' }}>{`${GameMode[mode].toLowerCase()} (${getTotalHours})`}</h5>
                 <table className="table table-lg mx-auto" style={{ textAlign: 'center' }}>
                     <thead>
                         <tr>
@@ -148,12 +151,12 @@ export function StatsTable() {
                                         <td>
                                             {NumberListOperations.getAverage(
                                                 levelStats.map((stat) => stat.mistakes)
-                                            )?.toFixed(1) ?? '-'}
+                                            )?.toFixed(2) ?? '-'}
                                         </td>
                                         <td>
                                             {NumberListOperations.getAverage(
                                                 levelStats.map((stat) => stat.hints)
-                                            )?.toFixed(1) ?? '-'}
+                                            )?.toFixed(2) ?? '-'}
                                         </td>
                                     </tr>
                                 )

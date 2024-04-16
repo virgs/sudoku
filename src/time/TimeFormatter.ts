@@ -7,9 +7,9 @@ export class TimeFormatter {
 
         let timer = `${minutes}' ${seconds}"`
         if (days > 0) {
-            timer = `${days}d, ${hours} h, ` + timer
+            timer = `${days}d ${hours}h ` + timer
         } else if (hours > 0) {
-            timer = `${hours}h, ` + timer
+            timer = `${hours}h ` + timer
         }
         return timer
     }

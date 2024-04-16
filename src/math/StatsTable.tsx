@@ -50,12 +50,15 @@ export function StatsTable() {
 
     const renderGameMode = (mode: GameMode) => {
         const getLevelStats = (level: GameLevel) => getModeStats(mode).filter((stat) => stat.level === level)
-        const getTotalHours = timeFormatter.formatDuration(
+        const getModeTotalTimePlayed = timeFormatter.formatDuration(
             getModeStats(mode).reduce((acc, stat) => acc + stat.totalTime, 0)
         )
         return (
             <div key={'stats-table-' + mode}>
-                <h5 style={{ textTransform: 'capitalize' }}>{`${GameMode[mode].toLowerCase()} (${getTotalHours})`}</h5>
+                <h5>
+                    <em style={{ textTransform: 'capitalize' }}>{GameMode[mode].toLowerCase()}</em>(
+                    {' ' + getModeTotalTimePlayed})`
+                </h5>
                 <table className="table table-lg mx-auto" style={{ textAlign: 'center' }}>
                     <thead>
                         <tr>

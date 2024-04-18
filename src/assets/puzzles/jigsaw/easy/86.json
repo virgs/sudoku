@@ -1,0 +1,36 @@
+{
+    "puzzleData": {
+        "type": 2,
+        "gridWidth": 9,
+        "gridHeight": 9,
+        "source": {
+            "year": 2023,
+            "month": 11,
+            "day": 1,
+            "variant": 10
+        },
+        "startingGrid": [
+            0, 5, 0, 0, 0, 2, 6, 0, 0, 0, 0, 8, 0, 0, 4, 3, 9, 0, 2, 1, 4, 5, 0, 0, 0, 0, 0, 1, 0, 0, 0, 8, 0, 2, 0, 0,
+            9, 0, 0, 0, 7, 1, 5, 3, 0, 0, 6, 3, 0, 0, 0, 7, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 2, 0, 8, 0, 6, 5, 0, 4, 0, 0,
+            0, 0, 0, 7, 0, 0, 0, 8, 1
+        ],
+        "layout": [
+            7, 7, 7, 6, 6, 6, 6, 6, 6, 7, 7, 7, 8, 8, 1, 6, 6, 6, 7, 7, 7, 8, 8, 1, 1, 0, 0, 5, 5, 8, 8, 8, 1, 1, 0, 0,
+            5, 5, 8, 8, 1, 1, 1, 1, 0, 5, 5, 5, 3, 3, 3, 3, 0, 0, 5, 4, 3, 3, 3, 2, 3, 3, 0, 5, 4, 4, 4, 4, 2, 2, 2, 0,
+            4, 4, 4, 4, 2, 2, 2, 2, 2
+        ],
+        "extraRegions": [],
+        "answers": [
+            3, 5, 9, 8, 1, 2, 6, 4, 7, 6, 7, 8, 1, 2, 4, 3, 9, 5, 2, 1, 4, 5, 3, 9, 8, 7, 6, 1, 4, 7, 9, 8, 6, 2, 5, 3,
+            9, 2, 6, 4, 7, 1, 5, 3, 8, 5, 6, 3, 2, 9, 8, 7, 1, 4, 8, 9, 5, 3, 4, 7, 1, 6, 2, 7, 8, 1, 6, 5, 3, 4, 2, 9,
+            4, 3, 2, 7, 6, 5, 9, 8, 1
+        ]
+    },
+    "title": "Daily Easy Jigsaw Sudoku Puzzle for Wednesday 1st November 2023 (Easy)",
+    "title1": "Daily Easy Jigsaw Sudoku Puzzle",
+    "title2": "Wednesday 1st November 2023",
+    "location": "/jigsawsudoku/easy/2023/11/1",
+    "printlink": "/print/jigsawsudoku/easy/2023/11/1",
+    "nextRandomPuzzleIndex": 5748,
+    "nextPuzzleURL": "/jigsawsudoku/easy/2020/09/27"
+}

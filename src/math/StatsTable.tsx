@@ -56,8 +56,8 @@ export function StatsTable() {
         return (
             <div key={'stats-table-' + mode}>
                 <h5>
-                    <em style={{ textTransform: 'capitalize' }}>{GameMode[mode].toLowerCase()}</em>(
-                    {' ' + getModeTotalTimePlayed})`
+                    <em style={{ textTransform: 'capitalize' }}>{GameMode[mode].toLowerCase().concat(' ')}</em>(
+                    {getModeTotalTimePlayed})`
                 </h5>
                 <table className="table table-lg mx-auto" style={{ textAlign: 'center' }}>
                     <thead>

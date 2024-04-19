@@ -100,7 +100,7 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                             <div className="accordion-item">
                                 <h2 className="accordion-header" id="flush-new-game">
                                     <button
-                                        className="accordion-button collapsed"
+                                        className="accordion-button"
                                         type="button"
                                         data-bs-toggle="collapse"
                                         data-bs-target="#collapse-new-game"

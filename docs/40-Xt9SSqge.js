@@ -1,0 +1,1 @@
+const s=!0,c={id:"9d3bdb0d-5d31-43b7-8ca6-988c0a49c97d",difficulty:"1",data:[103,1,102,5,4,6,104,6,5,101,3,2,6,105,3,102,1,4,1,2,104,6,105,3,2,4,101,3,6,105,5,3,6,104,2,101]},d={success:!0,puzzle:c};export{d as default,c as puzzle,s as success};

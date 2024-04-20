@@ -27,7 +27,7 @@ export class Database {
     public static saveGameFinishedStats(stats: GameFinishedEventType): void {
         const gameMode: string = GameMode[stats.board.gameMode]
         const gameLevel: string = GameLevel[stats.board.gameLevel]
-        const currentStats: Stats[] = Database.loadGameFinishedStats()
+        const currentStats: Stats[] = Database.loadGameFinishedStats().filter(item => item.hints === 0 && item.mistakes === 0)
         currentStats.push({
             hints: stats.hints,
             mistakes: stats.mistakes,

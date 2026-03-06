@@ -12,7 +12,6 @@ export type Stats = {
 
 export class Database {
     private static readonly STATS_KEY = 'stats'
-    private static readonly THEME_KEY = 'theme'
     private static readonly GAME_MODE_KEY = 'game-mode'
     private static readonly GAME_LEVEL_KEY = 'game-level'
 
@@ -45,14 +44,6 @@ export class Database {
             return JSON.parse(persistedStatsStringfied)
         }
         return []
-    }
-
-    public static saveTheme(themeName: string) {
-        localStorage.setItem(Database.THEME_KEY, themeName)
-    }
-
-    public static loadThemeOrDefault(defaultValue: string): string {
-        return localStorage.getItem(Database.THEME_KEY) || defaultValue
     }
 
     static saveGameMode(mode: GameMode) {

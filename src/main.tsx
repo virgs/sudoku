@@ -5,7 +5,9 @@ import App from './App.tsx'
 import { GithubCorner } from './components/GithubCorner.tsx'
 import './index.css'
 
-//Removes pwa remainings
+import 'bootswatch/dist/sketchy/bootstrap.min.css'
+
+//Removes pwa remaining
 navigator.serviceWorker.getRegistrations().then(async (registrations) => {
     for (let registration of registrations) {
         const unregistration = await registration.unregister()

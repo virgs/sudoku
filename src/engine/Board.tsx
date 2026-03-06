@@ -1,3 +1,4 @@
+import type { JSX } from 'react'
 import { CellContentComponent } from '../components/board/CellContentComponent'
 import { Point, pointsAreEqual } from '../math/Point'
 import { CellType } from './types/CellType'

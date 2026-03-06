@@ -1,10 +1,9 @@
-import { faChartSimple, faPalette, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faChartSimple, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { Database } from '../../Database'
 import { emitStartNewGame } from '../../Events'
 import { NewGameSelector } from '../../input/NewGameSelector'
-import { ThemeSelector } from '../../input/ThemeSelector'
 import { StatsTable } from '../../math/StatsTable'
 import './GameSettingsModalComponent.css'
 import * as bootstrap from 'bootstrap'
@@ -49,29 +48,6 @@ export function GameSettingsModalComponent(props: GameSettingsModalComponentType
                     </h1>
                     <div className="modal-body mb-2">
                         <div className="accordion accordion-flush" id="gameSettingsAccordion">
-                            <div className="accordion-item">
-                                <h2 className="accordion-header" id="flush-theme">
-                                    <button
-                                        className="accordion-button collapsed"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#collapse-theme"
-                                        aria-expanded="false"
-                                        aria-controls="collapse-theme"
-                                    >
-                                        <FontAwesomeIcon className="font-awesome-icon" icon={faPalette} />
-                                        Theme
-                                    </button>
-                                </h2>
-                                <div
-                                    id="collapse-theme"
-                                    className="accordion-collapse collapse"
-                                    aria-labelledby="flush-theme"
-                                    data-bs-parent="#gameSettingsAccordion"
-                                >
-                                    <ThemeSelector></ThemeSelector>
-                                </div>
-                            </div>
                             <div className="accordion-item">
                                 <h2 className="accordion-header" id="flush-stats">
                                     <button

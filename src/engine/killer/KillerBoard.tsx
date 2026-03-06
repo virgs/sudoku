@@ -1,3 +1,4 @@
+import type { JSX } from 'react'
 import { KillerCellComponent } from '../../components/board/killer/KillerCellComponent'
 import { Point, pointsAreEqual } from '../../math/Point'
 import { Board, CellComponentProps } from '../Board'

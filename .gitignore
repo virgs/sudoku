@@ -130,3 +130,12 @@ dist
 .pnp.*
 
 .dev-dist
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/.gitignore
+/.idea/copilot.data.migration.ask2agent.xml
+/.idea/modules.xml
+/.idea/prettier.xml
+/.idea/sudoku.iml
+/.idea/vcs.xml

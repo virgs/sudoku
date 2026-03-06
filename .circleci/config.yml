@@ -1,0 +1,152 @@
+version: 2.1
+
+jobs:
+  linting:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-{{ checksum "package-lock.json" }}
+            - v1-npm-
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - save_cache:
+          key: v1-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+      - run:
+          name: Lint
+          command: |
+            if [ -f eslint.config.js ] || [ -f eslint.config.mjs ] || [ -f eslint.config.cjs ] || [ -f .eslintrc ] || [ -f .eslintrc.js ] || [ -f .eslintrc.cjs ] || [ -f .eslintrc.json ] || [ -f .eslintrc.yaml ] || [ -f .eslintrc.yml ]; then
+              npm run lint
+            else
+              echo "No ESLint config found. Skipping lint."
+            fi
+
+  testing:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-{{ checksum "package-lock.json" }}
+            - v1-npm-
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - save_cache:
+          key: v1-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+      - run:
+          name: Run tests
+          command: npm run test
+
+  code_coverage:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-{{ checksum "package-lock.json" }}
+            - v1-npm-
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - save_cache:
+          key: v1-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+      - run:
+          name: Generate coverage
+          command: npm run coverage
+      - store_artifacts:
+          path: coverage
+          destination: coverage
+
+  randomize_cached_files:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-{{ checksum "package-lock.json" }}
+            - v1-npm-
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - save_cache:
+          key: v1-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+      - run:
+          name: Randomize cached puzzle files
+          command: npm run randomize-cached-files
+      - run:
+          name: Show changed files
+          command: git status --short
+
+  publish:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-{{ checksum "package-lock.json" }}
+            - v1-npm-
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - save_cache:
+          key: v1-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+      - run:
+          name: Build
+          command: npm run build
+      - run:
+          name: Publish to GitHub Pages (main branch)
+          command: |
+            if [ -z "${GITHUB_TOKEN}" ]; then
+              echo "GITHUB_TOKEN is required to publish to GitHub Pages."
+              exit 1
+            fi
+
+            git config --global user.email "ci@circleci.com"
+            git config --global user.name "CircleCI"
+            git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
+            git checkout -B main
+            git add -A
+            if git diff --cached --quiet; then
+              echo "No changes to deploy."
+            else
+              git commit -m "Deploy from ${CIRCLE_SHA1}"
+              git push origin main
+            fi
+      - store_artifacts:
+          path: docs
+          destination: published-site
+
+workflows:
+  ci_pipeline:
+    jobs:
+      - linting
+      - testing
+      - code_coverage
+      - randomize_cached_files
+      - publish:
+          requires:
+            - linting
+            - testing
+            - code_coverage
+            - randomize_cached_files
+          filters:
+            branches:
+              only: main

@@ -13,6 +13,7 @@ If you haven't done it yet, I highly recommend checking the other ones I have on
 - [Mancala](https://github.com/virgs/mancala)
 - [Tetris](https://github.com/virgs/tetris)
 - [Navigator's Gamble](https://github.com/virgs/navigators-gamble)
+- [Locker Hacker](https://github.com/virgs/locker-hacker)
 
 ## Overview
 

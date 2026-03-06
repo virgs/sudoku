@@ -1,3 +1,4 @@
+import type { JSX } from 'react'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { BoardContext } from '../App'
 import './KeyHandler.css'
@@ -19,9 +20,8 @@ export function KeyHandler(props: { children: JSX.Element }) {
     const [annotationMode, setAnnotationMode] = useState<AnnotationMode>(AnnotationMode.PEN)
     const [currentSelectedCell, setCurrentSelectedCell] = useState<CellSelectedEventType | undefined>()
 
-    const appRef = useRef(null)
+    const appRef = useRef<HTMLDivElement | null>(null)
     useEffect(() => {
-        //@ts-ignore
         appRef.current?.focus()
     })
 

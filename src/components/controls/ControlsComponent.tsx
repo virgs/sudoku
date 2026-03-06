@@ -1,4 +1,12 @@
-import { faBars, faCirclePlay, faEraser, faLightbulb, faPenClip, faPencil } from '@fortawesome/free-solid-svg-icons'
+import {
+    faBars,
+    faCirclePlay,
+    faEraser,
+    faLightbulb,
+    faPenClip,
+    faPencil,
+    faMugHot,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../../App'
@@ -93,7 +101,7 @@ export function ControlsComponent() {
         if (gameFinishedConfiguration) {
             return (
                 <button
-                    className="btn btn-sm btn-success action-button me-md-2 fa-bounce"
+                    className="btn btn-sm btn-success action-button mx-auto fa-bounce"
                     type="button"
                     onPointerDown={() =>
                         emitStartNewGame({
@@ -194,10 +202,21 @@ export function ControlsComponent() {
             <div className="my-3">
                 <NumPadComponent onNumberPressed={onNumberPressed} />
             </div>
-            <div className="d-flex gap-2 mx-2">
+            <div className="d-flex mx-2 justify-content-between">
+                <a
+                    href="https://buymeacoffee.com/virgs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Buy me a coffee"
+                >
+                    <button className="btn btn-sm btn-secondary action-button" type="button">
+                        <FontAwesomeIcon className="font-awesome-icon" icon={faMugHot} />
+                        <span className="d-none me-1 d-xl-inline">Coffee</span>
+                    </button>
+                </a>
                 {startGameButton()}
                 <button
-                    className="btn btn-sm btn-secondary action-button ms-auto"
+                    className="btn btn-sm btn-secondary action-button"
                     type="button"
                     onPointerDown={() => emitOpenSettingsDialog()}
                 >
